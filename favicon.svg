@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8c76a"/>
+      <stop offset="40%" style="stop-color:#c9a84c"/>
+      <stop offset="100%" style="stop-color:#7a5a1a"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#141414"/>
+      <stop offset="100%" style="stop-color:#080808"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- Outer thin border -->
+  <rect x="14" y="14" width="484" height="484" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.5"/>
+  <!-- Inner thin border -->
+  <rect x="26" y="26" width="460" height="460" fill="none" stroke="url(#gold)" stroke-width="0.8" opacity="0.25"/>
+
+  <!-- Corner ornaments - top left -->
+  <line x1="14" y1="50" x2="14" y2="14" stroke="url(#gold)" stroke-width="3"/>
+  <line x1="14" y1="14" x2="50" y2="14" stroke="url(#gold)" stroke-width="3"/>
+  <!-- top right -->
+  <line x1="498" y1="50" x2="498" y2="14" stroke="url(#gold)" stroke-width="3"/>
+  <line x1="498" y1="14" x2="462" y2="14" stroke="url(#gold)" stroke-width="3"/>
+  <!-- bottom left -->
+  <line x1="14" y1="462" x2="14" y2="498" stroke="url(#gold)" stroke-width="3"/>
+  <line x1="14" y1="498" x2="50" y2="498" stroke="url(#gold)" stroke-width="3"/>
+  <!-- bottom right -->
+  <line x1="498" y1="462" x2="498" y2="498" stroke="url(#gold)" stroke-width="3"/>
+  <line x1="498" y1="498" x2="462" y2="498" stroke="url(#gold)" stroke-width="3"/>
+
+  <!-- Thin decorative line above letters -->
+  <line x1="120" y1="148" x2="392" y2="148" stroke="url(#gold)" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- AF with serif-style using paths for elegant look -->
+  <!-- A -->
+  <!-- Left stroke -->
+  <polygon points="148,370 182,370 256,168 230,168" fill="url(#gold)"/>
+  <!-- Right stroke -->
+  <polygon points="256,168 282,168 316,370 282,370" fill="url(#gold)"/>
+  <!-- Crossbar -->
+  <rect x="182" y="292" width="100" height="22" fill="url(#gold)"/>
+  <!-- Serif top A -->
+  <rect x="242" y="162" width="28" height="8" fill="url(#gold)" opacity="0.9"/>
+  <!-- Serif bottom left A -->
+  <rect x="136" y="362" width="46" height="10" fill="url(#gold)" opacity="0.9"/>
+  <!-- Serif bottom right A -->
+  <rect x="282" y="362" width="46" height="10" fill="url(#gold)" opacity="0.9"/>
+
+  <!-- F -->
+  <!-- Vertical stroke -->
+  <rect x="340" y="162" width="32" height="208" fill="url(#gold)"/>
+  <!-- Top horizontal -->
+  <rect x="340" y="162" width="110" height="28" fill="url(#gold)"/>
+  <!-- Middle horizontal -->
+  <rect x="340" y="268" width="88" height="22" fill="url(#gold)"/>
+  <!-- Serif bottom F -->
+  <rect x="328" y="362" width="56" height="10" fill="url(#gold)" opacity="0.9"/>
+  <!-- Serif top F right -->
+  <rect x="440" y="162" width="10" height="28" fill="url(#gold)" opacity="0.7"/>
+
+  <!-- Thin decorative line below letters -->
+  <line x1="120" y1="388" x2="392" y2="388" stroke="url(#gold)" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Tagline -->
+  <text x="256" y="430"
+        font-family="Georgia, Times New Roman, serif"
+        font-size="28"
+        font-weight="400"
+        fill="url(#gold)"
+        text-anchor="middle"
+        letter-spacing="8"
+        opacity="0.75">ARTEMY FIT</text>
+</svg>
