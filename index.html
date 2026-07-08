@@ -66,8 +66,9 @@ nav.scrolled{background:rgba(8,8,8,0.88);padding:12px 60px;border-bottom:1px sol
 .hero-particle.p3{top:42%;right:5%;width:3px;height:3px;animation-delay:-4.8s;}
 .hero-bg-word{position:absolute;bottom:-20px;left:-8px;font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,13vw,200px);color:rgba(201,168,76,.035);letter-spacing:6px;white-space:nowrap;pointer-events:none;line-height:1;animation:wordDrift 12s ease-in-out infinite alternate;}
 .hero-content{position:relative;z-index:2;padding:0 60px;max-width:840px;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold);font-size:clamp(7.5px,1.55vw,10px);font-weight:600;letter-spacing:clamp(0.6px,0.3vw,1.6px);text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;white-space:nowrap;max-width:100%;}
-.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--gold);}
+.hero-eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 0;color:var(--gold);font-size:clamp(7.5px,1.55vw,10px);font-weight:600;letter-spacing:clamp(0.6px,0.3vw,1.6px);text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;max-width:100%;}
+.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--gold);margin-right:10px;}
+.hero-eyebrow .eyebrow-roles,.hero-eyebrow .eyebrow-loc{white-space:nowrap;}
 h1.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10.5vw,130px);line-height:0.88;letter-spacing:2px;opacity:0;animation:fadeUp 0.8s 0.5s forwards;}
 h1.hero-title .g{color:var(--gold);}
 .hero-tagline{margin-top:18px;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(14px,1.6vw,19px);color:rgba(245,240,232,0.72);line-height:1.5;max-width:540px;opacity:0;animation:fadeUp 0.8s 0.7s forwards;}
@@ -338,6 +339,8 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   .hero-img img{height:100%;transform:none;object-position:center center;}
   #hero{min-height:640px;height:100svh;}
   .hero-content{padding:72px 16px 20px;max-width:100%;}
+  .hero-eyebrow .eyebrow-sep{display:none;}
+  .hero-eyebrow .eyebrow-loc{flex-basis:100%;margin-left:40px;margin-top:2px;}
   .hero-btns{margin-top:30px;gap:16px;}
   .stats-bar{grid-template-columns:repeat(3,minmax(0,1fr));}
   .sb-item{padding:24px 8px;border-right:1px solid rgba(201,168,76,.08);border-bottom:none;min-width:0;}
@@ -470,12 +473,15 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   <div class="hero-bg-word">MR. ARTEMY FIT</div>
   <div class="hero-content">
     <div class="hero-eyebrow">
-      <span data-uk="Персональний тренер • Медичний тренер • Дієтолог · Bielsko-Biała · Онлайн"
-            data-en="Personal Trainer • Medical Trainer • Nutritionist · Bielsko-Biała · Online"
-            data-ru="Персональный тренер • Медицинский тренер • Диетолог · Bielsko-Biała · Онлайн"
-            data-pl="Trener personalny • Trener medyczny • Dietetyk · Bielsko-Biała · Online">
-        Персональний тренер • Медичний тренер • Дієтолог · Bielsko-Biała · Онлайн
-      </span>
+      <span class="eyebrow-roles"
+            data-uk="Персональний тренер • Медичний тренер • Дієтолог"
+            data-en="Personal Trainer • Medical Trainer • Nutritionist"
+            data-ru="Персональный тренер • Медицинский тренер • Диетолог"
+            data-pl="Trener personalny • Trener medyczny • Dietetyk">Персональний тренер • Медичний тренер • Дієтолог</span><span class="eyebrow-sep"> · </span><span class="eyebrow-loc"
+            data-uk="Bielsko-Biała · Онлайн"
+            data-en="Bielsko-Biała · Online"
+            data-ru="Bielsko-Biała · Онлайн"
+            data-pl="Bielsko-Biała · Online">Bielsko-Biała · Онлайн</span>
     </div>
     <h1 class="hero-title">MR. <span class="g">ARTEMY</span> FIT</h1>
     <p class="hero-tagline"
