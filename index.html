@@ -66,7 +66,7 @@ nav.scrolled{background:rgba(8,8,8,0.88);padding:12px 60px;border-bottom:1px sol
 .hero-particle.p3{top:42%;right:5%;width:3px;height:3px;animation-delay:-4.8s;}
 .hero-bg-word{position:absolute;bottom:-20px;left:-8px;font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,13vw,200px);color:rgba(201,168,76,.035);letter-spacing:6px;white-space:nowrap;pointer-events:none;line-height:1;animation:wordDrift 12s ease-in-out infinite alternate;}
 .hero-content{position:relative;z-index:2;padding:0 60px;max-width:840px;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--gold);font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold);font-size:clamp(7.5px,1.55vw,10px);font-weight:600;letter-spacing:clamp(0.6px,0.3vw,1.6px);text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;white-space:nowrap;max-width:100%;}
 .hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--gold);}
 h1.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10.5vw,130px);line-height:0.88;letter-spacing:2px;opacity:0;animation:fadeUp 0.8s 0.5s forwards;}
 h1.hero-title .g{color:var(--gold);}
@@ -167,8 +167,11 @@ h1.hero-title .g{color:var(--gold);}
 #conditions{padding:120px 60px;background:linear-gradient(180deg,var(--dark),#0d0d0d);border-top:1px solid rgba(201,168,76,.045);border-bottom:1px solid rgba(201,168,76,.045);}
 .cond-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:52px;align-items:start;}
 .cond-items{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.cond-item{padding:18px 22px;background:rgba(8,8,8,.8);border:1px solid rgba(201,168,76,.07);transition:transform .4s var(--ease),border-color .3s,background .3s;}
+.cond-item{padding:18px 22px;background:rgba(8,8,8,.8);border:1px solid rgba(201,168,76,.07);transition:transform .4s var(--ease),border-color .3s,background .3s;position:relative;cursor:pointer;padding-bottom:30px;}
 .cond-item:hover{border-color:rgba(201,168,76,.24);background:rgba(201,168,76,.025);transform:translateX(5px);}
+.cond-hint{position:absolute;right:14px;bottom:10px;display:flex;align-items:center;gap:4px;font-size:8.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);opacity:.55;transition:opacity .3s,transform .3s;}
+.cond-item:hover .cond-hint{opacity:1;transform:translateX(2px);}
+.cond-hint svg{width:9px;height:9px;stroke:var(--gold);}
 .cond-item h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;color:var(--white);}
 .cond-item p{font-size:11px;line-height:1.6;color:rgba(245,240,232,0.4);}
 .quote-box{padding:42px;background:var(--black);border-left:3px solid var(--gold);position:relative;}
@@ -284,6 +287,22 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
 .d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
 
 /* MOBILE */
+.collapsible{position:relative;}
+.collapse-toggle{display:none;margin:24px auto 0;align-items:center;justify-content:center;gap:9px;background:none;border:1px solid rgba(201,168,76,0.32);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:13px 26px;cursor:pointer;transition:all .3s;}
+.collapse-toggle:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.6);}
+.collapse-toggle svg{width:11px;height:11px;stroke:var(--gold);transition:transform .35s var(--ease);flex-shrink:0;}
+.collapse-toggle.open svg{transform:rotate(180deg);}
+.collapse-toggle .ct-less{display:none;}
+.collapse-toggle.open .ct-more{display:none;}
+.collapse-toggle.open .ct-less{display:inline;}
+@media(max-width:960px){
+  .collapsible:not(.expanded){overflow:hidden;transition:max-height .6s var(--ease);}
+  .collapsible:not(.expanded)::after{content:'';position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(to bottom, rgba(8,8,8,0) 0%, var(--black) 80%);pointer-events:none;}
+  .collapsible.expanded{max-height:none!important;}
+  .about-collapsible:not(.expanded){max-height:80vh;}
+  .clients-collapsible:not(.expanded){max-height:640px;}
+  .collapse-toggle{display:inline-flex;}
+}
 @media(max-width:960px){
   nav{padding:14px 20px;}nav.scrolled{padding:10px 20px;}
   .nav-center{display:none;}
@@ -348,7 +367,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   .lang-picker-grid{width:100%;max-width:280px;gap:8px;}
   .lang-pick-btn{padding:14px 8px;font-size:11px;letter-spacing:2px;}
   h1.hero-title{font-size:clamp(48px,16vw,72px);line-height:.9;}
-  .hero-eyebrow{font-size:8px;letter-spacing:2.8px;}
+  .hero-eyebrow{font-size:clamp(6px,2.6vw,8px);letter-spacing:0.5px;gap:6px;}
   .hero-tagline{font-size:14px;}
   .hero-sub{font-size:11px;line-height:1.7;}
   .btn-gold{width:100%;padding:14px 20px;text-align:center;}
@@ -408,6 +427,14 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   <div class="modal">
     <button class="modal-close" onclick="closeCaseModal()">✕</button>
     <div id="case-modal-body"></div>
+  </div>
+</div>
+
+<!-- CONDITION MODAL -->
+<div class="overlay" id="condModal" onclick="condOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeConditionModal()">✕</button>
+    <div id="cond-modal-body"></div>
   </div>
 </div>
 
@@ -526,6 +553,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
         data-en="MY <em>STORY</em>"
         data-ru="МОЯ <em>ИСТОРИЯ</em>"
         data-pl="MOJA <em>HISTORIA</em>">МОЯ <em>ІСТОРІЯ</em></h2>
+    <div class="collapsible about-collapsible" id="aboutCollapse">
     <p class="body-text reveal"
        data-uk="Мій шлях у спорті почався з боксу. У шкільні роки я мав зайву вагу, через яку постійно стикався з булінгом і не міг постояти за себе. Саме тому я вирішив піти на бокс. Я займався близько півтора року і вже почав замислюватися про перші змагання, але після початку війни мені довелося переїхати в інше місто."
        data-en="My journey in sport began with boxing. In school I was overweight, which meant I constantly faced bullying and couldn't stand up for myself. That's why I decided to take up boxing. I trained for about a year and a half and had already started thinking about my first competitions, but after the war began I had to move to another city."
@@ -583,6 +611,12 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
       Зараз для мене найважливіше — щоб кожна людина, яка приходить до мене, не просто отримала програму тренувань, а змогла <strong>змінити своє тіло, покращити здоров'я і навчитися підтримувати цей результат самостійно</strong>.
     </p>
     <div class="signature reveal">Artemy</div>
+    </div>
+    <button class="collapse-toggle" id="aboutToggleBtn" onclick="toggleCollapse('aboutCollapse','aboutToggleBtn')">
+      <span class="ct-more" data-uk="Читати повністю" data-en="Read full story" data-ru="Читать полностью" data-pl="Czytaj całość">Читати повністю</span>
+      <span class="ct-less" data-uk="Згорнути" data-en="Show less" data-ru="Свернуть" data-pl="Zwiń">Згорнути</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
   </div>
 </section>
 
@@ -622,14 +656,14 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
     <div class="sc reveal" role="button" tabindex="0" onclick="openModal('personal')">
       <div class="sc-num">04</div><div class="sc-icon">💪</div>
       <div class="sc-title" data-uk="ПЕРСОНАЛЬНІ ТРЕНУВАННЯ" data-en="PERSONAL TRAINING" data-ru="ПЕРСОНАЛЬНЫЕ ТРЕНИРОВКИ" data-pl="TRENING PERSONALNY">ПЕРСОНАЛЬНІ ТРЕНУВАННЯ</div>
-      <p class="sc-preview" data-uk="Живі тренування у Bielsko-Biała (CityFit). Максимальна ефективність через особисту роботу." data-en="Live training in Bielsko-Biała (CityFit · FC24). Maximum efficiency through personal work." data-ru="Живые тренировки в Bielsko-Biała (CityFit · FC24). Максимальная эффективность через личную работу." data-pl="Treningi na żywo w Bielsko-Białej (CityFit · FC24). Maksymalna efektywność przez osobistą pracę.">Живі тренування у Bielsko-Biała (CityFit · FC24).</p>
+      <p class="sc-preview" data-uk="Живі тренування у Bielsko-Biała (CityFit). Максимальна ефективність через особисту роботу. Також проводжу медичний тренінг (для людей із серйозними обмеженнями по здоров'ю)." data-en="Live training in Bielsko-Biała (CityFit · FC24). Maximum efficiency through personal work. I also offer medical training (for people with serious health limitations)." data-ru="Живые тренировки в Bielsko-Biała (CityFit · FC24). Максимальная эффективность через личную работу. Также провожу медицинский тренинг (для людей с серьёзными ограничениями по здоровью)." data-pl="Treningi na żywo w Bielsko-Białej (CityFit · FC24). Maksymalna efektywność przez osobistą pracę. Prowadzę też trening medyczny (dla osób z poważnymi ograniczeniami zdrowotnymi).">Живі тренування у Bielsko-Biała (CityFit · FC24).</p>
       <div class="sc-price"><span data-uk="від" data-en="from" data-ru="от" data-pl="od">від</span> 110 zł / <span data-uk="тр" data-en="ses" data-ru="тр" data-pl="tr">тр</span></div>
       <span class="sc-more" data-uk="Детальніше →" data-en="Details →" data-ru="Подробнее →" data-pl="Szczegóły →">Детальніше →</span>
     </div>
     <div class="sc reveal d1" role="button" tabindex="0" onclick="openModal('hybrid')">
       <div class="sc-num">05</div><div class="sc-icon">⚡</div>
       <div class="sc-title" data-uk="ГІБРИД" data-en="HYBRID" data-ru="ГИБРИД" data-pl="HYBRYDA">ГІБРИД</div>
-      <p class="sc-preview" data-uk="Тренувальний супровід між живими сесіями для клієнтів, що тренуються зі мною офлайн." data-en="Training support between live sessions for clients training with me offline." data-ru="Тренировочное сопровождение между живыми сессиями для клиентов, тренирующихся со мной офлайн." data-pl="Wsparcie treningowe między sesjami na żywo dla klientów trenujących ze mną offline.">Тренувальний супровід між живими сесіями.</p>
+      <p class="sc-preview" data-uk="Поєднання персональних тренувань і онлайн-супроводу. Веду вас онлайн, але не рідше 2 разів на місяць треную особисто — щоб наживо контролювати техніку." data-en="A combination of personal training and online coaching. I coach you online, but train you in person at least twice a month to check your technique live." data-ru="Совмещение персональных тренировок и онлайн-сопровождения. Веду вас онлайн, но не реже 2 раз в месяц тренирую лично — чтобы вживую контролировать технику." data-pl="Połączenie treningu personalnego i opieki online. Prowadzę Cię online, ale minimum 2 razy w miesiącu trenuję Cię osobiście — by na żywo skontrolować technikę.">Поєднання персональних тренувань і онлайн-супроводу.</p>
       <div class="sc-price">150 zł / <span data-uk="міс" data-en="mo" data-ru="мес" data-pl="mies">міс</span></div>
       <span class="sc-more" data-uk="Детальніше →" data-en="Details →" data-ru="Подробнее →" data-pl="Szczegóły →">Детальніше →</span>
     </div>
@@ -649,20 +683,22 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   <h2 class="section-title reveal" data-uk="З ЧИМ Я ВМІЮ<br><em>ПРАЦЮВАТИ</em>" data-en="WHAT I<br><em>WORK WITH</em>" data-ru="С ЧЕМ Я УМЕЮ<br><em>РАБОТАТЬ</em>" data-pl="Z CZYM<br><em>POTRAFIĘ PRACOWAĆ</em>">З ЧИМ Я ВМІЮ<br><em>ПРАЦЮВАТИ</em></h2>
   <div class="cond-grid">
     <div class="cond-items">
-      <div class="cond-item reveal"><h4 data-uk="Хребет" data-en="Spine" data-ru="Позвоночник" data-pl="Kręgosłup">Хребет</h4><p data-uk="Лордоз, кіфоз, сколіоз, грижі, протрузії" data-en="Lordosis, kyphosis, scoliosis, hernias, protrusions" data-ru="Лордоз, кифоз, сколиоз, грыжи, протрузии" data-pl="Lordoza, kifoza, skolioza, przepukliny">Лордоз, кіфоз, сколіоз, грижі, протрузії</p></div>
-      <div class="cond-item reveal d1"><h4 data-uk="Щитоподібна залоза" data-en="Thyroid" data-ru="Щитовидная железа" data-pl="Tarczyca">Щитоподібна залоза</h4><p data-uk="Порушення гормонального фону" data-en="Hormonal imbalances" data-ru="Нарушения гормонального фона" data-pl="Zaburzenia hormonalne">Порушення гормонального фону</p></div>
-      <div class="cond-item reveal"><h4 data-uk="Серце і судини" data-en="Heart & vessels" data-ru="Сердце и сосуды" data-pl="Serce i naczynia">Серце і судини</h4><p data-uk="Адаптовані навантаження" data-en="Adapted training loads" data-ru="Адаптированные нагрузки" data-pl="Dostosowane obciążenia">Адаптовані навантаження</p></div>
-      <div class="cond-item reveal d1"><h4 data-uk="Нирки і печінка" data-en="Kidneys & liver" data-ru="Почки и печень" data-pl="Nerki i wątroba">Нирки і печінка</h4><p data-uk="Безпечний підбір навантаження" data-en="Safe load selection" data-ru="Безопасный подбор нагрузки" data-pl="Bezpieczny dobór obciążeń">Безпечний підбір</p></div>
-      <div class="cond-item reveal"><h4 data-uk="Діастаз" data-en="Diastasis" data-ru="Диастаз" data-pl="Diastaza">Діастаз</h4><p data-uk="Коректна програма відновлення" data-en="Correct recovery program" data-ru="Корректная программа восстановления" data-pl="Program regeneracji">Коректна програма</p></div>
-      <div class="cond-item reveal d1"><h4 data-uk="Зір і координація" data-en="Vision & coordination" data-ru="Зрение и координация" data-pl="Wzrok i koordynacja">Зір і координація</h4><p data-uk="Адаптація вправ" data-en="Exercise adaptation" data-ru="Адаптация упражнений" data-pl="Adaptacja ćwiczeń">Адаптація вправ</p></div>
+      <div class="cond-item reveal" role="button" tabindex="0" onclick="openCondition('spine')"><h4 data-uk="🦴 Хребет" data-en="🦴 Spine" data-ru="🦴 Позвоночник" data-pl="🦴 Kręgosłup">🦴 Хребет</h4><p data-uk="Лордоз, кіфоз, сколіоз, грижі, протрузії" data-en="Lordosis, kyphosis, scoliosis, hernias, protrusions" data-ru="Лордоз, кифоз, сколиоз, грыжи, протрузии" data-pl="Lordoza, kifoza, skolioza, przepukliny, protruzje">Лордоз, кіфоз, сколіоз, грижі, протрузії</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="cond-item reveal d1" role="button" tabindex="0" onclick="openCondition('heart')"><h4 data-uk="❤️ Серце та судини" data-en="❤️ Heart & vessels" data-ru="❤️ Сердце и сосуды" data-pl="❤️ Serce i naczynia">❤️ Серце та судини</h4><p data-uk="Гіпертонія, тахікардія, аритмії" data-en="Hypertension, tachycardia, arrhythmias" data-ru="Гипертония, тахикардия, аритмии" data-pl="Nadciśnienie, tachykardia, arytmie">Гіпертонія, тахікардія, аритмії</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="cond-item reveal" role="button" tabindex="0" onclick="openCondition('glucose')"><h4 data-uk="🩸 Вуглеводний обмін" data-en="🩸 Carbohydrate metabolism" data-ru="🩸 Углеводный обмен" data-pl="🩸 Metabolizm węglowodanów">🩸 Вуглеводний обмін</h4><p data-uk="Діабет та інсулінорезистентність" data-en="Diabetes and insulin resistance" data-ru="Диабет и инсулинорезистентность" data-pl="Cukrzyca i insulinooporność">Діабет та інсулінорезистентність</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="cond-item reveal d1" role="button" tabindex="0" onclick="openCondition('thyroid')"><h4 data-uk="🦋 Щитоподібна залоза" data-en="🦋 Thyroid & hormones" data-ru="🦋 Щитовидная железа" data-pl="🦋 Tarczyca i hormony">🦋 Щитоподібна залоза</h4><p data-uk="Гіпотиреоз, гіпертиреоз, СПКЯ" data-en="Hypothyroidism, hyperthyroidism, PCOS" data-ru="Гипотиреоз, гипертиреоз, СПКЯ" data-pl="Niedoczynność, nadczynność tarczycy, PCOS">Гіпотиреоз, гіпертиреоз, СПКЯ</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="cond-item reveal" role="button" tabindex="0" onclick="openCondition('liver')"><h4 data-uk="🫁 Печінка та нирки" data-en="🫁 Liver & kidneys" data-ru="🫁 Печень и почки" data-pl="🫁 Wątroba i nerki">🫁 Печінка та нирки</h4><p data-uk="Захворювання печінки та нирок" data-en="Liver and kidney conditions" data-ru="Заболевания печени и почек" data-pl="Choroby wątroby i nerek">Захворювання печінки та нирок</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="cond-item reveal d1" role="button" tabindex="0" onclick="openCondition('vision')"><h4 data-uk="👁️ Зір та координація" data-en="👁️ Vision & coordination" data-ru="👁️ Зрение и координация" data-pl="👁️ Wzrok i koordynacja">👁️ Зір та координація</h4><p data-uk="Порушення зору та координації" data-en="Vision and coordination issues" data-ru="Нарушения зрения и координации" data-pl="Zaburzenia wzroku i koordynacji">Порушення зору та координації</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="cond-item reveal" role="button" tabindex="0" onclick="openCondition('joints')"><h4 data-uk="🦵 Суглоби" data-en="🦵 Joints" data-ru="🦵 Суставы" data-pl="🦵 Stawy">🦵 Суглоби</h4><p data-uk="Артроз, артрит, травми менісків" data-en="Arthrosis, arthritis, meniscus injuries" data-ru="Артроз, артрит, травмы менисков" data-pl="Artroza, zapalenie stawów, urazy łąkotek">Артроз, артрит, травми менісків</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="cond-item reveal d1" role="button" tabindex="0" onclick="openCondition('pregnancy')"><h4 data-uk="🤰 Вагітність" data-en="🤰 Pregnancy & recovery" data-ru="🤰 Беременность" data-pl="🤰 Ciąża i regeneracja">🤰 Вагітність</h4><p data-uk="Вагітність, діастаз, кесарів розтин" data-en="Pregnancy, diastasis, C-section" data-ru="Беременность, диастаз, кесарево сечение" data-pl="Ciąża, diastaza, cesarskie cięcie">Вагітність, діастаз, кесарів розтин</p><span class="cond-hint" data-uk="Натисніть" data-en="Tap" data-ru="Нажмите" data-pl="Kliknij">Натисніть<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
     </div>
     <div class="quote-box reveal">
       <p class="quote-text"
-         data-uk="Кожна проблема зі здоров'ям — це не перешкода для тренувань. Це умова, яку потрібно врахувати. За 50+ клієнтів з різними діагнозами я навчився будувати програми, де безпека і результат існують разом."
-         data-en="Every health issue is not an obstacle to training. It's a condition to consider. With 50+ clients with various diagnoses, I've learned to build programs where safety and results coexist."
-         data-ru="Каждая проблема со здоровьем — это не препятствие для тренировок. Это условие, которое нужно учесть. За 50+ клиентов с разными диагнозами я научился строить программы, где безопасность и результат существуют вместе."
-         data-pl="Każdy problem zdrowotny to nie przeszkoda w trenowaniu. To warunek do uwzględnienia. Przy 50+ klientach z różnymi diagnozami nauczyłem się budować programy, gdzie bezpieczeństwo i wyniki idą w parze.">
-        Кожна проблема зі здоров'ям — це не перешкода для тренувань. Це умова, яку потрібно врахувати. За 50+ клієнтів з різними діагнозами я навчився будувати програми, де безпека і результат існують разом.
+         data-uk="Будь-яка проблема зі здоров'ям — це не перешкода для тренувань. Це лише особливість, яку потрібно врахувати. Моє завдання — адаптувати програму так, щоб вона була безпечною, комфортною та ефективною саме для вас."
+         data-en="Any health issue isn't an obstacle to training. It's simply a feature that needs to be accounted for. My job is to adapt the program so it's safe, comfortable and effective specifically for you."
+         data-ru="Любая проблема со здоровьем — это не препятствие для тренировок. Это лишь особенность, которую нужно учесть. Моя задача — адаптировать программу так, чтобы она была безопасной, комфортной и эффективной именно для вас."
+         data-pl="Każdy problem zdrowotny to nie przeszkoda w treningu. To jedynie cecha, którą trzeba uwzględnić. Moim zadaniem jest dostosować program tak, aby był bezpieczny, komfortowy i skuteczny właśnie dla Ciebie.">
+        Будь-яка проблема зі здоров'ям — це не перешкода для тренувань. Це лише особливість, яку потрібно врахувати. Моє завдання — адаптувати програму так, щоб вона була безпечною, комфортною та ефективною саме для вас.
       </p>
       <div class="quote-author">— Mr. Artemy Fit</div>
     </div>
@@ -674,6 +710,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   <div class="section-tag reveal" data-uk="Мої клієнти" data-en="My clients" data-ru="Мои клиенты" data-pl="Moi klienci">Мої клієнти</div>
   <h2 class="section-title reveal" data-uk="РЕЗУЛЬТАТИ" data-en="RESULTS" data-ru="РЕЗУЛЬТАТЫ" data-pl="WYNIKI">РЕЗУЛЬТАТИ</h2>
 
+  <div class="collapsible clients-collapsible" id="clientsCollapse">
   <div class="clients-grid">
     <div class="client-card reveal" role="button" tabindex="0" onclick="openCase('gaurav')">
       <img class="client-img" src="case-gaurav.jpg" alt="Gaurav — результат за 6 месяцев" loading="lazy" decoding="async">
@@ -746,6 +783,12 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
       </div>
     </div>
   </div>
+  </div>
+  <button class="collapse-toggle" id="clientsToggleBtn" onclick="toggleCollapse('clientsCollapse','clientsToggleBtn')">
+    <span class="ct-more" data-uk="Показати всі результати" data-en="Show all results" data-ru="Показать все результаты" data-pl="Pokaż wszystkie wyniki">Показати всі результати</span>
+    <span class="ct-less" data-uk="Згорнути" data-en="Show less" data-ru="Свернуть" data-pl="Zwiń">Згорнути</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
 </section>
 
 <!-- WHY / APPROACH -->
@@ -758,29 +801,29 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
         <li class="why-item">
           <div class="why-num">01</div>
           <div class="why-content">
-            <h4 data-uk="НАУКА, НЕ МОДА" data-en="SCIENCE, NOT TRENDS" data-ru="НАУКА, НЕ МОДА" data-pl="NAUKA, NIE MODA">НАУКА, НЕ МОДА</h4>
-            <p data-uk="У роботі дотримуюся стандартів NSCA — однієї з найпрестижніших організацій у сфері силового тренінгу. Також навчався у Global Fit Education та Grand.Fit.Academy." data-en="My work follows NSCA standards — those of one of the most respected organizations in strength training. I also studied at Global Fit Education and Grand.Fit.Academy." data-ru="В работе придерживаюсь стандартов NSCA — одной из наиболее авторитетных организаций в сфере силового тренинга. Также обучался в Global Fit Education и Grand.Fit.Academy." data-pl="W pracy kieruję się standardami NSCA — jednej z najbardziej cenionych organizacji w dziedzinie treningu siłowego. Uczyłem się także w Global Fit Education oraz Grand.Fit.Academy.">У роботі дотримуюся стандартів NSCA. Навчався у Global Fit Education та Grand.Fit.Academy.</p>
+            <h4 data-uk="НАУКА, А НЕ МІФИ" data-en="SCIENCE, NOT MYTHS" data-ru="НАУКА, А НЕ МИФЫ" data-pl="NAUKA, A NIE MITY">НАУКА, А НЕ МІФИ</h4>
+            <p data-uk="Спираюся на сучасні принципи силового тренінгу та рекомендації NSCA. Навчався у Global Fit Education і Grand.Fit Academy, окремо вивчав адаптацію тренувань під різні стани здоров'я. Мета — не просто скласти програму, а зробити її безпечною і зрозумілою саме для тебе." data-en="I rely on modern strength-training principles and NSCA guidelines. I studied at Global Fit Education and Grand.Fit Academy, and separately learned how to adapt training for various health conditions. My goal isn't just to write a program — it's to make it safe and clear for you specifically." data-ru="Опираюсь на современные принципы силового тренинга и рекомендации NSCA. Учился в Global Fit Education и Grand.Fit Academy, отдельно изучал адаптацию тренировок под разные состояния здоровья. Цель — не просто составить программу, а сделать её безопасной и понятной именно для тебя." data-pl="Opieram się na współczesnych zasadach treningu siłowego i wytycznych NSCA. Uczyłem się w Global Fit Education i Grand.Fit Academy, dodatkowo poznawałem sposoby dostosowania treningu do różnych stanów zdrowia. Chodzi mi nie tylko o ułożenie programu, ale o to, by był bezpieczny i zrozumiały właśnie dla Ciebie.">Спираюся на сучасні принципи силового тренінгу та рекомендації NSCA. Навчався у Global Fit Education і Grand.Fit Academy.</p>
           </div>
         </li>
         <li class="why-item">
           <div class="why-num">02</div>
           <div class="why-content">
-            <h4 data-uk="НУЛЬ ШАБЛОНІВ" data-en="ZERO TEMPLATES" data-ru="НОЛЬ ШАБЛОНОВ" data-pl="ZERO SZABLONÓW">НУЛЬ ШАБЛОНІВ</h4>
-            <p data-uk="Кожна програма будується з нуля: твоя ціль, рівень підготовки, стан здоров'я. Жодних готових схем з інтернету." data-en="Every program built from scratch: your goal, fitness level, health state. No ready-made schemes from the internet." data-ru="Каждая программа строится с нуля: твоя цель, уровень подготовки, состояние здоровья. Никаких готовых схем из интернета." data-pl="Każdy program budowany od zera: Twój cel, poziom sprawności, stan zdrowia. Żadnych gotowych schematów.">Кожна програма будується з нуля під конкретну людину. Жодних готових схем.</p>
+            <h4 data-uk="ЖОДНИХ ШАБЛОНІВ" data-en="ZERO TEMPLATES" data-ru="НИКАКИХ ШАБЛОНОВ" data-pl="ZERO SZABLONÓW">ЖОДНИХ ШАБЛОНІВ</h4>
+            <p data-uk="Кожна програма створюється з нуля під конкретну людину — з урахуванням цілі, рівня підготовки, способу життя і стану здоров'я. Однакових програм чи готових схем ти тут не знайдеш." data-en="Every program is built from scratch for a specific person — your goal, fitness level, lifestyle and health all factored in. You won't find identical programs or ready-made schemes here." data-ru="Каждая программа строится с нуля под конкретного человека — с учётом цели, уровня подготовки, образа жизни и состояния здоровья. Одинаковых программ или готовых схем здесь не найдёшь." data-pl="Każdy program powstaje od zera dla konkretnej osoby — z uwzględnieniem celu, poziomu przygotowania, stylu życia i stanu zdrowia. Nie znajdziesz tu identycznych programów ani gotowych schematów.">Кожна програма створюється з нуля під конкретну людину. Жодних готових схем.</p>
           </div>
         </li>
         <li class="why-item">
           <div class="why-num">03</div>
           <div class="why-content">
-            <h4 data-uk="ПОСТІЙНИЙ ЗВ'ЯЗОК" data-en="CONSTANT SUPPORT" data-ru="ПОСТОЯННАЯ СВЯЗЬ" data-pl="STAŁY KONTAKT">ПОСТІЙНИЙ ЗВ'ЯЗОК</h4>
-            <p data-uk="Регулярний контроль прогресу і корекції. Завжди на зв'язку — підтримую і допомагаю протягом усього шляху." data-en="Regular progress tracking and adjustments. Always available — I support and help throughout the entire journey." data-ru="Регулярный контроль прогресса и коррекции. Всегда на связи — поддерживаю и помогаю на протяжении всего пути." data-pl="Regularna kontrola postępów i korekty. Zawsze dostępny — wspieram i pomagam przez całą drogę.">Регулярний контроль і корекції. Завжди на зв'язку протягом усього шляху.</p>
+            <h4 data-uk="ПОСТІЙНА АДАПТАЦІЯ" data-en="CONSTANT ADAPTATION" data-ru="ПОСТОЯННАЯ АДАПТАЦИЯ" data-pl="STAŁA ADAPTACJA">ПОСТІЙНА АДАПТАЦІЯ</h4>
+            <p data-uk="Результат залежить не тільки від хорошого плану, а й від того, як він змінюється в процесі. Регулярно отримую від тебе зворотний зв'язок і за потреби коригую тренування, харчування та навантаження." data-en="Results depend not just on a good plan, but on how it evolves along the way. I regularly get feedback from you and adjust training, nutrition and load whenever needed." data-ru="Результат зависит не только от хорошего плана, но и от того, как он меняется в процессе. Регулярно получаю от тебя обратную связь и при необходимости корректирую тренировки, питание и нагрузку." data-pl="Efekt zależy nie tylko od dobrego planu, ale też od tego, jak zmienia się on w trakcie pracy. Regularnie zbieram od Ciebie informację zwrotną i w razie potrzeby koryguję trening, żywienie i obciążenia.">Програма адаптується разом із тобою — на основі регулярного зворотного зв'язку.</p>
           </div>
         </li>
         <li class="why-item">
           <div class="why-num">04</div>
           <div class="why-content">
             <h4 data-uk="КОМПЛЕКСНИЙ ПІДХІД" data-en="COMPREHENSIVE APPROACH" data-ru="КОМПЛЕКСНЫЙ ПОДХОД" data-pl="KOMPLEKSOWE PODEJŚCIE">КОМПЛЕКСНИЙ ПІДХІД</h4>
-            <p data-uk="Тренування + харчування + БАДи + фармакологія за потреби. Усі інструменти для максимального результату в одному місці." data-en="Training + nutrition + supplements + pharmacology if needed. All tools for maximum results in one place." data-ru="Тренировки + питание + БАДы + фармакология при необходимости. Все инструменты для максимального результата в одном месте." data-pl="Trening + żywienie + suplementy + farmakologia w razie potrzeby. Wszystkie narzędzia dla maksymalnych efektów.">Тренування + харчування + БАДи + фармакологія за потреби. Все в одному місці.</p>
+            <p data-uk="Хороший результат — це не лише тренування. Харчування, аналізи, добавки теж мають значення. Збираю все в одну зрозумілу систему, щоб тобі не довелося окремо шукати тренера, нутриціолога чи когось ще." data-en="A good result isn't just about training. Nutrition, blood work, supplements matter too. I bring it all together into one clear system, so you don't have to look for a separate trainer, nutritionist or anyone else." data-ru="Хороший результат — это не только тренировки. Питание, анализы, добавки тоже имеют значение. Собираю всё в одну понятную систему, чтобы тебе не пришлось отдельно искать тренера, нутрициолога или ещё кого-то." data-pl="Dobry efekt to nie tylko trening. Żywienie, badania, suplementy też mają znaczenie. Łączę to wszystko w jeden zrozumiały system, żebyś nie musiał szukać osobno trenera, dietetyka czy kogoś jeszcze.">Тренування, харчування, аналізи та добавки — все зібрано в одну систему.</p>
           </div>
         </li>
       </ul>
@@ -969,6 +1012,7 @@ function setLang(lang) {
   });
   document.querySelectorAll('[data-ph-'+lang+']').forEach(function(el) { el.placeholder = el.getAttribute('data-ph-'+lang); });
   document.documentElement.lang = lang;
+  if (typeof setClientsCollapseHeight === 'function') setTimeout(setClientsCollapseHeight, 50);
 }
 
 // ---- SERVICE MODAL DATA ----
@@ -992,16 +1036,16 @@ var services = {
     pl:{title:'OPIEKA ONLINE',price:'500 zł / miesiąc',items:['Indywidualny plan treningowy i korekty','Pełna kontrola żywienia','Dobór koszyka produktów','Obliczanie kalorii i makroskładników','Zalecenia suplementacyjne','Wsparcie farmakologiczne w razie potrzeby','Stały kontakt przez cały miesiąc','Regularne korekty na podstawie wyników'],result:'Pełna kontrola nad Twoim postępem. System indywidualnie dostosowany i regularnie korygowany dla maksymalnego efektu.'}
   },
   personal:{
-    uk:{title:'ПЕРСОНАЛЬНІ ТРЕНУВАННЯ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Індивідуальна робота в залі (CityFit · FC24, Bielsko-Biała)','Постановка техніки виконання вправ','Персональна програма тренувань','Повний супровід між тренуваннями','Повний контроль харчування','Супровід по добавках і фармакології (за потреби)','Постійний зв\'язок і корекції'],result:'Максимально швидкий і якісний результат через особисту роботу. Все те ж саме, що в онлайн-веденні, але з живим контролем і швидшими корекціями.'},
-    en:{title:'PERSONAL TRAINING',price:'130 zł / 1 ses · 600 zł / 5 ses · 1100 zł / 10 ses',items:['Individual work in the gym (CityFit · FC24, Bielsko-Biała)','Technique correction','Personal training program','Full support between sessions','Full nutrition control','Supplement & pharmacology support if needed','Constant communication and adjustments'],result:'Maximum fast and quality results through personal work. Everything from online coaching but with live control and faster adjustments.'},
-    ru:{title:'ПЕРСОНАЛЬНЫЕ ТРЕНИРОВКИ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Индивидуальная работа в зале (CityFit · FC24, Bielsko-Biała)','Постановка техники выполнения упражнений','Персональная программа тренировок','Полное сопровождение между тренировками','Полный контроль питания','Сопровождение по добавкам и фармакологии (при необходимости)','Постоянная связь и коррекции'],result:'Максимально быстрый и качественный результат через личную работу. Всё то же самое, что в онлайн-ведении, но с живым контролем и более быстрыми коррекциями.'},
-    pl:{title:'TRENING PERSONALNY',price:'130 zł / 1 tr · 600 zł / 5 tr · 1100 zł / 10 tr',items:['Indywidualna praca na siłowni (CityFit · FC24, Bielsko-Biała)','Korekta techniki ćwiczeń','Personalny program treningowy','Pełne wsparcie między sesjami','Pełna kontrola żywienia','Wsparcie suplementacyjne i farmakologiczne w razie potrzeby','Stały kontakt i korekty'],result:'Maksymalnie szybkie i jakościowe wyniki przez osobistą pracę. Wszystko co w opiece online, ale z żywą kontrolą i szybszymi korektami.'}
+    uk:{title:'ПЕРСОНАЛЬНІ ТРЕНУВАННЯ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Індивідуальна робота в залі (CityFit · FC24, Bielsko-Biała)','Постановка техніки виконання вправ','Персональна програма тренувань','Повний супровід між тренуваннями','Повний контроль харчування','Супровід по добавках і фармакології (за потреби)','Постійний зв\'язок і корекції','Медичний тренінг для складних станів здоров\'я — до +20 zł за тренування (макс. 150 zł / 1 тр · 700 zł / 5 тр · 1300 zł / 10 тр)'],result:'Максимально швидкий і якісний результат через особисту роботу. Все те ж саме, що в онлайн-веденні, але з живим контролем і швидшими корекціями.'},
+    en:{title:'PERSONAL TRAINING',price:'130 zł / 1 ses · 600 zł / 5 ses · 1100 zł / 10 ses',items:['Individual work in the gym (CityFit · FC24, Bielsko-Biała)','Technique correction','Personal training program','Full support between sessions','Full nutrition control','Supplement & pharmacology support if needed','Constant communication and adjustments','Medical training for complex health conditions — up to +20 zł per session (max 150 zł / 1 ses · 700 zł / 5 ses · 1300 zł / 10 ses)'],result:'Maximum fast and quality results through personal work. Everything from online coaching but with live control and faster adjustments.'},
+    ru:{title:'ПЕРСОНАЛЬНЫЕ ТРЕНИРОВКИ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Индивидуальная работа в зале (CityFit · FC24, Bielsko-Biała)','Постановка техники выполнения упражнений','Персональная программа тренировок','Полное сопровождение между тренировками','Полный контроль питания','Сопровождение по добавкам и фармакологии (при необходимости)','Постоянная связь и коррекции','Медицинский тренинг при сложных состояниях здоровья — до +20 zł за тренировку (макс. 150 zł / 1 тр · 700 zł / 5 тр · 1300 zł / 10 тр)'],result:'Максимально быстрый и качественный результат через личную работу. Всё то же самое, что в онлайн-ведении, но с живым контролем и более быстрыми коррекциями.'},
+    pl:{title:'TRENING PERSONALNY',price:'130 zł / 1 tr · 600 zł / 5 tr · 1100 zł / 10 tr',items:['Indywidualna praca na siłowni (CityFit · FC24, Bielsko-Biała)','Korekta techniki ćwiczeń','Personalny program treningowy','Pełne wsparcie między sesjami','Pełna kontrola żywienia','Wsparcie suplementacyjne i farmakologiczne w razie potrzeby','Stały kontakt i korekty','Trening medyczny przy złożonych stanach zdrowia — do +20 zł za trening (maks. 150 zł / 1 tr · 700 zł / 5 tr · 1300 zł / 10 tr)'],result:'Maksymalnie szybkie i jakościowe wyniki przez osobistą pracę. Wszystko co w opiece online, ale z żywą kontrolą i szybszymi korektami.'}
   },
   hybrid:{
-    uk:{title:'ГІБРИД (ЗАЛ + СУПРОВІД)',price:'150 zł / місяць + 110 zł / тренування',items:['Індивідуальний план тренувань','Корекції програми','Контроль прогресу','Зворотний зв\'язок','Рекомендації щодо навантаження','Умова: мінімум 2 персональні тренування на місяць'],result:'Для тих, кому потрібен регулярний контроль тренера в більш легкому режимі. Ви тренуєтесь самостійно, а я контролюю процес і направляю до результату.'},
-    en:{title:'HYBRID (GYM + SUPPORT)',price:'150 zł / month + 110 zł / session',items:['Individual training plan','Program adjustments','Progress tracking','Feedback','Load recommendations','Condition: minimum 2 personal sessions per month'],result:'For those who need regular coach control in a lighter mode. You train independently while I control the process and guide you to results.'},
-    ru:{title:'ГИБРИД (ЗАЛ + СОПРОВОЖДЕНИЕ)',price:'150 zł / месяц + 110 zł / тренировка',items:['Индивидуальный план тренировок','Коррекции программы','Контроль прогресса','Обратная связь','Рекомендации по нагрузке','Условие: минимум 2 персональные тренировки в месяц'],result:'Для тех, кому нужен регулярный контроль тренера в более лёгком режиме. Вы тренируетесь самостоятельно, а я контролирую процесс и направляю к результату.'},
-    pl:{title:'HYBRYDA (SIŁOWNIA + OPIEKA)',price:'150 zł / miesiąc + 110 zł / trening',items:['Indywidualny plan treningowy','Korekty programu','Kontrola postępów','Informacja zwrotna','Zalecenia dotyczące obciążenia','Warunek: minimum 2 treningi personalne miesięcznie'],result:'Dla tych, którzy potrzebują regularnej kontroli coacha w lżejszym trybie. Trenujesz samodzielnie, a ja kontroluję proces i kieruję Cię ku wynikom.'}
+    uk:{title:'ГІБРИД (ЗАЛ + СУПРОВІД)',price:'150 zł / місяць + 110 zł / тренування',items:['Індивідуальний онлайн-план тренувань і харчування','Постійний зв\'язок і корекції протягом місяця','Мінімум 2 персональні тренування на місяць у залі — живий контроль техніки','Поєднання переваг онлайн-супроводу та особистого контролю тренера'],result:'Поєднання персональних тренувань і онлайн-супроводу. Я веду вас онлайн, але мінімум 2 рази на місяць треную особисто — щоб наживо контролювати техніку і вносити швидші корективи.'},
+    en:{title:'HYBRID (GYM + SUPPORT)',price:'150 zł / month + 110 zł / session',items:['Individual online training and nutrition plan','Constant communication and adjustments throughout the month','Minimum 2 personal sessions per month in the gym — live technique control','Combines the benefits of online coaching with in-person coach control'],result:'A combination of personal training and online coaching. I coach you online, but train you in person at least twice a month to check your technique live and make faster adjustments.'},
+    ru:{title:'ГИБРИД (ЗАЛ + СОПРОВОЖДЕНИЕ)',price:'150 zł / месяц + 110 zł / тренировка',items:['Индивидуальный онлайн-план тренировок и питания','Постоянная связь и коррекции в течение месяца','Минимум 2 персональные тренировки в месяц в зале — живой контроль техники','Совмещение преимуществ онлайн-сопровождения и личного контроля тренера'],result:'Совмещение персональных тренировок и онлайн-сопровождения. Веду вас онлайн, но минимум 2 раза в месяц тренирую лично — чтобы вживую контролировать технику и вносить более быстрые коррективы.'},
+    pl:{title:'HYBRYDA (SIŁOWNIA + OPIEKA)',price:'150 zł / miesiąc + 110 zł / trening',items:['Indywidualny plan treningowy i żywieniowy online','Stały kontakt i korekty przez cały miesiąc','Minimum 2 treningi personalne miesięcznie na siłowni — żywa kontrola techniki','Połączenie zalet opieki online z osobistą kontrolą trenera'],result:'Połączenie treningu personalnego i opieki online. Prowadzę Cię online, ale minimum 2 razy w miesiącu trenuję Cię osobiście — by na żywo skontrolować technikę i szybciej wprowadzać korekty.'}
   },
   pharma:{
     uk:{title:'ОНЛАЙН-ВЕДЕННЯ ПО ФАРМАКОЛОГІЇ',price:'200 zł / місяць',items:['Підбір курсу під ціль','Схема прийому','Рекомендації щодо аналізів','Контроль аналізів і стану','Корекції по ходу курсу'],result:"Грамотний і безпечний підхід до фармакології під повним контролем. Усі рішення приймаються з урахуванням здоров'я, аналізів і довгострокового результату."},
@@ -1137,11 +1181,109 @@ function openCase(id) {
   document.body.style.overflow='hidden';
 }
 function closeCaseModal() { document.getElementById('caseModal').classList.remove('open'); document.body.style.overflow=''; }
+
+var conditions = {
+  spine:{
+    uk:{title:'🦴 Хребет',items:['Лордоз','Кіфоз','Сколіоз','Міжхребцеві грижі','Протрузії','Спондилолістез','Хронічний біль у спині'],note:'Підбираю вправи таким чином, щоб тренування були максимально безпечними та не провокували загострення.'},
+    en:{title:'🦴 Spine',items:['Lordosis','Kyphosis','Scoliosis','Spinal disc herniations','Disc protrusions','Spondylolisthesis','Chronic back pain'],note:'I select exercises so that training is as safe as possible and doesn\'t provoke flare-ups.'},
+    ru:{title:'🦴 Позвоночник',items:['Лордоз','Кифоз','Сколиоз','Межпозвоночные грыжи','Протрузии','Спондилолистез','Хроническая боль в спине'],note:'Подбираю упражнения так, чтобы тренировки были максимально безопасными и не провоцировали обострение.'},
+    pl:{title:'🦴 Kręgosłup',items:['Lordoza','Kifoza','Skolioza','Przepukliny międzykręgowe','Protruzje','Kręgozmyk','Przewlekły ból pleców'],note:'Dobieram ćwiczenia tak, by trening był maksymalnie bezpieczny i nie prowokował zaostrzeń.'}
+  },
+  heart:{
+    uk:{title:'❤️ Серце та судини',items:['Артеріальна гіпертонія','Тахікардія','Аритмії','Порушення ліпідного профілю (підвищений холестерин, ЛПНЩ, тригліцериди)','Інші стани, які потребують адаптації фізичного навантаження'],note:''},
+    en:{title:'❤️ Heart & vessels',items:['Arterial hypertension','Tachycardia','Arrhythmias','Lipid profile disorders (elevated cholesterol, LDL, triglycerides)','Other conditions requiring adapted training loads'],note:''},
+    ru:{title:'❤️ Сердце и сосуды',items:['Артериальная гипертония','Тахикардия','Аритмии','Нарушения липидного профиля (повышенный холестерин, ЛПНП, триглицериды)','Другие состояния, требующие адаптации физической нагрузки'],note:''},
+    pl:{title:'❤️ Serce i naczynia',items:['Nadciśnienie tętnicze','Tachykardia','Arytmie','Zaburzenia profilu lipidowego (podwyższony cholesterol, LDL, trójglicerydy)','Inne stany wymagające dostosowania obciążenia treningowego'],note:''}
+  },
+  glucose:{
+    uk:{title:'🩸 Вуглеводний обмін',items:['Цукровий діабет I типу','Цукровий діабет II типу','Інсулінорезистентність','Порушення толерантності до глюкози'],note:'Допомагаю грамотно поєднати фізичні навантаження, харчування та контроль рівня глюкози.'},
+    en:{title:'🩸 Carbohydrate metabolism',items:['Type 1 diabetes','Type 2 diabetes','Insulin resistance','Impaired glucose tolerance'],note:'I help combine training, nutrition and blood glucose control correctly.'},
+    ru:{title:'🩸 Углеводный обмен',items:['Сахарный диабет I типа','Сахарный диабет II типа','Инсулинорезистентность','Нарушение толерантности к глюкозе'],note:'Помогаю грамотно совместить физические нагрузки, питание и контроль уровня глюкозы.'},
+    pl:{title:'🩸 Metabolizm węglowodanów',items:['Cukrzyca typu I','Cukrzyca typu II','Insulinooporność','Zaburzenia tolerancji glukozy'],note:'Pomagam prawidłowo połączyć trening, żywienie i kontrolę poziomu glukozy.'}
+  },
+  thyroid:{
+    uk:{title:'🦋 Щитоподібна залоза та гормональний фон',items:['Гіпотиреоз','Гіпертиреоз','СПКЯ (синдром полікістозних яєчників)','Підвищений рівень андрогенів','Інші гормональні порушення, що впливають на самопочуття або склад тіла'],note:''},
+    en:{title:'🦋 Thyroid & hormones',items:['Hypothyroidism','Hyperthyroidism','PCOS (polycystic ovary syndrome)','Elevated androgen levels','Other hormonal disorders affecting wellbeing or body composition'],note:''},
+    ru:{title:'🦋 Щитовидная железа и гормональный фон',items:['Гипотиреоз','Гипертиреоз','СПКЯ (синдром поликистозных яичников)','Повышенный уровень андрогенов','Другие гормональные нарушения, влияющие на самочувствие или состав тела'],note:''},
+    pl:{title:'🦋 Tarczyca i gospodarka hormonalna',items:['Niedoczynność tarczycy','Nadczynność tarczycy','PCOS (zespół policystycznych jajników)','Podwyższony poziom androgenów','Inne zaburzenia hormonalne wpływające na samopoczucie lub skład ciała'],note:''}
+  },
+  liver:{
+    uk:{title:'🫁 Печінка та нирки',items:['Підвищені показники АЛТ','Підвищені показники АСТ','Підвищений ГГТ','Порушення рівня білірубіну','Інші порушення функції печінки','Захворювання нирок','Стан після нефректомії','Регулярний діаліз (за дозволом лікаря)'],note:'У кожному випадку фізичне навантаження адаптується відповідно до стану здоров\'я.'},
+    en:{title:'🫁 Liver & kidneys',items:['Elevated ALT','Elevated AST','Elevated GGT','Bilirubin disorders','Other liver function disorders','Kidney disease','Post-nephrectomy state','Regular dialysis (with doctor\'s approval)'],note:'In every case, training load is adapted to the person\'s health status.'},
+    ru:{title:'🫁 Печень и почки',items:['Повышенные показатели АЛТ','Повышенные показатели АСТ','Повышенный ГГТ','Нарушения уровня билирубина','Другие нарушения функции печени','Заболевания почек','Состояние после нефрэктомии','Регулярный диализ (с разрешения врача)'],note:'В каждом случае физическая нагрузка адаптируется в соответствии с состоянием здоровья.'},
+    pl:{title:'🫁 Wątroba i nerki',items:['Podwyższone ALT','Podwyższone AST','Podwyższone GGTP','Zaburzenia poziomu bilirubiny','Inne zaburzenia funkcji wątroby','Choroby nerek','Stan po nefrektomii','Regularna dializa (za zgodą lekarza)'],note:'W każdym przypadku obciążenie treningowe jest dostosowywane do stanu zdrowia.'}
+  },
+  vision:{
+    uk:{title:'👁️ Зір та координація',items:['Висока короткозорість','Ризик відшарування сітківки','Інші офтальмологічні обмеження','СДУГ','Порушення концентрації уваги','Порушення координації'],note:'Програма тренувань підбирається з урахуванням усіх можливих ризиків.'},
+    en:{title:'👁️ Vision & coordination',items:['High myopia','Risk of retinal detachment','Other ophthalmological limitations','ADHD','Attention and concentration disorders','Coordination issues'],note:'The training program is designed with all possible risks in mind.'},
+    ru:{title:'👁️ Зрение и координация',items:['Высокая близорукость','Риск отслоения сетчатки','Другие офтальмологические ограничения','СДВГ','Нарушения концентрации внимания','Нарушения координации'],note:'Программа тренировок подбирается с учётом всех возможных рисков.'},
+    pl:{title:'👁️ Wzrok i koordynacja',items:['Wysoka krótkowzroczność','Ryzyko odwarstwienia siatkówki','Inne ograniczenia okulistyczne','ADHD','Zaburzenia koncentracji uwagi','Zaburzenia koordynacji'],note:'Program treningowy dobierany jest z uwzględnieniem wszystkich możliwych ryzyk.'}
+  },
+  joints:{
+    uk:{title:'🦵 Суглоби',items:['Артроз','Артрит','Травми менісків','Нестабільність суглобів','Особливості будови кульшового, колінного та інших суглобів','Наслідки спортивних травм'],note:'Навантаження підбирається таким чином, щоб покращувати функцію суглобів без перевантаження.'},
+    en:{title:'🦵 Joints',items:['Arthrosis','Arthritis','Meniscus injuries','Joint instability','Structural features of the hip, knee and other joints','Consequences of sports injuries'],note:'The load is selected to improve joint function without overloading it.'},
+    ru:{title:'🦵 Суставы',items:['Артроз','Артрит','Травмы менисков','Нестабильность суставов','Особенности строения тазобедренного, коленного и других суставов','Последствия спортивных травм'],note:'Нагрузка подбирается так, чтобы улучшать функцию суставов без перегрузки.'},
+    pl:{title:'🦵 Stawy',items:['Artroza','Zapalenie stawów','Urazy łąkotek','Niestabilność stawów','Specyfika budowy stawu biodrowego, kolanowego i innych','Skutki urazów sportowych'],note:'Obciążenie dobierane jest tak, by poprawiać funkcję stawów bez przeciążania.'}
+  },
+  pregnancy:{
+    uk:{title:'🤰 Вагітність та відновлення',items:['Вагітні жінки','Жінки після пологів','Діастаз','Відновлення після кесаревого розтину'],note:'Програми складаються відповідно до терміну вагітності або етапу післяпологового відновлення.'},
+    en:{title:'🤰 Pregnancy & recovery',items:['Pregnant women','Postpartum women','Diastasis recti','Recovery after a C-section'],note:'Programs are built according to the stage of pregnancy or postpartum recovery.'},
+    ru:{title:'🤰 Беременность и восстановление',items:['Беременные женщины','Женщины после родов','Диастаз','Восстановление после кесарева сечения'],note:'Программы составляются в соответствии со сроком беременности или этапом послеродового восстановления.'},
+    pl:{title:'🤰 Ciąża i regeneracja',items:['Kobiety w ciąży','Kobiety po porodzie','Diastaza','Regeneracja po cesarskim cięciu'],note:'Programy są układane odpowiednio do etapu ciąży lub połogu.'}
+  }
+};
+var condWorkWithLabel = {uk:'Працюю з людьми, які мають:',en:'I work with people who have:',ru:'Работаю с людьми, у которых есть:',pl:'Pracuję z osobami, które mają:'};
+function openCondition(id) {
+  var d = conditions[id][currentLang];
+  var li = d.items.map(function(i){return '<li>'+i+'</li>';}).join('');
+  document.getElementById('cond-modal-body').innerHTML =
+    '<div class="modal-title">'+d.title+'</div>'+
+    '<p style="color:rgba(245,240,232,.55);font-size:13px;margin-bottom:14px;">'+condWorkWithLabel[currentLang]+'</p>'+
+    '<ul class="modal-list">'+li+'</ul>'+
+    (d.note ? '<div class="modal-result">'+d.note+'</div>' : '');
+  document.getElementById('condModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeConditionModal() { document.getElementById('condModal').classList.remove('open'); document.body.style.overflow=''; }
+function condOverlayClick(e) { if(e.target===document.getElementById('condModal')) closeConditionModal(); }
 function openLightbox(src,e){e.stopPropagation();document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open');}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.getElementById('lightbox-img').src='';}
 function caseMOverlayClick(e) { if(e.target===document.getElementById('caseModal')) closeCaseModal(); }
 
-document.addEventListener('keydown', function(e) { if(e.key==='Escape'){closeModal();closeCaseModal();closeLightbox();} });
+// ---- COLLAPSIBLE BLOCKS (mobile: about story / results) ----
+function toggleCollapse(wrapId, btnId) {
+  var wrap = document.getElementById(wrapId);
+  var btn = document.getElementById(btnId);
+  if (!wrap || !btn) return;
+  var expanded = wrap.classList.toggle('expanded');
+  btn.classList.toggle('open', expanded);
+  if (!expanded) {
+    var rect = wrap.getBoundingClientRect();
+    if (rect.top < 0) wrap.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+function setClientsCollapseHeight() {
+  var wrap = document.getElementById('clientsCollapse');
+  if (!wrap || window.innerWidth > 960) { if(wrap) wrap.style.removeProperty('--collapsed-h'); return; }
+  var cards = wrap.querySelectorAll('.client-card');
+  if (cards.length <= 6) { wrap.classList.add('expanded'); return; }
+  var sixth = cards[5];
+  var wrapTop = wrap.getBoundingClientRect().top + window.scrollY;
+  var sixthBottom = sixth.getBoundingClientRect().bottom + window.scrollY;
+  var h = Math.ceil(sixthBottom - wrapTop) + 16;
+  wrap.style.setProperty('max-height', h + 'px');
+  var styleTag = document.getElementById('clientsCollapseStyle');
+  if (!styleTag) {
+    styleTag = document.createElement('style');
+    styleTag.id = 'clientsCollapseStyle';
+    document.head.appendChild(styleTag);
+  }
+  styleTag.textContent = '@media(max-width:960px){#clientsCollapse:not(.expanded){max-height:'+h+'px!important;}}';
+}
+window.addEventListener('load', setClientsCollapseHeight);
+window.addEventListener('resize', function(){ clearTimeout(window._ccTimer); window._ccTimer = setTimeout(setClientsCollapseHeight, 200); });
+
+document.addEventListener('keydown', function(e) { if(e.key==='Escape'){closeModal();closeCaseModal();closeConditionModal();closeLightbox();} });
 
 // ---- FORM with Telegram Bot API ----
 function submitForm(e) {
