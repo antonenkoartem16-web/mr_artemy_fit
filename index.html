@@ -67,19 +67,16 @@ nav.scrolled{background:rgba(8,8,8,0.88);padding:12px 60px;border-bottom:1px sol
 .hero-particle.p3{top:42%;right:5%;width:3px;height:3px;animation-delay:-4.8s;}
 .hero-bg-word{position:absolute;bottom:-20px;left:-8px;font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,13vw,200px);color:rgba(201,168,76,.035);letter-spacing:6px;white-space:nowrap;pointer-events:none;line-height:1;animation:wordDrift 12s ease-in-out infinite alternate;}
 .hero-content{position:relative;z-index:2;padding:0 60px;max-width:840px;}
-.hero-eyebrow{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;max-width:100%;opacity:0;animation:fadeUp .7s .2s forwards;}
-.eyebrow-row{display:flex;align-items:center;gap:12px;opacity:0;transform:translateX(-10px);animation:eyebrowIn .7s var(--ease) forwards;}
-.eyebrow-row--roles{animation-delay:.4s;}
-.eyebrow-row--loc{animation-delay:.62s;}
-.eyebrow-mark{flex:0 0 22px;display:flex;align-items:center;justify-content:flex-start;}
-.eyebrow-dash{width:22px;height:1px;background:linear-gradient(90deg,var(--gold),var(--gold2));display:block;position:relative;overflow:hidden;}
-.eyebrow-dash::after{content:'';position:absolute;inset:0;background:var(--white);transform:translateX(-100%);animation:dashSweep 2.6s ease-in-out .9s infinite;}
-.eyebrow-mark svg{width:12px;height:12px;display:block;color:var(--gold2);opacity:.85;}
-.eyebrow-roles-text{color:var(--gold);font-size:clamp(7.5px,1.55vw,10px);font-weight:600;letter-spacing:clamp(0.6px,0.3vw,1.7px);text-transform:uppercase;white-space:nowrap;}
-.eyebrow-loc-text{color:rgba(245,240,232,.5);font-size:clamp(7px,1.35vw,9px);font-weight:500;letter-spacing:clamp(0.6px,0.3vw,1.5px);text-transform:uppercase;white-space:nowrap;}
+.hero-eyebrow{display:flex;flex-wrap:wrap;align-items:center;column-gap:16px;row-gap:10px;margin-bottom:26px;max-width:100%;}
+.eyebrow-roles-text{position:relative;display:inline-block;font-size:clamp(7.5px,1.55vw,10px);font-weight:600;letter-spacing:clamp(0.6px,0.3vw,1.8px);text-transform:uppercase;white-space:nowrap;opacity:0;transform:translateY(7px);animation:eyebrowIn .7s var(--ease) .38s forwards;background:linear-gradient(100deg,var(--gold) 38%,#fff6df 50%,var(--gold) 62%);background-size:240% 100%;background-position:180% 0;-webkit-background-clip:text;background-clip:text;color:var(--gold);}
+.eyebrow-roles-text.shine{animation:eyebrowIn .7s var(--ease) .38s forwards,shineSweep 1.6s ease-out 1.15s 1;}
+.eyebrow-loc-badge{position:relative;display:inline-flex;align-items:center;gap:7px;padding:6px 14px 6px 11px;border:1px solid rgba(201,168,76,.32);border-radius:999px;background:rgba(201,168,76,.055);opacity:0;transform:translateX(12px);animation:badgeIn .6s var(--ease) .85s forwards;}
+.eyebrow-loc-badge::after{content:'';position:absolute;inset:-4px;border:1px solid rgba(201,168,76,.45);border-radius:999px;opacity:0;animation:badgePulse 1s ease-out 1.45s 1;}
+.eyebrow-loc-badge svg{width:10px;height:10px;flex:0 0 10px;display:block;color:var(--gold2);opacity:.9;}
+.eyebrow-loc-text{color:rgba(245,240,232,.7);font-size:clamp(6.8px,1.3vw,8.5px);font-weight:600;letter-spacing:clamp(0.6px,0.3vw,1.4px);text-transform:uppercase;white-space:nowrap;}
 h1.hero-title{position:relative;display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10.5vw,130px);line-height:0.88;letter-spacing:2px;opacity:0;animation:fadeUp 0.8s 0.5s forwards;}
 h1.hero-title .g{color:var(--gold);}
-h1.hero-title::after{content:'';position:absolute;left:2px;bottom:-4px;height:1px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2) 55%,transparent);box-shadow:0 0 6px rgba(201,168,76,.45);animation:titleDraw 1.5s cubic-bezier(.16,.84,.3,1) 1.2s forwards;}
+h1.hero-title::after{content:'';position:absolute;left:4px;bottom:6px;width:5px;height:5px;border-radius:50%;background:var(--gold2);opacity:0;animation:dotAppear .5s ease 1.2s forwards,dotPulse 3s ease-in-out 1.8s infinite;}
 .hero-tagline{margin-top:18px;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(14px,1.6vw,19px);color:rgba(245,240,232,0.72);line-height:1.5;max-width:540px;opacity:0;animation:fadeUp 0.8s 0.7s forwards;}
 .hero-sub{margin-top:12px;font-size:12px;font-weight:300;line-height:1.85;color:rgba(245,240,232,0.45);max-width:460px;opacity:0;animation:fadeUp 0.8s 0.85s forwards;}
 .hero-btns{margin-top:40px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s 1s forwards;}
@@ -296,9 +293,12 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:none;}}
 @keyframes fadeLeft{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:none;}}
-@keyframes eyebrowIn{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:none;}}
-@keyframes dashSweep{0%,40%{transform:translateX(-100%);}60%,100%{transform:translateX(100%);}}
-@keyframes titleDraw{from{width:0;}to{width:46%;}}
+@keyframes eyebrowIn{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
+@keyframes shineSweep{from{background-position:180% 0;}to{background-position:-60% 0;}}
+@keyframes badgeIn{from{opacity:0;transform:translateX(12px);}to{opacity:1;transform:none;}}
+@keyframes badgePulse{0%{opacity:.9;transform:scale(.92);}100%{opacity:0;transform:scale(1.28);}}
+@keyframes dotAppear{to{opacity:1;}}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.45);}50%{box-shadow:0 0 12px 3px rgba(201,168,76,.4);}}
 @keyframes glowDrift{0%{transform:translate3d(-1%,0,0) scale(1);}100%{transform:translate3d(2%,-2%,0) scale(1.045);}}
 @keyframes wordDrift{0%{transform:translateX(-8px);}100%{transform:translateX(24px);}}
 @keyframes linePulse{0%,100%{transform:scaleX(.45);opacity:.45;}50%{transform:scaleX(1);opacity:1;}}
@@ -495,22 +495,19 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   <div class="hero-bg-word">MR. ARTEMY FIT</div>
   <div class="hero-content">
     <div class="hero-eyebrow">
-      <div class="eyebrow-row eyebrow-row--roles">
-        <span class="eyebrow-mark"><span class="eyebrow-dash"></span></span>
-        <span class="eyebrow-roles-text"
-              data-uk="Персональний тренер · Медичний тренер · Дієтолог"
-              data-en="Personal Trainer · Medical Trainer · Nutritionist"
-              data-ru="Персональный тренер · Медицинский тренер · Диетолог"
-              data-pl="Trener personalny · Trener medyczny · Dietetyk">Персональний тренер · Медичний тренер · Дієтолог</span>
-      </div>
-      <div class="eyebrow-row eyebrow-row--loc">
-        <span class="eyebrow-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></span>
+      <span class="eyebrow-roles-text shine"
+            data-uk="Персональний тренер · Медичний тренер · Дієтолог"
+            data-en="Personal Trainer · Medical Trainer · Nutritionist"
+            data-ru="Персональный тренер · Медицинский тренер · Диетолог"
+            data-pl="Trener personalny · Trener medyczny · Dietetyk">Персональний тренер · Медичний тренер · Дієтолог</span>
+      <span class="eyebrow-loc-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
         <span class="eyebrow-loc-text"
               data-uk="Bielsko-Biała · Онлайн"
               data-en="Bielsko-Biała · Online"
               data-ru="Bielsko-Biała · Онлайн"
               data-pl="Bielsko-Biała · Online">Bielsko-Biała · Онлайн</span>
-      </div>
+      </span>
     </div>
     <h1 class="hero-title">MR. <span class="g">ARTEMY</span> FIT</h1>
     <p class="hero-tagline"
