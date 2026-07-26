@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MR. ARTEMY FIT — Персональный тренер · Bielsko-Biała · Онлайн</title>
-<meta name="description" content="Персональный тренер и онлайн-коуч. Набор массы, сушка, рекомпозиция тела, работа с ограничениями здоровья. Bielsko-Biała и онлайн по всему миру.">
-<meta name="keywords" content="personalny trener, online coaching, trener Bielsko-Biała, набор массы, сушка тела, фитнес тренер">
-<meta property="og:title" content="MR. ARTEMY FIT — Персональный тренер">
-<meta property="og:description" content="Набор массы, сушка, рекомпозиция тела. Работаю с ограничениями здоровья. Bielsko-Biała и онлайн.">
+<title>MR. ARTEMY FIT — Trener personalny · Bielsko-Biała · Online</title>
+<meta name="description" content="Trener personalny i coach online. Budowa masy, redukcja, rekompozycja sylwetki, praca z ograniczeniami zdrowotnymi. Bielsko-Biała i online na całym świecie.">
+<meta name="keywords" content="trener personalny Bielsko-Biała, online coaching, budowa masy, redukcja, trener medyczny">
+<meta property="og:title" content="MR. ARTEMY FIT — Trener personalny">
+<meta property="og:description" content="Budowa masy, redukcja, rekompozycja sylwetki. Pracuję z ograniczeniami zdrowotnymi. Bielsko-Biała i online.">
 <meta property="og:image" content="hero-new.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,8 @@ img{max-width:100%;}
 :focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
 .cursor{width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);display:none;}
 .cursor-ring{width:36px;height:36px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.15s;display:none;}
-#intro3d{position:fixed;inset:0;z-index:10050;background:radial-gradient(ellipse at 50% 42%,#0d0d0d 0%,#050505 65%,#020202 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s ease;}
+#intro3d{position:fixed;inset:0;z-index:10050;background:radial-gradient(ellipse at 50% 42%,#0d0d0d 0%,#050505 65%,#020202 100%);display:none;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s ease;}
+#intro3d.active{display:flex;}
 #intro3d.hide{opacity:0;pointer-events:none;}
 #intro3dCanvas{width:100%;height:100%;display:block;}
 #intro3dLabel{position:absolute;bottom:14%;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.6vw,22px);letter-spacing:8px;color:var(--gold);opacity:0;text-align:center;pointer-events:none;animation:intro3dLabelIn 1s ease .55s forwards;}
@@ -39,12 +40,16 @@ img{max-width:100%;}
 
 /* LANG PICKER OVERLAY */
 .lang-overlay{position:fixed;inset:0;background:rgba(8,8,8,0.97);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:32px;}
-.lang-overlay h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:6px;color:var(--gold);text-align:center;}
-.lang-overlay p{font-size:12px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;text-align:center;}
+.lang-overlay h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:6px;color:var(--gold);text-align:center;opacity:0;transform:translateY(14px);animation:langFadeUp .7s cubic-bezier(.16,.84,.3,1) .1s forwards;}
 .lang-picker-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:280px;}
-.lang-pick-btn{background:transparent;border:1px solid rgba(201,168,76,0.25);color:var(--white);padding:16px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-align:center;}
+.lang-pick-btn{background:transparent;border:1px solid rgba(201,168,76,0.25);color:var(--white);padding:16px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:border-color 0.3s,color 0.3s,background 0.3s;text-align:center;opacity:0;transform:translateY(14px);animation:langFadeUp .6s cubic-bezier(.16,.84,.3,1) forwards;}
+.lang-pick-btn:nth-child(1){animation-delay:.22s;}
+.lang-pick-btn:nth-child(2){animation-delay:.3s;}
+.lang-pick-btn:nth-child(3){animation-delay:.38s;}
+.lang-pick-btn:nth-child(4){animation-delay:.46s;}
 .lang-pick-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.06);}
 .lang-pick-btn .flag{display:block;font-size:22px;margin-bottom:6px;}
+@keyframes langFadeUp{to{opacity:1;transform:none;}}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s;}
@@ -327,8 +332,10 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
 @keyframes particleFloat{0%,100%{opacity:.25;transform:translateY(0) rotate(45deg);}50%{opacity:.75;transform:translateY(-18px) rotate(135deg);}}
 @keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
 @keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(.98);}to{opacity:1;transform:none;}}
-.reveal{opacity:0;transform:translateY(42px);filter:blur(7px);transition:opacity .85s var(--ease),transform .85s var(--ease),filter .75s ease;}
-.reveal.visible{opacity:1;transform:none;filter:blur(0);}
+.reveal{opacity:0;transform:perspective(1000px) translateY(46px) translateZ(-110px) rotateX(16deg) rotateY(var(--ry,0deg));filter:blur(4px);transition:opacity .65s cubic-bezier(.16,.84,.3,1),transform .65s cubic-bezier(.16,.84,.3,1),filter .55s ease;transform-origin:50% 100%;will-change:transform,opacity;}
+.reveal.visible{opacity:1;transform:perspective(1000px) translateY(0) translateZ(0) rotateX(0deg) rotateY(0deg);filter:blur(0);}
+.sc:nth-child(odd).reveal,.client-card:nth-child(odd).reveal,.cond-item:nth-child(odd).reveal{--ry:-7deg;}
+.sc:nth-child(even).reveal,.client-card:nth-child(even).reveal,.cond-item:nth-child(even).reveal{--ry:7deg;}
 .d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
 
 /* MOBILE */
@@ -452,7 +459,6 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
 <!-- LANG PICKER -->
 <div class="lang-overlay" id="langOverlay">
   <h2>MR. ARTEMY FIT</h2>
-  <p>Choose your language / Оберіть мову</p>
   <div class="lang-picker-grid">
     <button class="lang-pick-btn" onclick="pickLang('uk')"><span class="flag">🇺🇦</span>Українська</button>
     <button class="lang-pick-btn" onclick="pickLang('en')"><span class="flag">🇬🇧</span>English</button>
@@ -988,13 +994,14 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
     if (played) return; played = true;
     document.body.classList.add('intro-done');
     wrap.classList.add('hide');
-    setTimeout(function(){ wrap.style.display = 'none'; }, 650);
+    setTimeout(function(){ wrap.classList.remove('active'); }, 650);
   }
   skipBtn.addEventListener('click', finishIntro);
-  setTimeout(function(){ skipBtn.classList.add('show'); }, 700);
 
   window.play3DIntro = function(){
     if (played) return;
+    wrap.classList.add('active');
+    setTimeout(function(){ skipBtn.classList.add('show'); }, 700);
     if (reducedMotion || !supportsWebGL || typeof THREE === 'undefined') { finishIntro(); return; }
     try { startScene(); } catch(e) { finishIntro(); }
   };
@@ -1111,12 +1118,13 @@ function pickLang(lang) {
 function openCurtain() {
   if (document.body.classList.contains('intro-done')) return;
   if (window.play3DIntro) { window.play3DIntro(); } else { document.body.classList.add('intro-done'); }
+  setTimeout(function(){ document.body.classList.add('intro-done'); }, 6000);
 }
 window.addEventListener('load', function() {
   var saved = localStorage.getItem('maf_lang');
   if (saved) { document.getElementById('langOverlay').style.display = 'none'; setLang(saved); openCurtain(); }
 });
-setTimeout(openCurtain, 4000);
+
 
 // ---- CURSOR ----
 var cur = document.getElementById('cursor');
@@ -1237,6 +1245,13 @@ var currentLang = 'uk';
 function setLang(lang) {
   currentLang = lang;
   var map = { uk:'УКР', en:'ENG', ru:'РУС', pl:'POL' };
+  var titles = {
+    uk:'MR. ARTEMY FIT — Персональний тренер · Bielsko-Biała · Онлайн',
+    en:'MR. ARTEMY FIT — Personal Trainer · Bielsko-Biała · Online',
+    ru:'MR. ARTEMY FIT — Персональный тренер · Bielsko-Biała · Онлайн',
+    pl:'MR. ARTEMY FIT — Trener personalny · Bielsko-Biała · Online'
+  };
+  document.title = titles[lang] || titles.uk;
   document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('active', b.textContent === map[lang]); });
   document.querySelectorAll('[data-'+lang+']').forEach(function(el) {
     var val = el.getAttribute('data-'+lang);
