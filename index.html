@@ -188,6 +188,13 @@ h1.hero-title::after{content:'';position:absolute;left:4px;bottom:6px;width:5px;
 .modal-close:hover{color:var(--gold);}
 .modal-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;margin-bottom:6px;}
 .modal-price{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:2px;margin-bottom:22px;}
+.modal-price-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;margin-bottom:18px;}
+.modal-price-row .modal-price{margin-bottom:0;}
+.cur-toggle{display:flex;gap:6px;}
+.cur-pill{background:transparent;border:1px solid rgba(201,168,76,0.28);color:rgba(245,240,232,.55);width:34px;height:30px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .25s;border-radius:2px;}
+.cur-pill:hover{border-color:var(--gold);color:var(--gold);}
+.cur-pill.active{background:var(--gold);border-color:var(--gold);color:var(--black);}
+.modal-pitch{font-size:13px;line-height:1.75;color:rgba(245,240,232,0.62);font-style:italic;padding:12px 16px;margin-bottom:20px;border-left:2px solid rgba(201,168,76,.3);background:rgba(201,168,76,0.04);}
 .modal-list{list-style:none;margin-bottom:18px;}
 .modal-list li{font-size:13px;line-height:1.8;color:rgba(245,240,232,0.68);padding:7px 0 7px 20px;border-bottom:1px solid rgba(201,168,76,0.05);position:relative;}
 .modal-list li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:11px;}
@@ -1273,10 +1280,10 @@ var services = {
     pl:{title:'KONSULTACJA',price:'100 zł',items:['Odpowiedzi na wszystkie pytania dot. treningu i diety','Analiza Twojej sytuacji i celów','Zalecenia dot. treningu i żywienia','Zrozumienie jak się dalej rozwijać','Format: online lub osobiście, do 60 min'],result:'Otrzymasz jasne odpowiedzi i pełne zrozumienie swojej sytuacji. Będziesz wiedział jak działać dalej bez chaosu.'}
   },
   consultfull:{
-    uk:{title:'КОНСУЛЬТАЦІЯ FULL',price:'250 zł',items:["Повний розбір форми, здоров'я та цілей","Індивідуальний план тренувань","Індивідуальний план харчування","Детальне пояснення системи","Стратегія прогресу на довгострок","Рекомендації щодо добавок і відновлення","Відповіді на всі питання"],result:"Повністю готовий план дій: чітка система тренувань, харчування та розвитку форми на тривалий період."},
-    en:{title:'FULL CONSULTATION',price:'250 zł',items:['Full analysis of form, health and goals','Individual training plan','Individual nutrition plan','Detailed system explanation','Long-term progress strategy','Supplement and recovery recommendations','Answers to all questions'],result:"A completely ready action plan: clear training, nutrition and fitness development system for the long term."},
-    ru:{title:'КОНСУЛЬТАЦИЯ FULL',price:'250 zł',items:['Полный разбор формы, здоровья и целей','Индивидуальный план тренировок','Индивидуальный план питания','Детальное объяснение системы','Стратегия прогресса на долгосрок','Рекомендации по добавкам и восстановлению','Ответы на все вопросы'],result:'Полностью готовый план действий: чёткая система тренировок, питания и развития формы на длительный период.'},
-    pl:{title:'KONSULTACJA FULL',price:'250 zł',items:['Pełna analiza formy, zdrowia i celów','Indywidualny plan treningowy','Indywidualny plan żywieniowy','Szczegółowe wyjaśnienie systemu','Strategia postępu na długi okres','Zalecenia dot. suplementów i regeneracji','Odpowiedzi na wszystkie pytania'],result:'W pełni gotowy plan działania: jasny system treningu, żywienia i rozwoju formy na długi okres.'}
+    uk:{title:'КОНСУЛЬТАЦІЯ FULL',price:'250 zł',pitch:"Я розробляю для вас довгострокову стратегію тренувань і харчування — від вашої точки А до бажаного результату, — щоб ви могли прогресувати самостійно.",items:["Повний розбір форми, здоров'я та цілей","Індивідуальний план тренувань на довгострок","Індивідуальний план харчування на довгострок","Рекомендації щодо добавок і відновлення","Підтримка і відповіді на всі питання протягом 2 тижнів після консультації"],result:"Повністю готовий план дій: чітка система тренувань, харчування та розвитку форми на тривалий період."},
+    en:{title:'FULL CONSULTATION',price:'250 zł',pitch:"I build a long-term training and nutrition strategy for you — from where you are now to your goal — so you can keep progressing on your own.",items:['Full analysis of form, health and goals','Long-term individual training plan','Long-term individual nutrition plan','Supplement and recovery recommendations','Support and answers to all questions for 2 weeks after the consultation'],result:"A completely ready action plan: clear training, nutrition and fitness development system for the long term."},
+    ru:{title:'КОНСУЛЬТАЦИЯ FULL',price:'250 zł',pitch:"Я разрабатываю для вас долгосрочную стратегию тренировок и питания — от вашей точки А до желаемого результата, — чтобы вы могли прогрессировать самостоятельно.",items:['Полный разбор формы, здоровья и целей','Индивидуальный план тренировок на долгосрок','Индивидуальный план питания на долгосрок','Рекомендации по добавкам и восстановлению','Поддержка и ответы на все вопросы в течение 2 недель после консультации'],result:'Полностью готовый план действий: чёткая система тренировок, питания и развития формы на длительный период.'},
+    pl:{title:'KONSULTACJA FULL',price:'250 zł',pitch:"Opracowuję dla Ciebie długoterminową strategię treningową i żywieniową — od Twojego punktu A do celu — abyś mógł/mogła dalej progresować samodzielnie.",items:['Pełna analiza formy, zdrowia i celów','Indywidualny plan treningowy na dłuższy okres','Indywidualny plan żywieniowy na dłuższy okres','Zalecenia dot. suplementów i regeneracji','Wsparcie i odpowiedzi na wszystkie pytania przez 2 tygodnie po konsultacji'],result:'W pełni gotowy plan działania: jasny system treningu, żywienia i rozwoju formy na długi okres.'}
   },
   online:{
     uk:{title:'ОНЛАЙН-СУПРОВІД',price:'500 zł / місяць',items:['Індивідуальний план тренувань і корекції','Повний контроль харчування','Підбір продуктового кошика','Розрахунок калорій і БЖВ','Рекомендації щодо добавок','Супровід по фармакології (за потреби)','Постійний зв\'язок протягом місяця','Регулярні корекції за результатами'],result:'Повний контроль над вашим прогресом. Система налаштована індивідуально і регулярно коригується для максимального ефекту.'},
@@ -1307,7 +1314,41 @@ var services = {
 var ctaLabels = {uk:'ЗАПИСАТИСЯ',en:'BOOK NOW',ru:'ЗАПИСАТЬСЯ',pl:'ZAPISZ SIĘ'};
 var resultLabels = {uk:'Що це тобі дасть:',en:'What this gives you:',ru:'Что это тебе даст:',pl:'Co to Ci da:'};
 
+// ---- CURRENCY CONVERSION (rate snapshot: NBP, 29.07.2026) ----
+var CUR_RATES = {pln:1, uah:11.73, usd:0.2634, eur:0.2311};
+var CUR_SYMBOLS = {pln:'zł', uah:'грн', usd:'$', eur:'€'};
+var CUR_LABELS = {pln:'PLN', uah:'UAH', usd:'USD', eur:'EUR'};
+var periodWord = {uk:'міс',en:'mo',ru:'мес',pl:'mies'};
+var CURRENCY_META = {
+  consult:{base:100, period:false},
+  consultfull:{base:250, period:false},
+  online:{base:500, period:true},
+  pharma:{base:200, period:true}
+};
+var currentModalType = null;
+var currentCurrency = 'pln';
+function formatPrice(base, cur){
+  var v = base * CUR_RATES[cur];
+  v = (cur === 'uah') ? Math.round(v/5)*5 : Math.round(v);
+  return v + ' ' + CUR_SYMBOLS[cur];
+}
+function renderModalPrice(){
+  var meta = CURRENCY_META[currentModalType];
+  if (!meta) return;
+  var txt = formatPrice(meta.base, currentCurrency);
+  if (meta.period) txt += ' / ' + (periodWord[currentLang] || 'mo');
+  var priceEl = document.getElementById('modalPrice');
+  if (priceEl) priceEl.textContent = txt;
+  document.querySelectorAll('.cur-pill').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-cur') === currentCurrency); });
+}
+function setModalCurrency(cur){
+  currentCurrency = cur;
+  renderModalPrice();
+}
+
 function openModal(type) {
+  currentModalType = type;
+  currentCurrency = 'pln';
   var d = services[type][currentLang];
   var li = d.items.map(function(i){return '<li>'+i+'</li>';}).join('');
   var noteHtml = d.medNoteTitle ? (
@@ -1317,15 +1358,28 @@ function openModal(type) {
       '<div class="modal-note-foot"><span>'+d.medNoteCap+'</span><div class="modal-note-max"><span class="modal-note-flag">'+d.medNoteFlag+'</span><strong>'+d.medNoteMax+'</strong></div></div>'+
     '</div>'
   ) : '';
+  var pitchHtml = d.pitch ? '<p class="modal-pitch">'+d.pitch+'</p>' : '';
+  var meta = CURRENCY_META[type];
+  var priceHtml;
+  if (meta) {
+    var pills = Object.keys(CUR_SYMBOLS).map(function(cur){
+      return '<button type="button" class="cur-pill'+(cur==='pln'?' active':'')+'" data-cur="'+cur+'" onclick="setModalCurrency(\''+cur+'\')" title="'+CUR_LABELS[cur]+'">'+CUR_SYMBOLS[cur]+'</button>';
+    }).join('');
+    priceHtml = '<div class="modal-price-row"><div class="modal-price" id="modalPrice">'+d.price+'</div><div class="cur-toggle">'+pills+'</div></div>';
+  } else {
+    priceHtml = '<div class="modal-price">'+d.price+'</div>';
+  }
   document.getElementById('modal-body').innerHTML =
     '<div class="modal-title">'+d.title+'</div>'+
-    '<div class="modal-price">'+d.price+'</div>'+
+    priceHtml+
+    pitchHtml+
     '<ul class="modal-list">'+li+'</ul>'+
     noteHtml+
     '<div class="modal-result"><strong>'+resultLabels[currentLang]+'</strong><br>'+d.result+'</div>';
   document.getElementById('modal-cta-btn').textContent = ctaLabels[currentLang];
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
+  if (meta) renderModalPrice();
 }
 function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
 function overlayClick(e) { if(e.target===document.getElementById('modal')) closeModal(); }
