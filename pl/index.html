@@ -9,11 +9,11 @@
 <meta property="og:title" content="MR. ARTEMY FIT — Trener personalny">
 <meta property="og:description" content="Budowa masy, redukcja, rekompozycja sylwetki. Pracuję z ograniczeniami zdrowotnymi. Bielsko-Biała i online.">
 <meta property="og:image" content="https://mrartemyfit.com/hero-new.png">
-<meta property="og:url" content="https://mrartemyfit.com/">
+<meta property="og:url" content="https://mrartemyfit.com/pl/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://mrartemyfit.com/">
+<link rel="canonical" href="https://mrartemyfit.com/pl/">
 <link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/">
 <link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/">
 <link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/">
@@ -576,10 +576,10 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   </ul>
   <div class="nav-right">
     <div class="lang-bar">
-      <button class="lang-btn active" onclick="setLang('uk')">УКР</button>
-      <button class="lang-btn" onclick="setLang('en')">ENG</button>
-      <button class="lang-btn" onclick="setLang('ru')">РУС</button>
-      <button class="lang-btn" onclick="setLang('pl')">POL</button>
+      <button class="lang-btn" onclick="gotoLang('uk')">УКР</button>
+      <button class="lang-btn" onclick="gotoLang('en')">ENG</button>
+      <button class="lang-btn" onclick="gotoLang('ru')">РУС</button>
+      <button class="lang-btn" onclick="gotoLang('pl')">POL</button>
     </div>
     <a href="#contact" class="nav-cta" data-uk="ЗАПИСАТИСЯ" data-en="BOOK NOW" data-ru="ЗАПИСАТЬСЯ" data-pl="ZAPISZ SIĘ">ЗАПИСАТИСЯ</a>
   </div>
@@ -1238,8 +1238,21 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 window.addEventListener('load', function() {
-  var saved = localStorage.getItem('maf_lang');
-  if (saved) { document.getElementById('langOverlay').style.display = 'none'; setLang(saved); openCurtain(); }
+  document.getElementById('langOverlay').style.display = 'none';
+  setLang('pl');
+  localStorage.setItem('maf_lang', 'pl');
+  var skipIntro = false;
+  try {
+    skipIntro = sessionStorage.getItem('maf_skip_intro') === '1';
+    if (skipIntro) sessionStorage.removeItem('maf_skip_intro');
+  } catch(e) {}
+  if (skipIntro) {
+    document.body.classList.add('intro-done');
+    var i3d = document.getElementById('intro3d');
+    if (i3d) i3d.classList.remove('active');
+  } else {
+    openCurtain();
+  }
 });
 
 
@@ -1358,7 +1371,16 @@ document.querySelectorAll('.reveal,.why-item,.counter').forEach(function(el) { o
 window.addEventListener('load', function() { setTimeout(function() { document.querySelectorAll('#hero .counter').forEach(runCounter); }, 1200); });
 
 // ---- LANGUAGE ----
-var currentLang = 'uk';
+var currentLang = 'pl';
+var CURRENT_PAGE_LANG = 'pl';
+// ---- LANGUAGE URL NAVIGATION (language subpages) ----
+function gotoLang(lang){
+  if (lang === CURRENT_PAGE_LANG) return;
+  try { sessionStorage.setItem('maf_skip_intro', '1'); } catch(e) {}
+  localStorage.setItem('maf_lang', lang);
+  window.location.href = '/' + lang + '/';
+}
+
 function setLang(lang) {
   currentLang = lang;
   var map = { uk:'УКР', en:'ENG', ru:'РУС', pl:'POL' };
