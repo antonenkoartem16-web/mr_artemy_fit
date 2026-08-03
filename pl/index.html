@@ -882,7 +882,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
       </div>
     </div>
     <div class="client-card reveal d2" role="button" tabindex="0" onclick="openCase('sonya')">
-      <img class="client-img" src="/case-sonya.jpg" alt="Sonya — улучшение пропорций" loading="lazy" decoding="async">
+      <img class="client-img" src="/case-sonya-v2.jpg" alt="Sonya — улучшение пропорций" loading="lazy" decoding="async">
       <div class="client-info">
         <div class="client-result">Sonya</div>
         <div class="client-detail"><span data-uk="Відновлення циклу · набір м'язової маси · покращення пропорцій" data-en="Cycle restoration · muscle gain · improved proportions" data-ru="Восстановление цикла · набор мышечной массы · улучшение пропорций" data-pl="Przywrócenie cyklu · budowa masy mięśniowej · poprawa proporcji">Восстановление цикла · набор мышечной массы · улучшение пропорций</span></div>
@@ -917,7 +917,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
       </div>
     </div>
     <div class="client-card reveal d1" role="button" tabindex="0" onclick="openCase('maks')">
-      <img class="client-img" src="/case-maks.jpg" alt="Максим — устранение мышечных зажимов и набор массы" loading="lazy" decoding="async">
+      <img class="client-img" src="/case-maks-v2.jpg" alt="Максим — устранение мышечных зажимов и набор массы" loading="lazy" decoding="async">
       <div class="client-info">
         <div class="client-result">Максим</div>
         <div class="client-detail"><span data-uk="М'язові затиски · відновлення рухливості · набір маси" data-en="Muscle tension · mobility restored · mass gain" data-ru="Мышечные зажимы · восстановление подвижности · набор массы" data-pl="Napięcia mięśniowe · przywrócona ruchomość · budowanie masy">Мышечные зажимы · восстановление подвижности · набор массы</span></div>
@@ -1446,8 +1446,7 @@ var services = {
 var ctaLabels = {uk:'ЗАПИСАТИСЯ',en:'BOOK NOW',ru:'ЗАПИСАТЬСЯ',pl:'ZAPISZ SIĘ'};
 var resultLabels = {uk:'Що це тобі дасть:',en:'What this gives you:',ru:'Что это тебе даст:',pl:'Co to Ci da:'};
 
-// ---- CURRENCY CONVERSION (rate snapshot: NBP, 29.07.2026) ----
-var CUR_RATES = {pln:1, uah:11.73, usd:0.2634, eur:0.2311};
+// ---- CURRENCY CONVERSION (fixed prices per service) ----
 var CUR_SYMBOLS = {pln:'zł', uah:'грн', usd:'$', eur:'€'};
 var CUR_LABELS = {pln:'PLN', uah:'UAH', usd:'USD', eur:'EUR'};
 var CUR_DISCLAIMER = {
@@ -1458,22 +1457,20 @@ var CUR_DISCLAIMER = {
 };
 var periodWord = {uk:'міс',en:'mo',ru:'мес',pl:'mies'};
 var CURRENCY_META = {
-  consult:{base:100, period:false},
-  consultfull:{base:300, period:false},
-  online:{base:500, period:true},
-  pharma:{base:200, period:true}
+  consult:{pln:100, uah:1200, usd:26, eur:23, period:false},
+  consultfull:{pln:300, uah:3500, usd:80, eur:70, period:false},
+  online:{pln:500, uah:6000, usd:130, eur:115, period:true},
+  pharma:{pln:200, uah:2400, usd:50, eur:45, period:true}
 };
 var currentModalType = null;
 var currentCurrency = 'pln';
-function formatPrice(base, cur){
-  var v = base * CUR_RATES[cur];
-  v = (cur === 'uah') ? Math.round(v/5)*5 : Math.round(v);
-  return v + ' ' + CUR_SYMBOLS[cur];
+function formatPrice(meta, cur){
+  return meta[cur] + ' ' + CUR_SYMBOLS[cur];
 }
 function renderModalPrice(){
   var meta = CURRENCY_META[currentModalType];
   if (!meta) return;
-  var txt = formatPrice(meta.base, currentCurrency);
+  var txt = formatPrice(meta, currentCurrency);
   if (meta.period) txt += ' / ' + (periodWord[currentLang] || 'mo');
   var priceEl = document.getElementById('modalPrice');
   if (priceEl) priceEl.textContent = txt;
@@ -1569,7 +1566,7 @@ var cases = {
     pl:{title:'REKOMPOZYCJA CIAŁA I BUDOWA ATLETYCZNEJ SYLWETKI',meta:'Artem · Długoterminowa strategia · -10% tłuszczu · +masa',reviewLabel:'',text:"<h4>Od czego zaczynałem</h4><p>Kiedy zaczynałem treningi, miałem około 20% tkanki tłuszczowej i prawie żadnych mięśni. Celem nie było po prostu \"się dorobić\" — chciałem zrozumieć trening, żywienie i regenerację na tyle głęboko, żeby potem wykorzystać to w pracy z klientami.</p><h4>Co robiłem</h4><ul><li>Zbudowałem dla siebie długoterminową strategię treningową.</li><li>W pełni ogarnąłem żywienie i kontrolę kalorii.</li><li>Cały czas analizowałem efekty i korygowałem program.</li><li>Regularnie sprawdzałem zdrowie.</li></ul><h4>Rezultat</h4><ul><li>Przez ostatnie półtora roku wyraźnie zwiększyłem masę mięśniową.</li><li>Tłuszcz obniżyłem z około 20% do około 12%.</li><li>Zbudowałem sportową, proporcjonalną sylwetkę.</li><li>A najważniejsze — zdobyłem praktyczne doświadczenie, które teraz jest podstawą tego, jak przygotowuję swoich klientów.</li></ul><p class=\"case-note\">Ta droga nauczyła mnie nie tylko zmieniać własne ciało, ale rozumieć każdy etap transformacji od środka. Dlatego większość rekomendacji, które dostają moi klienci, najpierw przetestowałem na sobie.</p>"}
   },
   sonya:{
-    img:'/case-sonya.jpg',
+    img:'/case-sonya-v2.jpg',
     reviewImg:null,
     uk:{title:'ПОКРАЩЕННЯ ПРОПОРЦІЙ ТА ВІДНОВЛЕННЯ ЦИКЛУ',meta:'Sonya · Відновлення циклу · Набір м\'язової маси · Покращення пропорцій',reviewLabel:'',text:'<h4>Вихідна ситуація</h4><p>Sonya прийшла до мене після роботи з іншим тренером. Вона вже кілька років тренувалася в залі та перебувала у дуже хорошій формі — за рівнем м\'язової маси це був рівень, близький до спортсменок категорії Bikini Fitness.</p><p>Основною проблемою була відсутність менструального циклу після тривалого сушіння. Крім цього, ми бачили, які м\'язові групи можна помітно покращити, щоб зробити фігуру більш пропорційною. Основний акцент вирішили зробити на розвитку спини, сідниць та задньої поверхні стегна.</p><h4>Що було зроблено</h4><ul><li>Відновлено харчування та загальний рівень відновлення.</li><li>Скоригована тренувальна програма.</li><li>Зроблено акцент на розвитку відстаючих м\'язових груп.</li><li>Переглянутий загальний обсяг тренувального навантаження.</li><li>Покращена техніка виконання вправ.</li></ul><h4>Результат через 5 місяців</h4><ul><li>Повністю відновився і стабілізувався менструальний цикл.</li><li>Помітно покращились пропорції тіла.</li><li>Значно виросли м\'язи спини, сідниць та задньої поверхні стегна.</li><li>Набрана якісна м\'язова маса без значного збільшення відсотка жиру.</li><li>Після подальшого сушіння вдалося зберегти практично всю набрану якість м\'язів.</li></ul><p class="case-note">Робота триває. Зараз основне завдання — подальше покращення пропорцій тіла і поступовий розвиток м\'язової маси без шкоди для здоров\'я і стабільності менструального циклу.</p>'},
     en:{title:'IMPROVING PROPORTIONS AND RESTORING THE CYCLE',meta:'Sonya · Cycle restoration · Muscle gain · Improved proportions',reviewLabel:'',text:"<h4>Starting point</h4><p>Sonya came to me after working with another trainer. She had already been training in the gym for several years and was in very good shape — her muscle mass level was close to that of Bikini Fitness category athletes.</p><p>The main issue was the absence of her menstrual cycle after a prolonged cutting phase. Beyond that, we identified muscle groups that could be noticeably improved to make her physique more proportional. We decided to focus mainly on developing the back, glutes and hamstrings.</p><h4>What was done</h4><ul><li>Nutrition and overall recovery were restored.</li><li>The training program was adjusted.</li><li>Focus was placed on developing lagging muscle groups.</li><li>Overall training volume was reviewed.</li><li>Exercise technique was improved.</li></ul><h4>Result after 5 months</h4><ul><li>The menstrual cycle fully restored and stabilised.</li><li>Body proportions noticeably improved.</li><li>Back, glute and hamstring muscles grew significantly.</li><li>Quality muscle mass was gained without a significant increase in body fat.</li><li>After a subsequent cutting phase, almost all the gained muscle quality was preserved.</li></ul><p class=\"case-note\">Work continues. The current focus is further improving body proportions and gradually developing muscle mass without compromising health or the stability of the menstrual cycle.</p>"},
@@ -1616,9 +1613,8 @@ var cases = {
     pl:{title:'REDUKCJA WAGI I PRACA Z JEDZENIEM EMOCJONALNYM',meta:'Inna · Niedoczynność tarczycy · ADHD · bez surowych ograniczeń',reviewLabel:'',text:"<h4>Z czym przyszła</h4><p>Inna przyszła z celem ogólnie lepszego samopoczucia i poprawy jakości ciała. Redukcja wagi nie była głównym zadaniem — przy jedzeniu emocjonalnym surowe ograniczenia tylko dodałyby stresu. Do tego niedoczynność tarczycy, ADHD (przez co trudniej szła technika ćwiczeń) i okresowe problemy zdrowotne, które też trzeba było uwzględnić.</p><h4>Co zrobiliśmy</h4><ul><li>Ułożyliśmy indywidualny program.</li><li>Stopniowo, bez pośpiechu, wypracowaliśmy technikę.</li><li>Dobraliśmy komfortowe żywienie, bez surowych ograniczeń.</li><li>Cały proces dostosowaliśmy do jej zdrowia i stanu emocjonalnego.</li></ul><h4>Rezultat</h4><ul><li>Ciało stało się wyraźnie bardziej jędrne — mniej tłuszczu, więcej mięśni.</li><li>Waga spadała stopniowo i stabilnie.</li><li>Samopoczucie i energia wyraźnie się poprawiły.</li><li>Opanowała technikę i osiągnęła dobry poziom siłowy.</li><li>Trening stał się po prostu komfortową częścią życia, a nie walką.</li></ul><p class=\"case-note\">Głównym rezultatem nie jest tu tylko sylwetka, ale to, że udało się zbudować system treningowy bez surowych ograniczeń. To właśnie dało stabilny postęp, poprawiło samopoczucie i utrzymało motywację do dalszych treningów.</p>"}
   },
   maks:{
-    img:'/case-maks.jpg',
+    img:'/case-maks-v2.jpg',
     reviewImg:null,
-    extraImgs:['/case-maks-2.jpg'],
     uk:{title:'ПРИБРАЛИ М\'ЯЗОВІ ЗАТИСКИ І ВИЙШЛИ НА СТАБІЛЬНИЙ НАБІР МАСИ',meta:'Максим · Затиснутий грудний м\'яз · Напруга стегон',reviewLabel:'',text:'<h4>Вихідна ситуація</h4><p>Максим звернувся до мене з метою набрати м\'язову масу. Але вже на перших тренуваннях стало зрозуміло, що спочатку потрібно вирішити іншу проблему.</p><ul><li>сильно затиснутий правий грудний м\'яз;</li><li>сильна напруга м\'язів передньої поверхні стегна;</li><li>через це було важко виконувати навіть звичайні присідання з невеликою вагою.</li></ul><h4>Що було зроблено</h4><p>Ми додали в програму вправи на розтяжку, самомасаж і роботу з MFR-роликом та масажним пістолетом. Я показав, як самостійно опрацьовувати затиснуті м\'язи вдома. Один раз Максим також відвідав масажиста, щоб точніше визначити проблемні зони, а далі ми вже повністю працювали за нашим планом.</p><h4>Результат</h4><ul><li>За кілька місяців повністю прибрали м\'язові затиски.</li><li>Відновили нормальну рухливість.</li><li>Тренування стали комфортними.</li><li>Максим зміг повноцінно прогресувати в залі і набрав хорошу кількість м\'язової маси.</li></ul><p class="case-note">Наочний приклад того, що перед набором маси іноді важливіше спочатку розібратися з рухливістю і затисками — без цього прогрес просто впирається у стелю.</p>'},
     en:{title:'RELEASED MUSCLE TENSION AND MOVED INTO STEADY MASS GAIN',meta:'Maks · Tight chest muscle · Tense thighs',reviewLabel:'',text:'<h4>Starting point</h4><p>Maks came to me with the goal of gaining muscle mass. But by the first few sessions it became clear we first had to deal with a different problem.</p><ul><li>his right chest muscle was significantly tight;</li><li>strong tension in the front thigh muscles;</li><li>this made even a basic bodyweight squat difficult.</li></ul><h4>What we did</h4><p>We added stretching, self-massage and work with an MFR roller and a massage gun to the program. I showed him how to release tight muscles on his own at home. Maks also visited a massage therapist once to pinpoint the problem areas more precisely, and from there we worked fully according to our own plan.</p><h4>Result</h4><ul><li>Within a few months the muscle tension was fully released.</li><li>Normal mobility was restored.</li><li>Training became comfortable.</li><li>Maks was then able to progress properly in the gym and gained a solid amount of muscle mass.</li></ul><p class="case-note">A clear example of how, before chasing mass, it\'s sometimes more important to first sort out mobility and tension — without that, progress simply hits a ceiling.</p>'},
     ru:{title:'УСТРАНИЛИ МЫШЕЧНЫЕ ЗАЖИМЫ И ВЫШЛИ НА СТАБИЛЬНЫЙ НАБОР МАССЫ',meta:'Максим · Зажатая грудная мышца · Напряжение бёдер',reviewLabel:'',text:'<h4>Исходная ситуация</h4><p>Максим обратился ко мне с целью набрать мышечную массу. Но уже на первых тренировках стало понятно, что сначала нужно решить другую проблему.</p><ul><li>сильно зажата правая грудная мышца;</li><li>сильное напряжение мышц передней поверхности бедра;</li><li>из-за этого было тяжело выполнять даже обычные приседания с небольшим весом.</li></ul><h4>Что было сделано</h4><p>Мы добавили в программу упражнения на растяжку, самомассаж и работу с MFR-роллом и массажным пистолетом. Я показал, как самостоятельно прорабатывать зажатые мышцы дома. Один раз Максим также посетил массажиста, чтобы точнее определить проблемные зоны, а дальше мы уже полностью работали по нашему плану.</p><h4>Результат</h4><ul><li>За несколько месяцев полностью убрали мышечные зажимы.</li><li>Восстановили нормальную подвижность.</li><li>Тренировки стали комфортными.</li><li>Максим смог полноценно прогрессировать в зале и набрал хорошее количество мышечной массы.</li></ul><p class="case-note">Наглядный пример того, что перед набором массы иногда важнее сначала разобраться с подвижностью и зажимами — без этого прогресс просто упирается в потолок.</p>'},
