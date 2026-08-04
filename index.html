@@ -790,7 +790,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
     <div class="sc reveal" role="button" tabindex="0" onclick="openModal('personal')">
       <div class="sc-num">04</div><div class="sc-icon">💪</div>
       <div class="sc-title" data-uk="ПЕРСОНАЛЬНІ ТРЕНУВАННЯ" data-en="PERSONAL TRAINING" data-ru="ПЕРСОНАЛЬНЫЕ ТРЕНИРОВКИ" data-pl="TRENING PERSONALNY">ПЕРСОНАЛЬНІ ТРЕНУВАННЯ</div>
-      <p class="sc-preview" data-uk="Живі тренування у Bielsko-Biała (CityFit). Максимальна ефективність через особисту роботу. Також проводжу медичний тренінг (для людей із серйозними обмеженнями по здоров'ю)." data-en="Live training in Bielsko-Biała (CityFit · FC24). Maximum efficiency through personal work. I also offer medical training (for people with serious health limitations)." data-ru="Живые тренировки в Bielsko-Biała (CityFit · FC24). Максимальная эффективность через личную работу. Также провожу медицинский тренинг (для людей с серьёзными ограничениями по здоровью)." data-pl="Treningi na żywo w Bielsko-Białej (CityFit · FC24). Maksymalna efektywność przez osobistą pracę. Prowadzę też trening medyczny (dla osób z poważnymi ograniczeniami zdrowotnymi).">Живі тренування у Bielsko-Biała (CityFit · FC24).</p>
+      <p class="sc-preview" data-uk="Живі тренування у Bielsko-Biała (CityFit). Максальна ефективність через особисту роботу. Також проводжу медичний тренінг (для людей із серйозними обмеженнями по здоров'ю)." data-en="Live training in Bielsko-Biała (CityFit · FC24). Maximum efficiency through personal work. I also offer medical training (for people with serious health limitations)." data-ru="Живые тренировки в Bielsko-Biała (CityFit · FC24). Максальная эффективность через личную работу. Также провожу медицинский тренинг (для людей с серьёзными ограничениями по здоровью)." data-pl="Treningi na żywo w Bielsko-Białej (CityFit · FC24). Maksymalna efektywność przez osobistą pracę. Prowadzę też trening medyczny (dla osób z poważnymi ograniczeniami zdrowotnymi).">Живі тренування у Bielsko-Biała (CityFit · FC24).</p>
       <div class="sc-price"><span data-uk="від" data-en="from" data-ru="от" data-pl="od">від</span> 110 zł / <span data-uk="тр" data-en="ses" data-ru="тр" data-pl="tr">тр</span></div>
       <span class="sc-more" data-uk="Детальніше →" data-en="Details →" data-ru="Подробнее →" data-pl="Szczegóły →">Детальніше →</span>
     </div>
@@ -877,7 +877,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
     <div class="client-card reveal d1" role="button" tabindex="0" onclick="openCase('artem')">
       <img class="client-img" src="/case-artem.jpg" alt="Artem — рекомпозиция тела" loading="lazy" decoding="async">
       <div class="client-info">
-        <div class="client-result">Artem (я)</div>
+        <div class="client-result" data-uk="Artem (я)" data-en="Artem (me)" data-ru="Artem (я)" data-pl="Artem (ja)">Artem (я)</div>
         <div class="client-detail"><span data-uk="Рекомпозиція тіла за 1,5–2 роки" data-en="Body recomposition over 1.5–2 years" data-ru="Рекомпозиция тела за 1,5–2 года" data-pl="Rekompozycja ciała przez 1,5–2 lata">Рекомпозиция тела за 1,5–2 года</span></div>
       </div>
     </div>
@@ -917,9 +917,9 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
       </div>
     </div>
     <div class="client-card reveal d1" role="button" tabindex="0" onclick="openCase('maks')">
-      <img class="client-img" src="/case-maks-v2.jpg" alt="Максим — устранение мышечных зажимов и набор массы" loading="lazy" decoding="async">
+      <img class="client-img" src="/case-maks-v2.jpg" alt="Maks — устранение мышечных зажимов и набор массы" loading="lazy" decoding="async">
       <div class="client-info">
-        <div class="client-result">Максим</div>
+        <div class="client-result">Maks</div>
         <div class="client-detail"><span data-uk="М'язові затиски · відновлення рухливості · набір маси" data-en="Muscle tension · mobility restored · mass gain" data-ru="Мышечные зажимы · восстановление подвижности · набор массы" data-pl="Napięcia mięśniowe · przywrócona ruchomość · budowanie masy">Мышечные зажимы · восстановление подвижности · набор массы</span></div>
       </div>
     </div>
@@ -1192,8 +1192,9 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
 })();
 </script>
 <script>
-var BOT_TOKEN = '8761708020:AAESa0vmgt-wJ1-_kBEeA9tM04WJPw2WZsg';
-var CHAT_ID = '1127279565';
+// Contact form goes through a Cloudflare Worker — the Telegram token
+// lives there and is never exposed in the browser.
+var FORM_ENDPOINT = 'https://wandering-shape-10c0.antonenkoartem16.workers.dev';
 
 // ---- LANG PICKER ----
 function pickLang(lang) {
@@ -1213,10 +1214,20 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 // ---- COOKIE CONSENT ----
+var GA_MEASUREMENT_ID = 'G-E04N72X758';
 function loadAnalyticsIfConsented(){
   var consent = localStorage.getItem('cookie_consent');
-  if (consent === 'accepted') {
-    // Google Analytics gtag.js will be injected here once the Measurement ID is added
+  if (consent === 'accepted' && !window.gaLoaded) {
+    window.gaLoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID);
   }
 }
 function setCookieConsent(accepted){
@@ -1402,9 +1413,9 @@ var services = {
     pl:{title:'OPIEKA ONLINE',price:'500 zł / miesiąc',items:['Indywidualny plan treningowy','Korekta techniki ćwiczeń na podstawie wideo','Dobór koszyka produktów','Elastyczny format żywienia: liczenie makroskładników / gotowy plan żywieniowy / jedzenie intuicyjne — wybieramy to, co Ci wygodne','Zalecenia dot. suplementów (BADy)','Wsparcie farmakologiczne w razie potrzeby','Jestem w kontakcie codziennie — szybkie korekty w razie potrzeby, główna aktualizacja planu raz w tygodniu'],note:'Im dokładniejsze podejście, tym lepszy efekt: liczenie makroskładników i gotowy plan działają bardziej przewidywalnie, jedzenie intuicyjne jest prostsze, ale efekt jest łagodniejszy. Wybieramy to, czego realnie będziesz w stanie się trzymać długoterminowo.',result:'Pełna kontrola nad Twoim postępem. System indywidualnie dostosowany i regularnie korygowany dla maksymalnego efektu.'}
   },
   personal:{
-    uk:{title:'ПЕРСОНАЛЬНІ ТРЕНУВАННЯ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Індивідуальна робота в залі (CityFit · FC24, Bielsko-Biała)','Постановка техніки виконання вправ','Персональна програма тренувань','Повний супровід між тренуваннями','Повний контроль харчування','Супровід по добавках і фармакології (за потреби)','Постійний зв\'язок і корекції'],medNoteTitle:'Медичний тренінг',medNoteText:'Працюю з людьми, які мають серйозні проблеми зі здоров\'ям — травми, хронічні стани, обмеження після операцій. Фінальну вартість визначаю індивідуально після консультації, залежно від складності випадку.',medNoteCap:'Вартість ніколи не перевищує базову ціну більш ніж на 20 zł за тренування.',medNoteMax:'Максимум: 150 zł / 1 тр · 700 zł / 5 тр · 1300 zł / 10 тр',medNoteFlag:'Важливо',result:'Максимально швидкий і якісний результат через особисту роботу. Все те ж саме, що в онлайн-веденні, але з живим контролем і швидшими корекціями.'},
+    uk:{title:'ПЕРСОНАЛЬНІ ТРЕНУВАННЯ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Індивідуальна робота в залі (CityFit · FC24, Bielsko-Biała)','Постановка техніки виконання вправ','Персональна програма тренувань','Повний супровід між тренуваннями','Повний контроль харчування','Супровід по добавках і фармакології (за потреби)','Постійний зв\'язок і корекції'],medNoteTitle:'Медичний тренінг',medNoteText:'Працюю з людьми, які мають серйозні проблеми зі здоров\'ям — травми, хронічні стани, обмеження після операцій. Фінальну вартість визначаю індивідуально після консультації, залежно від складності випадку.',medNoteCap:'Вартість ніколи не перевищує базову ціну більш ніж на 20 zł за тренування.',medNoteMax:'Максум: 150 zł / 1 тр · 700 zł / 5 тр · 1300 zł / 10 тр',medNoteFlag:'Важливо',result:'Максально швидкий і якісний результат через особисту роботу. Все те ж саме, що в онлайн-веденні, але з живим контролем і швидшими корекціями.'},
     en:{title:'PERSONAL TRAINING',price:'130 zł / 1 ses · 600 zł / 5 ses · 1100 zł / 10 ses',items:['Individual work in the gym (CityFit · FC24, Bielsko-Biała)','Technique correction','Personal training program','Full support between sessions','Full nutrition control','Supplement & pharmacology support if needed','Constant communication and adjustments'],medNoteTitle:'Medical training',medNoteText:"For people with serious health conditions — injuries, chronic issues, post-surgery limitations. The final price is set individually after a consultation, based on case complexity.",medNoteCap:'The price never exceeds the base rate by more than 20 zł per session.',medNoteMax:'Maximum: 150 zł / 1 ses · 700 zł / 5 ses · 1300 zł / 10 ses',medNoteFlag:'Important',result:'Maximum fast and quality results through personal work. Everything from online coaching but with live control and faster adjustments.'},
-    ru:{title:'ПЕРСОНАЛЬНЫЕ ТРЕНИРОВКИ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Индивидуальная работа в зале (CityFit · FC24, Bielsko-Biała)','Постановка техники выполнения упражнений','Персональная программа тренировок','Полное сопровождение между тренировками','Полный контроль питания','Сопровождение по добавкам и фармакологии (при необходимости)','Постоянная связь и коррекции'],medNoteTitle:'Медицинский тренинг',medNoteText:'Работаю с людьми, у которых есть серьёзные проблемы со здоровьем — травмы, хронические состояния, ограничения после операций. Итоговую стоимость определяю индивидуально после консультации, в зависимости от сложности случая.',medNoteCap:'Стоимость никогда не превышает базовую цену больше чем на 20 zł за тренировку.',medNoteMax:'Максимум: 150 zł / 1 тр · 700 zł / 5 тр · 1300 zł / 10 тр',medNoteFlag:'Важно',result:'Максимально быстрый и качественный результат через личную работу. Всё то же самое, что в онлайн-ведении, но с живым контролем и более быстрыми коррекциями.'},
+    ru:{title:'ПЕРСОНАЛЬНЫЕ ТРЕНИРОВКИ',price:'130 zł / 1 тр · 600 zł / 5 тр · 1100 zł / 10 тр',items:['Индивидуальная работа в зале (CityFit · FC24, Bielsko-Biała)','Постановка техники выполнения упражнений','Персональная программа тренировок','Полное сопровождение между тренировками','Полный контроль питания','Сопровождение по добавкам и фармакологии (при необходимости)','Постоянная связь и коррекции'],medNoteTitle:'Медицинский тренинг',medNoteText:'Работаю с людьми, у которых есть серьёзные проблемы со здоровьем — травмы, хронические состояния, ограничения после операций. Итоговую стоимость определяю индивидуально после консультации, в зависимости от сложности случая.',medNoteCap:'Стоимость никогда не превышает базовую цену больше чем на 20 zł за тренировку.',medNoteMax:'Максум: 150 zł / 1 тр · 700 zł / 5 тр · 1300 zł / 10 тр',medNoteFlag:'Важно',result:'Максально быстрый и качественный результат через личную работу. Всё то же самое, что в онлайн-ведении, но с живым контролем и более быстрыми коррекциями.'},
     pl:{title:'TRENING PERSONALNY',price:'130 zł / 1 tr · 600 zł / 5 tr · 1100 zł / 10 tr',items:['Indywidualna praca na siłowni (CityFit · FC24, Bielsko-Biała)','Korekta techniki ćwiczeń','Personalny program treningowy','Pełne wsparcie między sesjami','Pełna kontrola żywienia','Wsparcie suplementacyjne i farmakologiczne w razie potrzeby','Stały kontakt i korekty'],medNoteTitle:'Trening medyczny',medNoteText:'Pracuję z osobami z poważnymi problemami zdrowotnymi — kontuzje, stany przewlekłe, ograniczenia po operacjach. Ostateczną cenę ustalam indywidualnie po konsultacji, w zależności od złożoności przypadku.',medNoteCap:'Cena nigdy nie przekracza stawki bazowej o więcej niż 20 zł za trening.',medNoteMax:'Maksymalnie: 150 zł / 1 tr · 700 zł / 5 tr · 1300 zł / 10 tr',medNoteFlag:'Ważne',result:'Maksymalnie szybkie i jakościowe wyniki przez osobistą pracę. Wszystko co w opiece online, ale z żywą kontrolą i szybszymi korektami.'}
   },
   hybrid:{
@@ -1593,9 +1604,9 @@ var cases = {
   maks:{
     img:'/case-maks-v2.jpg',
     reviewImg:null,
-    uk:{title:'ПРИБРАЛИ М\'ЯЗОВІ ЗАТИСКИ І ВИЙШЛИ НА СТАБІЛЬНИЙ НАБІР МАСИ',meta:'Максим · Затиснутий грудний м\'яз · Напруга стегон',reviewLabel:'',text:'<h4>Вихідна ситуація</h4><p>Максим звернувся до мене з метою набрати м\'язову масу. Але вже на перших тренуваннях стало зрозуміло, що спочатку потрібно вирішити іншу проблему.</p><ul><li>сильно затиснутий правий грудний м\'яз;</li><li>сильна напруга м\'язів передньої поверхні стегна;</li><li>через це було важко виконувати навіть звичайні присідання з невеликою вагою.</li></ul><h4>Що було зроблено</h4><p>Ми додали в програму вправи на розтяжку, самомасаж і роботу з MFR-роликом та масажним пістолетом. Я показав, як самостійно опрацьовувати затиснуті м\'язи вдома. Один раз Максим також відвідав масажиста, щоб точніше визначити проблемні зони, а далі ми вже повністю працювали за нашим планом.</p><h4>Результат</h4><ul><li>За кілька місяців повністю прибрали м\'язові затиски.</li><li>Відновили нормальну рухливість.</li><li>Тренування стали комфортними.</li><li>Максим зміг повноцінно прогресувати в залі і набрав хорошу кількість м\'язової маси.</li></ul><p class="case-note">Наочний приклад того, що перед набором маси іноді важливіше спочатку розібратися з рухливістю і затисками — без цього прогрес просто впирається у стелю.</p>'},
+    uk:{title:'ПРИБРАЛИ М\'ЯЗОВІ ЗАТИСКИ І ВИЙШЛИ НА СТАБІЛЬНИЙ НАБІР МАСИ',meta:'Maks · Затиснутий грудний м\'яз · Напруга стегон',reviewLabel:'',text:'<h4>Вихідна ситуація</h4><p>Макс звернувся до мене з метою набрати м\'язову масу. Але вже на перших тренуваннях стало зрозуміло, що спочатку потрібно вирішити іншу проблему.</p><ul><li>сильно затиснутий правий грудний м\'яз;</li><li>сильна напруга м\'язів передньої поверхні стегна;</li><li>через це було важко виконувати навіть звичайні присідання з невеликою вагою.</li></ul><h4>Що було зроблено</h4><p>Ми додали в програму вправи на розтяжку, самомасаж і роботу з MFR-роликом та масажним пістолетом. Я показав, як самостійно опрацьовувати затиснуті м\'язи вдома. Один раз Макс також відвідав масажиста, щоб точніше визначити проблемні зони, а далі ми вже повністю працювали за нашим планом.</p><h4>Результат</h4><ul><li>За кілька місяців повністю прибрали м\'язові затиски.</li><li>Відновили нормальну рухливість.</li><li>Тренування стали комфортними.</li><li>Макс зміг повноцінно прогресувати в залі і набрав хорошу кількість м\'язової маси.</li></ul><p class="case-note">Наочний приклад того, що перед набором маси іноді важливіше спочатку розібратися з рухливістю і затисками — без цього прогрес просто впирається у стелю.</p>'},
     en:{title:'RELEASED MUSCLE TENSION AND MOVED INTO STEADY MASS GAIN',meta:'Maks · Tight chest muscle · Tense thighs',reviewLabel:'',text:'<h4>Starting point</h4><p>Maks came to me with the goal of gaining muscle mass. But by the first few sessions it became clear we first had to deal with a different problem.</p><ul><li>his right chest muscle was significantly tight;</li><li>strong tension in the front thigh muscles;</li><li>this made even a basic bodyweight squat difficult.</li></ul><h4>What we did</h4><p>We added stretching, self-massage and work with an MFR roller and a massage gun to the program. I showed him how to release tight muscles on his own at home. Maks also visited a massage therapist once to pinpoint the problem areas more precisely, and from there we worked fully according to our own plan.</p><h4>Result</h4><ul><li>Within a few months the muscle tension was fully released.</li><li>Normal mobility was restored.</li><li>Training became comfortable.</li><li>Maks was then able to progress properly in the gym and gained a solid amount of muscle mass.</li></ul><p class="case-note">A clear example of how, before chasing mass, it\'s sometimes more important to first sort out mobility and tension — without that, progress simply hits a ceiling.</p>'},
-    ru:{title:'УСТРАНИЛИ МЫШЕЧНЫЕ ЗАЖИМЫ И ВЫШЛИ НА СТАБИЛЬНЫЙ НАБОР МАССЫ',meta:'Максим · Зажатая грудная мышца · Напряжение бёдер',reviewLabel:'',text:'<h4>Исходная ситуация</h4><p>Максим обратился ко мне с целью набрать мышечную массу. Но уже на первых тренировках стало понятно, что сначала нужно решить другую проблему.</p><ul><li>сильно зажата правая грудная мышца;</li><li>сильное напряжение мышц передней поверхности бедра;</li><li>из-за этого было тяжело выполнять даже обычные приседания с небольшим весом.</li></ul><h4>Что было сделано</h4><p>Мы добавили в программу упражнения на растяжку, самомассаж и работу с MFR-роллом и массажным пистолетом. Я показал, как самостоятельно прорабатывать зажатые мышцы дома. Один раз Максим также посетил массажиста, чтобы точнее определить проблемные зоны, а дальше мы уже полностью работали по нашему плану.</p><h4>Результат</h4><ul><li>За несколько месяцев полностью убрали мышечные зажимы.</li><li>Восстановили нормальную подвижность.</li><li>Тренировки стали комфортными.</li><li>Максим смог полноценно прогрессировать в зале и набрал хорошее количество мышечной массы.</li></ul><p class="case-note">Наглядный пример того, что перед набором массы иногда важнее сначала разобраться с подвижностью и зажимами — без этого прогресс просто упирается в потолок.</p>'},
+    ru:{title:'УСТРАНИЛИ МЫШЕЧНЫЕ ЗАЖИМЫ И ВЫШЛИ НА СТАБИЛЬНЫЙ НАБОР МАССЫ',meta:'Maks · Зажатая грудная мышца · Напряжение бёдер',reviewLabel:'',text:'<h4>Исходная ситуация</h4><p>Макс обратился ко мне с целью набрать мышечную массу. Но уже на первых тренировках стало понятно, что сначала нужно решить другую проблему.</p><ul><li>сильно зажата правая грудная мышца;</li><li>сильное напряжение мышц передней поверхности бедра;</li><li>из-за этого было тяжело выполнять даже обычные приседания с небольшим весом.</li></ul><h4>Что было сделано</h4><p>Мы добавили в программу упражнения на растяжку, самомассаж и работу с MFR-роллом и массажным пистолетом. Я показал, как самостоятельно прорабатывать зажатые мышцы дома. Один раз Макс также посетил массажиста, чтобы точнее определить проблемные зоны, а дальше мы уже полностью работали по нашему плану.</p><h4>Результат</h4><ul><li>За несколько месяцев полностью убрали мышечные зажимы.</li><li>Восстановили нормальную подвижность.</li><li>Тренировки стали комфортными.</li><li>Макс смог полноценно прогрессировать в зале и набрал хорошее количество мышечной массы.</li></ul><p class="case-note">Наглядный пример того, что перед набором массы иногда важнее сначала разобраться с подвижностью и зажимами — без этого прогресс просто упирается в потолок.</p>'},
     pl:{title:'USUNĘLIŚMY NAPIĘCIA MIĘŚNIOWE I PRZESZLIŚMY DO STABILNEGO BUDOWANIA MASY',meta:'Maks · Napięty mięsień piersiowy · Napięcie ud',reviewLabel:'',text:'<h4>Sytuacja wyjściowa</h4><p>Maks zgłosił się do mnie z celem zbudowania masy mięśniowej. Już na pierwszych treningach stało się jednak jasne, że najpierw trzeba rozwiązać inny problem.</p><ul><li>mocno napięty prawy mięsień piersiowy;</li><li>silne napięcie mięśni przedniej części uda;</li><li>przez to trudno mu było wykonać nawet zwykłe przysiady z niewielkim obciążeniem.</li></ul><h4>Co zostało zrobione</h4><p>Dodaliśmy do programu ćwiczenia rozciągające, automasaż oraz pracę z rolką MFR i pistoletem do masażu. Pokazałem mu, jak samodzielnie rozluźniać napięte mięśnie w domu. Maks odwiedził też raz masażystę, aby dokładniej określić problematyczne miejsca, a dalej pracowaliśmy już w pełni według naszego planu.</p><h4>Rezultat</h4><ul><li>W ciągu kilku miesięcy całkowicie usunęliśmy napięcia mięśniowe.</li><li>Przywróciliśmy normalną ruchomość.</li><li>Treningi stały się komfortowe.</li><li>Maks mógł w pełni progresować na siłowni i zbudował solidną ilość masy mięśniowej.</li></ul><p class="case-note">Wyraźny przykład tego, że przed budowaniem masy czasem ważniejsze jest najpierw uporanie się z ruchomością i napięciami — bez tego progres po prostu napotyka sufit.</p>'}
   }
 };
@@ -1751,17 +1762,19 @@ function submitForm(e) {
   btn.textContent = '...';
   btn.disabled = true;
 
-  var text = '🏋️ <b>НОВА ЗАЯВКА з сайту!</b>\n\n' +
-    '👤 <b>Ім\'я:</b> ' + name + '\n' +
-    '📱 <b>Контакт:</b> ' + phone + '\n' +
-    '🎯 <b>Мета:</b> ' + (goal||'—') + '\n' +
-    '📍 <b>Формат:</b> ' + (format||'—') + '\n' +
-    '💬 <b>Про себе:</b> ' + (msg||'—');
-
-  fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+  fetch(FORM_ENDPOINT, {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
+    body: JSON.stringify({
+      name: name,
+      contact: phone,
+      goal: goal,
+      format: format,
+      message: msg,
+      lang: currentLang,
+      website: honeypot,
+      elapsed: loadedAt ? (Date.now() - loadedAt) : 0
+    })
   })
   .then(function(r){ return r.json(); })
   .then(function(data) {
