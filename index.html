@@ -71,6 +71,16 @@ nav.scrolled{background:rgba(8,8,8,0.88);padding:12px 60px;border-bottom:1px sol
 .nav-center a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
 .nav-center a:hover{color:var(--gold);}
 .nav-center a:hover::after{width:100%;}
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:transparent;border:none;cursor:pointer;padding:0;}
+.nav-burger span{display:block;width:100%;height:1px;background:var(--white);transition:transform .3s ease,opacity .3s ease;}
+.nav-burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mobile-menu{position:fixed;top:0;right:0;height:100vh;width:78vw;max-width:320px;background:rgba(10,10,10,.98);backdrop-filter:blur(14px);z-index:998;display:flex;flex-direction:column;gap:2px;padding:90px 28px 28px;transform:translateX(100%);transition:transform .4s var(--ease);border-left:1px solid rgba(201,168,76,.15);}
+.mobile-menu.open{transform:translateX(0);}
+.mobile-menu a{color:var(--white);text-decoration:none;font-size:15px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.mobile-menu a:hover{color:var(--gold);}
+.mobile-menu-cta{margin-top:20px;background:var(--gold);color:var(--black)!important;text-align:center;padding:15px!important;border-bottom:none!important;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
 .nav-right{display:flex;align-items:center;gap:14px;}
 .lang-bar{display:flex;gap:3px;}
 .lang-btn{background:transparent;border:1px solid rgba(201,168,76,0.2);color:var(--gray);padding:5px 9px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.3s;}
@@ -394,6 +404,7 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
 @media(max-width:960px){
   nav{padding:14px 20px;}nav.scrolled{padding:10px 20px;}
   .nav-center{display:none;}
+  .nav-burger{display:flex;}
   .nav-right{min-width:0;}
   .hero-content{padding:0 20px;}
   .hero-stats,.scroll-hint{display:none;}
@@ -582,8 +593,18 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
       <button class="lang-btn" onclick="setLang('pl')">POL</button>
     </div>
     <a href="#contact" class="nav-cta" data-uk="ЗАПИСАТИСЯ" data-en="BOOK NOW" data-ru="ЗАПИСАТЬСЯ" data-pl="ZAPISZ SIĘ">ЗАПИСАТИСЯ</a>
+    <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobileMenu()" data-uk="Про мене" data-en="About" data-ru="Обо мне" data-pl="O mnie">Про мене</a>
+  <a href="#services" onclick="closeMobileMenu()" data-uk="Послуги" data-en="Services" data-ru="Услуги" data-pl="Usługi">Послуги</a>
+  <a href="#clients" onclick="closeMobileMenu()" data-uk="Клієнти" data-en="Clients" data-ru="Клиенты" data-pl="Klienci">Клієнти</a>
+  <a href="#why" onclick="closeMobileMenu()" data-uk="Підхід" data-en="Approach" data-ru="Подход" data-pl="Podejście">Підхід</a>
+  <a href="#contact" class="mobile-menu-cta" onclick="closeMobileMenu()" data-uk="ЗАПИСАТИСЯ" data-en="BOOK NOW" data-ru="ЗАПИСАТЬСЯ" data-pl="ZAPISZ SIĘ">ЗАПИСАТИСЯ</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -1370,6 +1391,20 @@ window.addEventListener('load', function() { setTimeout(function() { document.qu
 
 // ---- LANGUAGE ----
 var currentLang = 'uk';
+// ---- MOBILE MENU ----
+function toggleMobileMenu(){
+  var menu = document.getElementById('mobileMenu');
+  var burger = document.getElementById('navBurger');
+  var isOpen = menu.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('navBurger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 function setLang(lang) {
   currentLang = lang;
   var map = { uk:'УКР', en:'ENG', ru:'РУС', pl:'POL' };
