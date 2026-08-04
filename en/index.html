@@ -1226,6 +1226,13 @@ function pickLang(lang) {
 }
 function openCurtain() {
   if (document.body.classList.contains('intro-done')) return;
+  var alreadyPlayed = false;
+  try { alreadyPlayed = sessionStorage.getItem('maf_intro_played') === '1'; } catch(e) {}
+  if (alreadyPlayed) {
+    document.body.classList.add('intro-done');
+    return;
+  }
+  try { sessionStorage.setItem('maf_intro_played', '1'); } catch(e) {}
   if (window.play3DIntro) { window.play3DIntro(); } else { document.body.classList.add('intro-done'); }
   setTimeout(function(){ document.body.classList.add('intro-done'); }, 6000);
 }

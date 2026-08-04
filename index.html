@@ -587,10 +587,10 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
   </ul>
   <div class="nav-right">
     <div class="lang-bar">
-      <button class="lang-btn active" onclick="setLang('uk')">УКР</button>
-      <button class="lang-btn" onclick="setLang('en')">ENG</button>
-      <button class="lang-btn" onclick="setLang('ru')">РУС</button>
-      <button class="lang-btn" onclick="setLang('pl')">POL</button>
+      <button class="lang-btn active" onclick="gotoLang('uk')">УКР</button>
+      <button class="lang-btn" onclick="gotoLang('en')">ENG</button>
+      <button class="lang-btn" onclick="gotoLang('ru')">РУС</button>
+      <button class="lang-btn" onclick="gotoLang('pl')">POL</button>
     </div>
     <a href="#contact" class="nav-cta" data-uk="ЗАПИСАТИСЯ" data-en="BOOK NOW" data-ru="ЗАПИСАТЬСЯ" data-pl="ZAPISZ SIĘ">ЗАПИСАТИСЯ</a>
     <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleMobileMenu()">
@@ -1226,6 +1226,13 @@ function pickLang(lang) {
 }
 function openCurtain() {
   if (document.body.classList.contains('intro-done')) return;
+  var alreadyPlayed = false;
+  try { alreadyPlayed = sessionStorage.getItem('maf_intro_played') === '1'; } catch(e) {}
+  if (alreadyPlayed) {
+    document.body.classList.add('intro-done');
+    return;
+  }
+  try { sessionStorage.setItem('maf_intro_played', '1'); } catch(e) {}
   if (window.play3DIntro) { window.play3DIntro(); } else { document.body.classList.add('intro-done'); }
   setTimeout(function(){ document.body.classList.add('intro-done'); }, 6000);
 }
@@ -1391,6 +1398,11 @@ window.addEventListener('load', function() { setTimeout(function() { document.qu
 
 // ---- LANGUAGE ----
 var currentLang = 'uk';
+function gotoLang(lang){
+  try { sessionStorage.setItem('maf_skip_intro', '1'); } catch(e) {}
+  localStorage.setItem('maf_lang', lang);
+  window.location.href = '/' + lang + '/';
+}
 // ---- MOBILE MENU ----
 function toggleMobileMenu(){
   var menu = document.getElementById('mobileMenu');
