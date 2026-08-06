@@ -85,7 +85,7 @@ body.intro-done .hero-stats,body.intro-done .hero-stats *,body.intro-done .scrol
 .eyebrow-loc-text{color:rgba(245,240,232,.7);font-size:clamp(6.8px,1.3vw,8.5px);font-weight:600;letter-spacing:clamp(0.6px,0.3vw,1.4px);text-transform:uppercase;white-space:nowrap;}
 h1.hero-title{position:relative;display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10.5vw,130px);line-height:0.88;letter-spacing:2px;opacity:0;animation:fadeUp 0.8s 0.5s forwards;}
 h1.hero-title .g{color:var(--gold);}
-h1.hero-title::after{content:'';position:absolute;left:4px;bottom:6px;width:5px;height:5px;border-radius:50%;background:var(--gold2);opacity:0;animation:dotAppear .5s ease 1.2s forwards,dotPulse 3s ease-in-out 1.8s infinite;}
+
 .hero-title-tilt{display:inline-block;transform-style:preserve-3d;will-change:transform;}
 @media(hover:none){.hero-title-tilt{transform:none!important;}}
 .hero-tagline{margin-top:18px;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(14px,1.6vw,19px);color:rgba(245,240,232,0.72);line-height:1.5;max-width:540px;opacity:0;animation:fadeUp 0.8s 0.7s forwards;}
