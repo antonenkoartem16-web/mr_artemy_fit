@@ -4,6 +4,19 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script>
+(function(){
+  function setVH(){
+    var h = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+    document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
+  }
+  setVH();
+  window.addEventListener('resize', setVH);
+  window.addEventListener('orientationchange', setVH);
+  if (window.visualViewport) { window.visualViewport.addEventListener('resize', setVH); }
+})();
+</script>
+
 <title>MR. ARTEMY FIT — Trener personalny · Bielsko-Biała · Online</title>
 <meta content="Trener personalny i coach online. Budowa masy, redukcja, rekompozycja sylwetki, praca z ograniczeniami zdrowotnymi. Bielsko-Biała i online na całym świecie." name="description"/>
 <meta content="trener personalny Bielsko-Biała, online coaching, budowa masy, redukcja, trener medyczny" name="keywords"/>
@@ -755,12 +768,21 @@ document.querySelectorAll('.sc,.client-card').forEach(function(el) {
 });
 
 // ---- NAVBAR ----
-window.addEventListener('scroll', function() {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-  var max = document.documentElement.scrollHeight - window.innerHeight;
-  var progress = max > 0 ? (window.scrollY / max) * 100 : 0;
-  document.documentElement.style.setProperty('--scroll-progress', progress + '%');
-});
+(function(){
+  var navEl = document.getElementById('nav');
+  var ticking = false;
+  function updateScrollUI(){
+    var y = window.scrollY;
+    navEl.classList.toggle('scrolled', y > 50);
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = max > 0 ? (y / max) * 100 : 0;
+    document.documentElement.style.setProperty('--scroll-progress', progress + '%');
+    ticking = false;
+  }
+  window.addEventListener('scroll', function() {
+    if (!ticking) { requestAnimationFrame(updateScrollUI); ticking = true; }
+  }, { passive: true });
+})();
 
 // ---- COUNTERS ----
 function easeOutCubic(x){ return 1 - Math.pow(1 - x, 3); }
