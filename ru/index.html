@@ -1299,12 +1299,14 @@ function submitForm(e) {
       if(h) h.innerHTML = h.getAttribute('data-'+currentLang) || h.innerHTML;
       if(p) p.innerHTML = p.getAttribute('data-'+currentLang) || p.innerHTML;
     } else {
-      btn.textContent = '⚠ Помилка. Напиши в Telegram';
+      var ERR_MSG = {pl:'⚠ Błąd. Napisz na Telegramie', ru:'⚠ Ошибка. Напиши в Telegram', en:'⚠ Error. Message me on Telegram', uk:'⚠ Помилка. Напиши в Telegram'};
+      btn.textContent = ERR_MSG[currentLang] || ERR_MSG.en;
       btn.disabled = false;
     }
   })
   .catch(function() {
-    btn.textContent = '⚠ Помилка. Напиши в Telegram';
+    var ERR_MSG2 = {pl:'⚠ Błąd. Napisz na Telegramie', ru:'⚠ Ошибка. Напиши в Telegram', en:'⚠ Error. Message me on Telegram', uk:'⚠ Помилка. Напиши в Telegram'};
+    btn.textContent = ERR_MSG2[currentLang] || ERR_MSG2.en;
     btn.disabled = false;
   });
 }
