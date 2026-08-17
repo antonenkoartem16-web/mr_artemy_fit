@@ -11,9 +11,7 @@
     document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
   }
   setVH();
-  window.addEventListener('resize', setVH);
-  window.addEventListener('orientationchange', setVH);
-  if (window.visualViewport) { window.visualViewport.addEventListener('resize', setVH); }
+  window.addEventListener('orientationchange', function(){ setTimeout(setVH, 150); });
 })();
 </script>
 
@@ -89,7 +87,6 @@
 <button class="cookie-btn cookie-btn--gold" data-en="Accept" data-pl="Akceptuję" data-ru="Принять" data-uk="Прийняти" onclick="setCookieConsent(true)">Akceptuję</button>
 </div>
 </div>
-<a class="sticky-cta" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ →" data-uk="БЕЗКОШТОВНА КОНСУЛЬТАЦІЯ →" href="#contact">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -168,8 +165,8 @@
 <p class="hero-tagline hero-tagline-big" data-en="REACH YOUR GOAL. NO EXTREMES. NO OFF-THE-SHELF PLANS." data-pl="OSIĄGNIJ SWÓJ CEL. BEZ SKRAJNOŚCI. BEZ GOTOWYCH SCHEMATÓW." data-ru="ДОСТИГНИ СВОЕЙ ЦЕЛИ. БЕЗ КРАЙНОСТЕЙ. БЕЗ ШАБЛОННЫХ СХЕМ." data-uk="ДОСЯГНИ СВОЄЇ МЕТИ. БЕЗ КРАЙНОЩІВ. БЕЗ ШАБЛОННИХ СХЕМ.">OSIĄGNIJ SWÓJ CEL. BEZ SKRAJNOŚCI. BEZ GOTOWYCH SCHEMATÓW.</p>
 <p class="hero-sub" data-en="Individual training, nutrition and a strategy tailored to your goal, level and health capabilities." data-pl="Indywidualny trening, żywienie i strategia dopasowana do Twojego celu, poziomu oraz możliwości zdrowotnych." data-ru="Индивидуальные тренировки, питание и стратегия, подобранная под твою цель, уровень и состояние здоровья." data-uk="Індивідуальні тренування, харчування та стратегія, підібрана під твою мету, рівень та стан здоров'я.">Indywidualny trening, żywienie i strategia dopasowana do Twojego celu, poziomu oraz możliwości zdrowotnych.</p>
 <div class="hero-btns">
-<a class="btn-gold" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="ЗАПИСАТЬСЯ НА БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ →" data-uk="ЗАПИСАТИСЯ НА БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ →" href="#contact">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
-<a class="btn-ghost" data-en="Learn more" data-pl="Dowiedz się więcej" data-ru="Узнать больше" data-uk="Дізнатися більше" href="#about">Dowiedz się więcej</a>
+<a class="btn-gold" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="ЗАПИСАТЬСЯ НА БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ →" data-uk="ЗАПИСАТИСЯ НА БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ →" href="#free-consult">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
+<a class="btn-ghost" data-en="See services and prices" data-pl="Zobacz usługi i ceny" data-ru="Смотреть услуги и цены" data-uk="Дивитись послуги і ціни" href="#services">Zobacz usługi i ceny</a>
 </div>
 <div class="hero-cta-note" data-en="15–20 min · no obligations" data-pl="15–20 min · bez zobowiązań" data-ru="15–20 мин · без обязательств" data-uk="15–20 хв · без зобов'язань">15–20 min · bez zobowiązań</div>
 </div>
@@ -431,7 +428,7 @@
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-en="Where do the sessions take place?" data-pl="Gdzie odbywają się treningi?" data-ru="Где проходят тренировки?" data-uk="Де проходять тренування?">Gdzie odbywają się treningi?</div>
-<div class="faq-a" data-en="Bielsko-Biała, at the current training location listed on the site." data-pl="Bielsko-Biała, w obecnym miejscu treningowym wskazanym na stronie." data-ru="Bielsko-Biała, в текущем месте тренировок, указанном на сайте." data-uk="Bielsko-Biała, у поточному місці тренувань, вказаному на сайті.">Bielsko-Biała, w obecnym miejscu treningowym wskazanym na stronie.</div>
+<div class="faq-a" data-en="At FC24 (formerly CityFit), Bielsko-Biała." data-pl="W klubie FC24 (dawniej CityFit), Bielsko-Biała." data-ru="В клубе FC24 (бывший CityFit), Bielsko-Biała." data-uk="У клубі FC24 (колишній CityFit), Bielsko-Biała.">W klubie FC24 (dawniej CityFit), Bielsko-Biała.</div>
 </div>
 <div class="faq-item reveal">
 <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-en="How much does it cost?" data-pl="Ile kosztuje współpraca?" data-ru="Сколько стоит сотрудничество?" data-uk="Скільки коштує співпраця?">Ile kosztuje współpraca?</div>
@@ -440,7 +437,7 @@
 </div>
 </div>
 <div class="fq-col fq-col-consult">
-<div class="fc-box reveal">
+<div class="fc-box reveal" id="free-consult">
 <div class="section-tag" data-en="Not sure where to start?" data-pl="Nie wiesz, od czego zacząć?" data-ru="Не знаешь, с чего начать?" data-uk="Не знаєш, з чого почати?">Nie wiesz, od czego zacząć?</div>
 <h2 class="section-title" data-en="BOOK A FREE&lt;br&gt;&lt;em&gt;CONSULTATION&lt;/em&gt;" data-pl="UMÓW BEZPŁATNĄ&lt;br&gt;&lt;em&gt;KONSULTACJĘ&lt;/em&gt;" data-ru="ЗАПИШИСЬ НА БЕСПЛАТНУЮ&lt;br&gt;&lt;em&gt;КОНСУЛЬТАЦИЮ&lt;/em&gt;" data-uk="ЗАПИШИСЬ НА БЕЗКОШТОВНУ&lt;br&gt;&lt;em&gt;КОНСУЛЬТАЦІЮ&lt;/em&gt;">UMÓW BEZPŁATNĄ<br/><em>KONSULTACJĘ</em></h2>
 <p class="body-text reveal" data-en="During a short call I'll go over your goal, current situation and starting point. Then I'll show you a possible path from point A to point B — what needs to happen, roughly how long it may take, and how I can help." data-pl="Podczas krótkiej rozmowy przeanalizuję Twój cel, obecną sytuację i punkt wyjścia. Następnie pokażę Ci możliwą drogę od punktu A do punktu B — co trzeba będzie zrobić, ile orientacyjnie może potrwać proces i w jaki sposób mogę Ci w tym pomóc." data-ru="В ходе короткого звонка разберу твою цель, текущую ситуацию и точку старта. Затем покажу возможный путь от точки А до точки Б — что нужно будет сделать, сколько примерно может занять процесс и как я могу тебе помочь." data-uk="Під час короткої розмови розберу твою мету, поточну ситуацію і точку старту. Потім покажу можливий шлях від точки А до точки Б — що потрібно буде зробити, скільки орієнтовно може зайняти процес і як я можу тобі допомогти.">Podczas krótkiej rozmowy przeanalizuję Twój cel, obecną sytuację i punkt wyjścia. Następnie pokażę Ci możliwą drogę od punktu A do punktu B — co trzeba będzie zrobić, ile orientacyjnie może potrwać proces i w jaki sposób mogę Ci w tym pomóc.</p>
@@ -452,6 +449,7 @@
 </ul>
 <div class="hero-cta-note" style="margin-top:22px" data-en="15–20 min · no obligations" data-pl="15–20 min · bez zobowiązań" data-ru="15–20 мин · без обязательств" data-uk="15–20 хв · без зобов'язань">15–20 min · bez zobowiązań</div>
 <a class="btn-gold" style="margin-top:26px;display:inline-block" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="ЗАПИСАТЬСЯ НА БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ →" data-uk="ЗАПИСАТИСЯ НА БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ →" href="#contact">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
+<p class="fc-note" data-en="Fill in the short form below to book your spot" data-pl="Wypełnij krótki formularz poniżej, aby się zapisać" data-ru="Заполни короткую анкету ниже, чтобы записаться" data-uk="Заповни коротку анкету нижче, щоб записатися">Wypełnij krótki formularz poniżej, aby się zapisać</p>
 </div>
 </div>
 </div>
@@ -503,7 +501,7 @@
 <option data-en="Consultation PRO" data-pl="Konsultacja PRO" data-ru="Консультация PRO" data-uk="Консультація PRO" value="Konsultacja PRO">Konsultacja PRO</option>
 <option data-en="Not sure yet" data-pl="Nie wiem" data-ru="Не знаю" data-uk="Не знаю" value="Nie wiem">Nie wiem</option>
 </select>
-<textarea class="ft" data-ph-en="TELL ME ABOUT YOURSELF: INJURIES, LIMITATIONS, EXPERIENCE..." data-ph-pl="OPOWIEDZ O SOBIE: URAZY, OGRANICZENIA, DOŚWIADCZENIE..." data-ph-ru="РАССКАЖИ О СЕБЕ: ТРАВМЫ, ОГРАНИЧЕНИЯ, ОПЫТ..." data-ph-uk="РОЗКАЖИ ПРО СЕБЕ: ТРАВМИ, ОБМЕЖЕННЯ, ДОСВІД..." id="fmsg" placeholder="OPOWIEDZ O SOBIE: URAZY, OGRANICZENIA, DOŚWIADCZENIE..."></textarea>
+<textarea class="ft" data-ph-en="E.G. I'D LIKE A FREE CONSULTATION TO GO OVER MY CASE. INJURIES, LIMITATIONS, EXPERIENCE..." data-ph-pl="NP. CHCĘ BEZPŁATNĄ KONSULTACJĘ, ABY OMÓWIĆ SWÓJ PRZYPADEK. URAZY, OGRANICZENIA, DOŚWIADCZENIE..." data-ph-ru="НАПР. ХОЧУ БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ, ЧТОБЫ РАЗОБРАТЬ СВОЙ СЛУЧАЙ. ТРАВМЫ, ОГРАНИЧЕНИЯ, ОПЫТ..." data-ph-uk="НАПР. ХОЧУ БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ, ЩОБ РОЗІБРАТИ СВІЙ ВИПАДОК. ТРАВМИ, ОБМЕЖЕННЯ, ДОСВІД..." id="fmsg" placeholder="NP. CHCĘ BEZPŁATNĄ KONSULTACJĘ, ABY OMÓWIĆ SWÓJ PRZYPADEK. URAZY, OGRANICZENIA, DOŚWIADCZENIE..."></textarea>
 <label class="fconsent">
 <input id="fconsent" required="" type="checkbox"/>
 <span data-en="I agree to the processing of my personal data (including health information, if provided) according to the &lt;a href='../privacy-en.html' target='_blank' rel='noopener noreferrer'&gt;Privacy Policy&lt;/a&gt; *" data-pl="Wyrażam zgodę na przetwarzanie moich danych osobowych (w tym informacji o zdrowiu, jeśli je podam) zgodnie z &lt;a href='../polityka-prywatnosci.html' target='_blank' rel='noopener noreferrer'&gt;Polityką Prywatności&lt;/a&gt; *" data-ru="Согласен(-на) на обработку моих персональных данных (включая информацию о здоровье, если я её укажу) согласно &lt;a href='../privacy-ru.html' target='_blank' rel='noopener noreferrer'&gt;Политике конфиденциальности&lt;/a&gt; *" data-uk="Погоджуюсь на обробку моїх персональних даних (включно з інформацією про здоров'я, якщо я її вкажу) згідно з &lt;a href='../privacy-uk.html' target='_blank' rel='noopener noreferrer'&gt;Політикою конфіденційності&lt;/a&gt; *">Wyrażam zgodę na przetwarzanie moich danych osobowych (w tym informacji o zdrowiu, jeśli je podam) zgodnie z <a href="../polityka-prywatnosci.html" rel="noopener noreferrer" target="_blank">Polityką Prywatności</a> *</span>
