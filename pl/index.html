@@ -806,8 +806,8 @@ document.querySelectorAll('.sc,.client-card').forEach(function(el) {
     var y = window.scrollY;
     navEl.classList.toggle('scrolled', y > 50);
     var max = document.documentElement.scrollHeight - window.innerHeight;
-    var progress = max > 0 ? (y / max) * 100 : 0;
-    document.documentElement.style.setProperty('--scroll-progress', progress + '%');
+    var progress = max > 0 ? (y / max) : 0;
+    document.documentElement.style.setProperty('--scroll-progress', progress);
     ticking = false;
   }
   window.addEventListener('scroll', function() {
