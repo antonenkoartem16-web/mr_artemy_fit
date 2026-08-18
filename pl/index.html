@@ -130,7 +130,7 @@
 <button class="lang-btn" onclick="gotoLang('ru')">РУС</button>
 <button class="lang-btn active" onclick="gotoLang('pl')">POL</button>
 </div>
-<a class="nav-cta" data-en="BOOK NOW" data-pl="ZAPISZ SIĘ" data-ru="ЗАПИСАТЬСЯ" data-uk="ЗАПИСАТИСЯ" href="#contact">ZAPISZ SIĘ</a>
+<a class="nav-cta" onclick="trackCTA('nav')" data-en="BOOK NOW" data-pl="ZAPISZ SIĘ" data-ru="ЗАПИСАТЬСЯ" data-uk="ЗАПИСАТИСЯ" href="#contact">ZAPISZ SIĘ</a>
 <button aria-label="Menu" class="nav-burger" id="navBurger" onclick="toggleMobileMenu()">
 <span></span><span></span><span></span>
 </button>
@@ -165,7 +165,7 @@
 <p class="hero-tagline hero-tagline-big" data-en="REACH YOUR GOAL. NO EXTREMES. NO OFF-THE-SHELF PLANS." data-pl="OSIĄGNIJ SWÓJ CEL. BEZ SKRAJNOŚCI. BEZ GOTOWYCH SCHEMATÓW." data-ru="ДОСТИГНИ СВОЕЙ ЦЕЛИ. БЕЗ КРАЙНОСТЕЙ. БЕЗ ШАБЛОННЫХ СХЕМ." data-uk="ДОСЯГНИ СВОЄЇ МЕТИ. БЕЗ КРАЙНОЩІВ. БЕЗ ШАБЛОННИХ СХЕМ.">OSIĄGNIJ SWÓJ CEL. BEZ SKRAJNOŚCI. BEZ GOTOWYCH SCHEMATÓW.</p>
 <p class="hero-sub" data-en="Individual training, nutrition and a strategy tailored to your goal, level and health capabilities." data-pl="Indywidualny trening, żywienie i strategia dopasowana do Twojego celu, poziomu oraz możliwości zdrowotnych." data-ru="Индивидуальные тренировки, питание и стратегия, подобранная под твою цель, уровень и состояние здоровья." data-uk="Індивідуальні тренування, харчування та стратегія, підібрана під твою мету, рівень та стан здоров'я.">Indywidualny trening, żywienie i strategia dopasowana do Twojego celu, poziomu oraz możliwości zdrowotnych.</p>
 <div class="hero-btns">
-<a class="btn-gold" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="ЗАПИСАТЬСЯ НА БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ →" data-uk="ЗАПИСАТИСЯ НА БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ →" href="#free-consult">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
+<a class="btn-gold" onclick="trackCTA('hero')" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="ЗАПИСАТЬСЯ НА БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ →" data-uk="ЗАПИСАТИСЯ НА БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ →" href="#free-consult">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
 <a class="btn-ghost" data-en="See services and prices" data-pl="Zobacz usługi i ceny" data-ru="Смотреть услуги и цены" data-uk="Дивитись послуги і ціни" href="#services">Zobacz usługi i ceny</a>
 </div>
 <div class="hero-cta-note" data-en="15–20 min · no obligations" data-pl="15–20 min · bez zobowiązań" data-ru="15–20 мин · без обязательств" data-uk="15–20 хв · без зобов'язань">15–20 min · bez zobowiązań</div>
@@ -448,7 +448,7 @@
 <li data-en="I'll tell you how I can help" data-pl="Powiem, jak mogę Ci pomóc" data-ru="Расскажу, как могу тебе помочь" data-uk="Розкажу, як можу тобі допомогти">Powiem, jak mogę Ci pomóc</li>
 </ul>
 <div class="hero-cta-note" style="margin-top:22px" data-en="15–20 min · no obligations" data-pl="15–20 min · bez zobowiązań" data-ru="15–20 мин · без обязательств" data-uk="15–20 хв · без зобов'язань">15–20 min · bez zobowiązań</div>
-<a class="btn-gold" style="margin-top:26px;display:inline-block" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="ЗАПИСАТЬСЯ НА БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ →" data-uk="ЗАПИСАТИСЯ НА БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ →" href="#contact">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
+<a class="btn-gold" onclick="trackCTA('free_consult_block')" style="margin-top:26px;display:inline-block" data-en="BOOK A FREE CONSULTATION →" data-pl="UMÓW BEZPŁATNĄ KONSULTACJĘ →" data-ru="ЗАПИСАТЬСЯ НА БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ →" data-uk="ЗАПИСАТИСЯ НА БЕЗКОШТОВНУ КОНСУЛЬТАЦІЮ →" href="#contact">UMÓW BEZPŁATNĄ KONSULTACJĘ →</a>
 <p class="fc-note" data-en="Fill in the short form below to book your spot" data-pl="Wypełnij krótki formularz poniżej, aby się zapisać" data-ru="Заполни короткую анкету ниже, чтобы записаться" data-uk="Заповни коротку анкету нижче, щоб записатися">Wypełnij krótki formularz poniżej, aby się zapisać</p>
 </div>
 </div>
@@ -684,6 +684,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
 // ---- COOKIE CONSENT ----
 var GA_MEASUREMENT_ID = 'G-E04N72X758';
+var META_PIXEL_ID = '3012592245745976';
+function trackCTA(loc){ if (window.gtag) { window.gtag('event', 'cta_click', { cta_location: loc }); } }
 function loadAnalyticsIfConsented(){
   var consent = localStorage.getItem('cookie_consent');
   if (consent === 'accepted' && !window.gaLoaded) {
@@ -697,6 +699,15 @@ function loadAnalyticsIfConsented(){
     window.gtag = gtag;
     gtag('js', new Date());
     gtag('config', GA_MEASUREMENT_ID);
+
+    // Meta Pixel
+    (function(f,b,e,v,n,t,s2){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s2=b.getElementsByTagName(e)[0];s2.parentNode.insertBefore(t,s2)})(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', META_PIXEL_ID);
+    window.fbq('track', 'PageView');
   }
 }
 function setCookieConsent(accepted){
@@ -1299,6 +1310,8 @@ function submitForm(e) {
       var h = s.querySelector('h3'); var p = s.querySelector('p');
       if(h) h.innerHTML = h.getAttribute('data-'+currentLang) || h.innerHTML;
       if(p) p.innerHTML = p.getAttribute('data-'+currentLang) || p.innerHTML;
+      if (window.fbq) { window.fbq('track', 'Lead'); }
+      if (window.gtag) { window.gtag('event', 'generate_lead', { form_format: format || '', form_goal: goal || '' }); }
     } else {
       var ERR_MSG = {pl:'⚠ Błąd. Napisz na Telegramie', ru:'⚠ Ошибка. Напиши в Telegram', en:'⚠ Error. Message me on Telegram', uk:'⚠ Помилка. Напиши в Telegram'};
       btn.textContent = ERR_MSG[currentLang] || ERR_MSG.en;
