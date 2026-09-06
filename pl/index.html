@@ -491,7 +491,7 @@
 <form class="cf" id="contactForm" onsubmit="submitForm(event)">
 <div class="fr">
 <input class="fi" data-ph-en="NAME *" data-ph-pl="IMIĘ *" data-ph-ru="ИМЯ *" data-ph-uk="ІМ'Я *" id="fname" placeholder="IMIĘ *" required="" type="text"/>
-<input class="fi" data-ph-en="TELEGRAM / PHONE *" data-ph-pl="TELEGRAM / TELEFON *" data-ph-ru="TELEGRAM / ТЕЛЕФОН *" data-ph-uk="TELEGRAM / ТЕЛЕФОН *" id="fphone" placeholder="TELEGRAM / TELEFON *" required="" type="text"/>
+<input class="fi" data-ph-en="TELEGRAM / WHATSAPP / PHONE *" data-ph-pl="TELEGRAM / WHATSAPP / TELEFON *" data-ph-ru="TELEGRAM / WHATSAPP / ТЕЛЕФОН *" data-ph-uk="TELEGRAM / WHATSAPP / ТЕЛЕФОН *" id="fphone" placeholder="TELEGRAM / WHATSAPP / TELEFON *" required="" type="text"/>
 </div>
 <div aria-hidden="true" class="fr-hp">
 <label for="fwebsite">Website</label>
@@ -787,6 +787,12 @@ function moveCursorRing() {
   ring.style.top = ringY + 'px';
   requestAnimationFrame(moveCursorRing);
 }
+document.addEventListener('mouseleave', function() {
+  cur.style.display = 'none';
+  ring.style.display = 'none';
+  document.body.style.cursor = 'auto';
+  cursorReady = false;
+});
 
 // ---- HERO MAGNETIC TILT ----
 if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
