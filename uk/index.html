@@ -7,6 +7,26 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <script>
 (function(){
+  var LOCK_MS = 7000;
+  var startedAt = Date.now();
+  var userInteracted = false;
+  function markInteracted(){ userInteracted = true; }
+  ["wheel","touchstart","keydown","pointerdown"].forEach(function(ev){
+    window.addEventListener(ev, markInteracted, {passive:true, once:true});
+  });
+  function guard(){
+    if (userInteracted) return;
+    var elapsed = Date.now() - startedAt;
+    if (elapsed < LOCK_MS) {
+      if (window.scrollY > 0) { window.scrollTo(0, 0); }
+      requestAnimationFrame(guard);
+    }
+  }
+  requestAnimationFrame(guard);
+})();
+</script>
+<script>
+(function(){
   function setVH(){
     var h = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
     document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
