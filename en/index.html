@@ -515,8 +515,8 @@
 <input class="fi" data-ph-en="TELEGRAM / WHATSAPP / PHONE *" data-ph-pl="TELEGRAM / WHATSAPP / TELEFON *" data-ph-ru="TELEGRAM / WHATSAPP / ТЕЛЕФОН *" data-ph-uk="TELEGRAM / WHATSAPP / ТЕЛЕФОН *" id="fphone" placeholder="TELEGRAM / WHATSAPP / PHONE *" required="" type="text"/>
 </div>
 <div aria-hidden="true" class="fr-hp">
-<label for="fwebsite">Website</label>
-<input autocomplete="off" id="fwebsite" name="website" tabindex="-1" type="text"/>
+<label for="hp_check_9f3a">Website</label>
+<input autocomplete="off" data-lpignore="true" data-form-type="other" id="hp_check_9f3a" name="hp_check_9f3a" tabindex="-1" type="text"/>
 </div>
 <input id="fts" type="hidden"/>
 <select class="fs" id="fgoal">
@@ -1324,7 +1324,7 @@ function submitForm(e) {
   var btn = document.getElementById('fsubBtn');
 
   // Anti-spam: honeypot field should always be empty for real users
-  var honeypot = document.getElementById('fwebsite').value;
+  var honeypot = document.getElementById('hp_check_9f3a').value;
   // Anti-spam: real humans take at least ~2.5s to fill the form
   var loadedAt = parseInt(document.getElementById('fts').value || '0', 10);
   var tooFast = loadedAt && (Date.now() - loadedAt) < 2500;
