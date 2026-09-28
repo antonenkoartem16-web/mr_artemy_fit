@@ -5,34 +5,35 @@
 <meta name="facebook-domain-verification" content="hl3qd4loqbbip7a4d2l5mql8ngl9qs" />
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<style id="__maf_hide">html{visibility:hidden !important;}</style>
 <script>
 (function(){
-  var LOCK_MS = 6000;
-  var released = false;
-  var htmlEl = document.documentElement;
-  var prevHtmlOverflow = "";
-  var prevBodyOverflow = "";
-  function lock(){
-    if (released) return;
-    prevHtmlOverflow = htmlEl.style.overflow;
-    htmlEl.style.overflow = "hidden";
-    if (document.body) {
-      prevBodyOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
+  var GUARD_MS = 4000;
+  var HIDE_MS = 260;
+  var startedAt = Date.now();
+  var revealed = false;
+  var userInteracted = false;
+  function reveal(){
+    if (revealed) return;
+    revealed = true;
+    var s = document.getElementById("__maf_hide");
+    if (s && s.parentNode) s.parentNode.removeChild(s);
+  }
+  function markInteracted(){ userInteracted = true; reveal(); }
+  ["wheel","touchstart","keydown","pointerdown"].forEach(function(ev){
+    window.addEventListener(ev, markInteracted, {passive:true, once:true});
+  });
+  function correct(){
+    if (window.scrollY > 0) { window.scrollTo(0, 0); }
+    var elapsed = Date.now() - startedAt;
+    if (elapsed >= HIDE_MS) reveal();
+    if (!userInteracted && elapsed < GUARD_MS) {
+      requestAnimationFrame(correct);
     }
   }
-  function release(){
-    if (released) return;
-    released = true;
-    htmlEl.style.overflow = prevHtmlOverflow;
-    if (document.body) document.body.style.overflow = prevBodyOverflow;
-  }
-  ["wheel","touchstart","keydown","pointerdown"].forEach(function(ev){
-    window.addEventListener(ev, release, {passive:true, once:true});
-  });
-  lock();
-  document.addEventListener("DOMContentLoaded", lock);
-  setTimeout(release, LOCK_MS);
+  requestAnimationFrame(correct);
+  setTimeout(reveal, HIDE_MS + 300);
+  setTimeout(reveal, 1500);
 })();
 </script>
 <script>
