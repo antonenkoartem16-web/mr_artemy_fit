@@ -15,20 +15,240 @@
     <loc>https://mrartemyfit.com/pl/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/"/>
   </url>
   <url>
     <loc>https://mrartemyfit.com/uk/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/"/>
   </url>
   <url>
     <loc>https://mrartemyfit.com/ru/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/"/>
   </url>
   <url>
     <loc>https://mrartemyfit.com/en/</loc>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/pl/about/</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/about/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/about/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/about/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/uk/about/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/about/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/about/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/about/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/ru/about/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/about/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/about/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/about/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/en/about/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/about/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/about/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/about/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/pl/approach/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/approach/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/approach/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/approach/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/approach/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/approach/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/uk/approach/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/approach/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/approach/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/approach/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/approach/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/approach/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/ru/approach/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/approach/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/approach/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/approach/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/approach/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/approach/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/en/approach/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/approach/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/approach/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/approach/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/approach/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/approach/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/pl/medical-fitness/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/uk/medical-fitness/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/ru/medical-fitness/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/en/medical-fitness/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/medical-fitness/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/medical-fitness/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/pl/results/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/results/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/results/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/results/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/results/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/results/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/uk/results/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/results/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/results/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/results/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/results/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/results/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/ru/results/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/results/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/results/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/results/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/results/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/results/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/en/results/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/results/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/results/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/results/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/results/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/results/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/pl/services/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/services/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/services/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/services/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/uk/services/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/services/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/services/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/services/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/ru/services/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/services/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/services/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/services/"/>
+  </url>
+  <url>
+    <loc>https://mrartemyfit.com/en/services/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://mrartemyfit.com/pl/services/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://mrartemyfit.com/uk/services/"/>
+    <xhtml:link rel="alternate" hreflang="ru-PL" href="https://mrartemyfit.com/ru/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrartemyfit.com/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrartemyfit.com/pl/services/"/>
   </url>
 </urlset>
