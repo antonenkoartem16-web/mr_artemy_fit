@@ -424,13 +424,6 @@ footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding
 .sc:nth-child(odd).reveal,.client-card:nth-child(odd).reveal,.cond-item:nth-child(odd).reveal{--ry:-7deg;}
 .sc:nth-child(even).reveal,.client-card:nth-child(even).reveal,.cond-item:nth-child(even).reveal{--ry:7deg;}
 .d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
-/* Services & client-case cards render fully loaded immediately — no scroll-triggered fly-in.
-   (Sections like FAQ/headings keep the .reveal animation; only these listing grids are exempt.) */
-.sc.reveal,.client-card.reveal,.case-article.reveal,.svc.reveal{opacity:1;transform:none;filter:none;transition:none;}
-/* Zero-height scroll anchor so CTAs that used to jump straight into the contact form
-   now land on the free-consultation explainer above it. Keeps old #free-consult links
-   (e.g. from running ad campaigns) from failing to resolve and jumping to the bottom of the page. */
-#free-consult.anchor-offset{display:block;height:0;scroll-margin-top:90px;}
 
 /* MOBILE */
 .collapsible{position:relative;}

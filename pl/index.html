@@ -4,7 +4,6 @@
 <meta name="facebook-domain-verification" content="hl3qd4loqbbip7a4d2l5mql8ngl9qs" />
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script>(function(){try{if('scrollRestoration' in history){history.scrollRestoration='manual';}if(!location.hash){window.scrollTo(0,0);}}catch(e){}})();</script>
 <script>
 (function(){
   function setVH(){
@@ -13,6 +12,28 @@
   }
   setVH();
   window.addEventListener('orientationchange', function(){ setTimeout(setVH, 150); });
+})();
+/* Always open the page at the top. Ad links sometimes carry an anchor (#contact, #free-consult...)
+   which made the browser jump straight down to the form. Strip it before the page renders. */
+(function(){
+  try {
+    var h = location.hash;
+    if (!h) return;
+    var inner = /\/(about|approach|medical-fitness|results|services)\/?$/.test(location.pathname);
+    var formAnchor = /^#(contact|contactForm|free-consult|faq-consult|services|prices|fname|fphone)$/i.test(h);
+    if (inner && !formAnchor) return;          /* keep deep links like /results/#kostia */
+    history.replaceState(null, '', location.pathname + location.search);
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    var touched = false;
+    ['wheel','touchstart','keydown','mousedown'].forEach(function(ev){ window.addEventListener(ev, function(){ touched = true; }, {passive:true, once:true}); });
+    var toTop = function(){
+      if (touched) return;
+      var r = document.documentElement, prev = r.style.scrollBehavior;
+      r.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); r.style.scrollBehavior = prev;
+    };
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+  } catch(e) {}
 })();
 </script>
 <title>MR. ARTEMY FIT — Trener personalny · Bielsko-Biała · Online</title>
@@ -87,7 +108,7 @@
 <button aria-label="Close" class="modal-close" onclick="closeModal()">✕</button>
 <div id="modal-body"></div>
 <div class="modal-cta">
-<a class="btn-gold" href="#free-consult" id="modal-cta-btn" onclick="closeModal()">ZAPISZ SIĘ</a>
+<a class="btn-gold" href="#contact" id="modal-cta-btn" onclick="closeModal()">ZAPISZ SIĘ</a>
 </div>
 </div>
 </div>
@@ -118,7 +139,7 @@
 </ul>
 <div class="nav-right">
 <div class="lang-bar"><button class="lang-btn" onclick="gotoLang('uk')">UA</button><button class="lang-btn active" onclick="gotoLang('pl')">PL</button><button class="lang-btn" onclick="gotoLang('ru')">RU</button><button class="lang-btn" onclick="gotoLang('en')">EN</button></div>
-<a class="nav-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#free-consult" onclick="trackCTA('nav')">ZACZNIJ WSPÓŁPRACĘ</a>
+<a class="nav-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#contact" onclick="trackCTA('nav')">ZACZNIJ WSPÓŁPRACĘ</a>
 <button aria-label="Menu" class="nav-burger" id="navBurger" onclick="toggleMobileMenu()">
 <span></span><span></span><span></span>
 </button>
@@ -132,7 +153,7 @@
 <a href="/pl/medical-fitness/" data-page="medical-fitness" data-en="Medical Fitness" data-pl="Medical Fitness" data-ru="Medical Fitness" data-uk="Medical Fitness" onclick="closeMobileMenu()">Medical Fitness</a>
 <a href="/pl/services/" data-page="services" data-en="Services" data-pl="Usługi" data-ru="Услуги" data-uk="Послуги" onclick="closeMobileMenu()">Usługi</a>
 <div class="mobile-langs"><button class="lang-btn" onclick="gotoLang('uk')">UA</button><button class="lang-btn active" onclick="gotoLang('pl')">PL</button><button class="lang-btn" onclick="gotoLang('ru')">RU</button><button class="lang-btn" onclick="gotoLang('en')">EN</button></div>
-<a class="mobile-menu-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#free-consult" onclick="closeMobileMenu();trackCTA('mobile_menu')">ZACZNIJ WSPÓŁPRACĘ</a>
+<a class="mobile-menu-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#contact" onclick="closeMobileMenu();trackCTA('mobile_menu')">ZACZNIJ WSPÓŁPRACĘ</a>
 </div>
 <!-- HERO -->
 <section id="hero">
@@ -328,7 +349,6 @@
 </div>
 </section>
 <div class="divider"></div>
-<span id="free-consult" class="anchor-offset" aria-hidden="true"></span>
 <section id="contact">
 <div class="contact-grid">
 <div>
@@ -402,7 +422,7 @@
 <div class="f-links">
 <a href="https://t.me/mr_artemy" rel="noopener noreferrer" target="_blank">Telegram</a>
 <a href="https://www.instagram.com/mr_artemy_fit" rel="noopener noreferrer" target="_blank">Instagram</a>
-<a data-en="Get started" data-pl="Zacznij współpracę" data-ru="Начать работу" data-uk="Почати роботу" href="#free-consult">Zacznij współpracę</a>
+<a data-en="Get started" data-pl="Zacznij współpracę" data-ru="Начать работу" data-uk="Почати роботу" href="#contact">Zacznij współpracę</a>
 <a data-en="Privacy Policy" data-pl="Polityka Prywatności" data-ru="Политика конфиденциальности" data-uk="Політика конфіденційності" href="/polityka-prywatnosci.html" rel="noopener noreferrer" target="_blank">Polityka Prywatności</a>
 </div>
 </footer>

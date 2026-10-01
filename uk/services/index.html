@@ -4,7 +4,6 @@
 <meta name="facebook-domain-verification" content="hl3qd4loqbbip7a4d2l5mql8ngl9qs" />
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script>(function(){try{if('scrollRestoration' in history){history.scrollRestoration='manual';}if(!location.hash){window.scrollTo(0,0);}}catch(e){}})();</script>
 <script>
 (function(){
   function setVH(){
@@ -13,6 +12,28 @@
   }
   setVH();
   window.addEventListener('orientationchange', function(){ setTimeout(setVH, 150); });
+})();
+/* Always open the page at the top. Ad links sometimes carry an anchor (#contact, #free-consult...)
+   which made the browser jump straight down to the form. Strip it before the page renders. */
+(function(){
+  try {
+    var h = location.hash;
+    if (!h) return;
+    var inner = /\/(about|approach|medical-fitness|results|services)\/?$/.test(location.pathname);
+    var formAnchor = /^#(contact|contactForm|free-consult|faq-consult|services|prices|fname|fphone)$/i.test(h);
+    if (inner && !formAnchor) return;          /* keep deep links like /results/#kostia */
+    history.replaceState(null, '', location.pathname + location.search);
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    var touched = false;
+    ['wheel','touchstart','keydown','mousedown'].forEach(function(ev){ window.addEventListener(ev, function(){ touched = true; }, {passive:true, once:true}); });
+    var toTop = function(){
+      if (touched) return;
+      var r = document.documentElement, prev = r.style.scrollBehavior;
+      r.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); r.style.scrollBehavior = prev;
+    };
+    document.addEventListener('DOMContentLoaded', toTop);
+    window.addEventListener('load', toTop);
+  } catch(e) {}
 })();
 </script>
 <title>Послуги та ціни — MR. ARTEMY FIT</title>
@@ -58,7 +79,7 @@
 <button aria-label="Close" class="modal-close" onclick="closeModal()">✕</button>
 <div id="modal-body"></div>
 <div class="modal-cta">
-<a class="btn-gold" href="#free-consult" id="modal-cta-btn" onclick="closeModal()">ЗАПИСАТИСЯ</a>
+<a class="btn-gold" href="#contact" id="modal-cta-btn" onclick="closeModal()">ЗАПИСАТИСЯ</a>
 </div>
 </div>
 </div>
@@ -89,7 +110,7 @@
 </ul>
 <div class="nav-right">
 <div class="lang-bar"><button class="lang-btn active" onclick="gotoLang('uk')">UA</button><button class="lang-btn" onclick="gotoLang('pl')">PL</button><button class="lang-btn" onclick="gotoLang('ru')">RU</button><button class="lang-btn" onclick="gotoLang('en')">EN</button></div>
-<a class="nav-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#free-consult" onclick="trackCTA('nav')">ПОЧАТИ РОБОТУ</a>
+<a class="nav-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#contact" onclick="trackCTA('nav')">ПОЧАТИ РОБОТУ</a>
 <button aria-label="Menu" class="nav-burger" id="navBurger" onclick="toggleMobileMenu()">
 <span></span><span></span><span></span>
 </button>
@@ -103,7 +124,7 @@
 <a href="/uk/medical-fitness/" data-page="medical-fitness" data-en="Medical Fitness" data-pl="Medical Fitness" data-ru="Medical Fitness" data-uk="Medical Fitness" onclick="closeMobileMenu()">Medical Fitness</a>
 <a href="/uk/services/" data-page="services" data-en="Services" data-pl="Usługi" data-ru="Услуги" data-uk="Послуги" onclick="closeMobileMenu()">Послуги</a>
 <div class="mobile-langs"><button class="lang-btn active" onclick="gotoLang('uk')">UA</button><button class="lang-btn" onclick="gotoLang('pl')">PL</button><button class="lang-btn" onclick="gotoLang('ru')">RU</button><button class="lang-btn" onclick="gotoLang('en')">EN</button></div>
-<a class="mobile-menu-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#free-consult" onclick="closeMobileMenu();trackCTA('mobile_menu')">ПОЧАТИ РОБОТУ</a>
+<a class="mobile-menu-cta" data-en="GET STARTED" data-pl="ZACZNIJ WSPÓŁPRACĘ" data-ru="НАЧАТЬ РАБОТУ" data-uk="ПОЧАТИ РОБОТУ" href="#contact" onclick="closeMobileMenu();trackCTA('mobile_menu')">ПОЧАТИ РОБОТУ</a>
 </div>
 <header class="page-hero">
 <div class="page-hero-word">SERVICES</div>
@@ -132,7 +153,7 @@
 </div>
 <div class="svc-foot">
 <div class="svc-lim"><h4 data-en="Good to know" data-pl="Warto wiedzieć" data-ru="Особенности формата" data-uk="Особливості формату">Особливості формату</h4><p data-en="You need to be in Bielsko-Biała. The 5- and 10-session packages cost less per session. Medical Fitness adds up to 20 zł per session depending on the complexity of the case; if no extra complexity is needed, the standard price applies." data-pl="Wymagana jest obecność w Bielsku-Białej. Pakiety 5 i 10 treningów są tańsze w przeliczeniu na jeden trening. Medical Fitness — dopłata do 20 zł za trening w zależności od złożoności przypadku; jeśli dodatkowa złożoność nie jest potrzebna, obowiązuje cena standardowa." data-ru="Требуется личное присутствие в Bielsko-Biała. Пакеты из 5 и 10 тренировок выгоднее в пересчёте на одну тренировку. Medical Fitness — доплата до 20 zł за тренировку в зависимости от сложности случая; если дополнительная сложность не требуется, действует стандартная цена." data-uk="Потрібна особиста присутність у Bielsko-Biała. Пакети з 5 і 10 тренувань вигідніші в перерахунку на одне тренування. Medical Fitness — доплата до 20 zł за тренування залежно від складності випадку; якщо додаткова складність не потрібна, діє стандартна ціна.">Потрібна особиста присутність у Bielsko-Biała. Пакети з 5 і 10 тренувань вигідніші в перерахунку на одне тренування. Medical Fitness — доплата до 20 zł за тренування залежно від складності випадку; якщо додаткова складність не потрібна, діє стандартна ціна.</p></div>
-<a class="btn-gold" href="#free-consult" onclick="trackCTA('svc_personal')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
+<a class="btn-gold" href="#contact" onclick="trackCTA('svc_personal')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
 </div>
 </article>
 <article class="svc reveal" id="online">
@@ -153,7 +174,7 @@
 </div>
 <div class="svc-foot">
 <div class="svc-lim"><h4 data-en="Good to know" data-pl="Warto wiedzieć" data-ru="Особенности формата" data-uk="Особливості формату">Особливості формату</h4><p data-en="There&#x27;s no in-person technique check, so videos and honest feedback matter. The price is fixed in PLN; you can pay in zł, UAH, $ or € at the current rate." data-pl="Brak kontroli techniki na żywo — dlatego ważne są nagrania i szczera informacja zwrotna. Cena jest ustalona w złotych; zapłacić można w zł, hrywnach, $ lub € według aktualnego kursu." data-ru="Нет живого контроля техники — поэтому важны видео и честная обратная связь. Цена фиксирована в злотых; оплатить можно в zł, грн, $ или € по актуальному курсу." data-uk="Немає живого контролю техніки — тому важливі відео та чесний зворотний зв&#x27;язок. Ціна фіксована в злотих; оплатити можна в zł, грн, $ або € за поточним курсом.">Немає живого контролю техніки — тому важливі відео та чесний зворотний зв'язок. Ціна фіксована в злотих; оплатити можна в zł, грн, $ або € за поточним курсом.</p></div>
-<a class="btn-gold" href="#free-consult" onclick="trackCTA('svc_online')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
+<a class="btn-gold" href="#contact" onclick="trackCTA('svc_online')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
 </div>
 </article>
 <article class="svc reveal" id="hybrid">
@@ -174,7 +195,7 @@
 </div>
 <div class="svc-foot">
 <div class="svc-lim"><h4 data-en="Good to know" data-pl="Warto wiedzieć" data-ru="Особенности формата" data-uk="Особливості формату">Особливості формату</h4><p data-en="At least 2 personal sessions per month. The total depends on the number of sessions: 200 zł + 120 zł × number of sessions." data-pl="Minimum 2 treningi personalne w miesiącu. Ostateczna cena zależy od liczby treningów: 200 zł + 120 zł × liczba treningów." data-ru="Минимум 2 персональные тренировки в месяц. Итоговая стоимость зависит от количества тренировок: 200 zł + 120 zł × количество тренировок." data-uk="Мінімум 2 персональні тренування на місяць. Підсумкова вартість залежить від кількості тренувань: 200 zł + 120 zł × кількість тренувань.">Мінімум 2 персональні тренування на місяць. Підсумкова вартість залежить від кількості тренувань: 200 zł + 120 zł × кількість тренувань.</p></div>
-<a class="btn-gold" href="#free-consult" onclick="trackCTA('svc_hybrid')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
+<a class="btn-gold" href="#contact" onclick="trackCTA('svc_hybrid')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
 </div>
 </article>
 <article class="svc reveal" id="consultation">
@@ -195,7 +216,7 @@
 </div>
 <div class="svc-foot">
 <div class="svc-lim"><h4 data-en="Good to know" data-pl="Warto wiedzieć" data-ru="Особенности формата" data-uk="Особливості формату">Особливості формату</h4><p data-en="There&#x27;s no ongoing monitoring or adjustments: after 2 weeks of support you continue on your own. If you need coaching later, you can switch to another format." data-pl="Brak stałej kontroli i korekt: po 2 tygodniach wsparcia działasz samodzielnie. Jeśli będziesz potrzebować prowadzenia, możesz przejść na inną formę współpracy." data-ru="Нет постоянного контроля и корректировок: после 2 недель поддержки вы двигаетесь самостоятельно. Если понадобится сопровождение, можно перейти в другой формат." data-uk="Немає постійного контролю та коригувань: після 2 тижнів підтримки ви рухаєтеся самостійно. Якщо знадобиться супровід, можна перейти в інший формат.">Немає постійного контролю та коригувань: після 2 тижнів підтримки ви рухаєтеся самостійно. Якщо знадобиться супровід, можна перейти в інший формат.</p></div>
-<a class="btn-gold" href="#free-consult" onclick="trackCTA('svc_consultation')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
+<a class="btn-gold" href="#contact" onclick="trackCTA('svc_consultation')" data-en="CHOOSE THIS FORMAT →" data-pl="WYBIERAM TĘ FORMĘ →" data-ru="ВЫБРАТЬ ЭТОТ ФОРМАТ →" data-uk="ОБРАТИ ЦЕЙ ФОРМАТ →">ОБРАТИ ЦЕЙ ФОРМАТ →</a>
 </div>
 </article>
 <div class="modal-note price-mf reveal" id="medical">
@@ -215,7 +236,6 @@
 </div>
 </section>
 <div class="divider"></div>
-<span id="free-consult" class="anchor-offset" aria-hidden="true"></span>
 <section id="contact">
 <div class="contact-grid">
 <div>
@@ -289,7 +309,7 @@
 <div class="f-links">
 <a href="https://t.me/mr_artemy" rel="noopener noreferrer" target="_blank">Telegram</a>
 <a href="https://www.instagram.com/mr_artemy_fit" rel="noopener noreferrer" target="_blank">Instagram</a>
-<a data-en="Get started" data-pl="Zacznij współpracę" data-ru="Начать работу" data-uk="Почати роботу" href="#free-consult">Почати роботу</a>
+<a data-en="Get started" data-pl="Zacznij współpracę" data-ru="Начать работу" data-uk="Почати роботу" href="#contact">Почати роботу</a>
 <a data-en="Privacy Policy" data-pl="Polityka Prywatności" data-ru="Политика конфиденциальности" data-uk="Політика конфіденційності" href="/privacy-uk.html" rel="noopener noreferrer" target="_blank">Політика конфіденційності</a>
 </div>
 </footer>
