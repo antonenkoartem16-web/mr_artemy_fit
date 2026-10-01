@@ -10,6 +10,14 @@ var ASSET = window.ASSET || '';
 // lives there and is never exposed in the browser.
 var FORM_ENDPOINT = 'https://wandering-shape-10c0.antonenkoartem16.workers.dev';
 
+// ---- GUARD AGAINST IN-APP BROWSER SCROLL-RESTORE JUMPS (Instagram/Facebook) ----
+// Some in-app webviews pre-render the page in a background tab before the person
+// actually taps the ad, then restore a stale scroll position once it becomes active.
+// Re-pin to the top whenever the page is (re)shown and there's no intentional #hash.
+window.addEventListener('pageshow', function(){
+  if (!location.hash) { window.scrollTo(0, 0); }
+});
+
 // ---- LANG PICKER ----
 function pickLang(lang) {
   gotoLang(lang);
@@ -720,15 +728,16 @@ function submitForm(e) {
 // ---- RESULTS PAGE: filters ----
 function filterCases(cat, btn) {
   document.querySelectorAll('.case-filter-btn').forEach(function(b){ b.classList.toggle('active', b === btn); });
-  document.querySelectorAll('.case-article').forEach(function(a){
+  document.querySelectorAll('.case-article,.client-card[data-cats]').forEach(function(a){
     var cats = (a.getAttribute('data-cats') || '').split(' ');
     a.style.display = (cat === 'all' || cats.indexOf(cat) !== -1) ? '' : 'none';
   });
 }
-// open a case from a #hash link (e.g. /ru/results/#kostia)
+// open a case from a #hash link (e.g. /ru/results/#kostia) — opens the full case modal
+// (cards on the results page are tap-to-open, same as the homepage, not scroll targets)
 window.addEventListener('load', function(){
   var h = (location.hash || '').replace('#', '');
-  if (h && document.getElementById('case-' + h)) {
-    setTimeout(function(){ document.getElementById('case-' + h).scrollIntoView({behavior:'smooth', block:'start'}); }, 300);
+  if (h && typeof cases !== 'undefined' && cases[h]) {
+    setTimeout(function(){ openCase(h); }, 300);
   }
 });
