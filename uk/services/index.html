@@ -13,26 +13,96 @@
   setVH();
   window.addEventListener('orientationchange', function(){ setTimeout(setVH, 150); });
 })();
-/* Always open the page at the top. Ad links sometimes carry an anchor (#contact, #free-consult...)
-   which made the browser jump straight down to the form. Strip it before the page renders. */
+/* maf-scroll-guard v3
+   1) The page always opens at the top and stays there until the visitor touches it.
+   2) On phones/tablets, for the whole visit: the page moves DOWN only when the visitor scrolls it
+      or presses a button/link. Any other downward jump (anchor in an ad link, in-app browser
+      restoring a position or focusing the form, injected scripts) is cancelled instantly. */
 (function(){
   try {
+    var root = document.documentElement;
     var h = location.hash;
-    if (!h) return;
     var inner = /\/(about|approach|medical-fitness|results|services)\/?$/.test(location.pathname);
     var formAnchor = /^#(contact|contactForm|free-consult|faq-consult|services|prices|fname|fphone)$/i.test(h);
-    if (inner && !formAnchor) return;          /* keep deep links like /results/#kostia */
-    history.replaceState(null, '', location.pathname + location.search);
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    var touched = false;
-    ['wheel','touchstart','keydown','mousedown'].forEach(function(ev){ window.addEventListener(ev, function(){ touched = true; }, {passive:true, once:true}); });
-    var toTop = function(){
-      if (touched) return;
-      var r = document.documentElement, prev = r.style.scrollBehavior;
-      r.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); r.style.scrollBehavior = prev;
-    };
-    document.addEventListener('DOMContentLoaded', toTop);
-    window.addEventListener('load', toTop);
+    var deep = !!h && inner && !formAnchor;                 /* e.g. /results/#kostia — our own deep links */
+    var nav = (window.performance && performance.getEntriesByType) ? performance.getEntriesByType('navigation')[0] : null;
+    var back = !h && !!nav && nav.type === 'back_forward';  /* Back button: keep the old position */
+    var coarse = !!(window.matchMedia && matchMedia('(pointer:coarse)').matches);
+    var soft = deep || back;
+    if (soft && !coarse) return;
+    if (!soft) {
+      if (h) history.replaceState(null, '', location.pathname + location.search);
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      root.style.scrollBehavior = 'auto';
+    }
+    var strict = !soft;            /* phase 1: hold at the very top until the first touch */
+    var touching = false, lastInput = 0, ctrlFocused = false, lastCtrlBlur = 0;
+    var allowUntil = soft ? Date.now() + 15000 : 0;
+    var lastY = 0, sessStart = 0, sessOk = true, lastScrollT = 0, restoring = false, off = false, forced = false;
+    function now(){ return Date.now(); }
+    function curY(){ return window.pageYOffset || root.scrollTop || 0; }
+    function isCtrl(el){ return !!el && /^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName); }
+    function jump(to){
+      var p = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto'; restoring = true; window.scrollTo(0, to); root.style.scrollBehavior = p;
+      setTimeout(function(){ restoring = false; }, 80);
+    }
+    function userRecent(){ return touching || ctrlFocused || now() - lastInput < 1200 || now() < allowUntil; }
+    function input(){
+      lastInput = now();
+      if (strict) { strict = false; root.style.scrollBehavior = ''; if (!coarse) off = true; }
+    }
+    window.mafAllowScroll = function(ms){ allowUntil = now() + (ms || 1500); };
+
+    var opt = {passive:true, capture:true};
+    window.addEventListener('touchstart', function(){ touching = true; input(); }, opt);
+    window.addEventListener('touchmove', function(){ lastInput = now(); }, opt);
+    ['touchend','touchcancel'].forEach(function(ev){ window.addEventListener(ev, function(){ touching = false; lastInput = now(); }, opt); });
+    ['pointerdown','mousedown','wheel','keydown','click'].forEach(function(ev){ window.addEventListener(ev, input, opt); });
+    ['pointerup','mouseup'].forEach(function(ev){ window.addEventListener(ev, function(){ lastInput = now(); }, opt); });
+    ['resize','orientationchange'].forEach(function(ev){ window.addEventListener(ev, function(){ if (!strict) allowUntil = Math.max(allowUntil, now() + 1500); }, opt); });
+
+    document.addEventListener('focusin', function(e){
+      if (off) return;
+      var t = e.target;
+      if (!isCtrl(t)) return;
+      var fromField = isCtrl(e.relatedTarget) || now() - lastCtrlBlur < 600;   /* keyboard "next field" */
+      if (strict || (!userRecent() && !fromField)) {        /* nobody asked for this focus */
+        var keep = strict ? 0 : lastY;
+        forced = true;
+        try { t.blur(); } catch(_){}
+        forced = false;
+        jump(keep);
+        return;
+      }
+      ctrlFocused = true;
+    }, true);
+    document.addEventListener('focusout', function(e){
+      if (!isCtrl(e.target)) return;
+      if (forced) return;                      /* we removed this focus ourselves — it gives no rights */
+      if (ctrlFocused) { lastCtrlBlur = now(); lastInput = now(); }
+      ctrlFocused = false;
+    }, true);
+
+    function onScroll(){
+      if (off) return;
+      var y = curY(), t = now();
+      if (restoring) { lastY = y; return; }
+      if (strict) { if (y > 0) jump(0); lastY = 0; return; }
+      if (t - lastScrollT > 160) { sessStart = lastY; sessOk = userRecent(); }   /* a new scroll movement begins */
+      lastScrollT = t;
+      if (userRecent()) sessOk = true;
+      if (!sessOk && y - sessStart > 60) { jump(sessStart); lastY = sessStart; return; }  /* unrequested jump down */
+      lastY = y;
+    }
+    window.addEventListener('scroll', onScroll, true);
+    document.addEventListener('DOMContentLoaded', onScroll);
+    window.addEventListener('load', function(){
+      if (soft) allowUntil = now() + 2500;
+      onScroll(); setTimeout(onScroll, 300); setTimeout(onScroll, 1200); setTimeout(onScroll, 3000);
+    });
+    window.addEventListener('pageshow', function(e){ if (e.persisted) allowUntil = now() + 1000; onScroll(); });
+    setTimeout(function(){ if (strict) { strict = false; root.style.scrollBehavior = ''; lastY = curY(); if (!coarse) off = true; } }, 20000);
   } catch(e) {}
 })();
 </script>
