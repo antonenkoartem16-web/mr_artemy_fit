@@ -164,8 +164,8 @@ if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
   })();
 }
 document.querySelectorAll('a,button,.sc,.client-card,.t-card,.dk-card,.cond-item').forEach(function(el) {
-  el.addEventListener('mouseenter', function() { ring.style.width='54px';ring.style.height='54px';ring.style.borderColor='rgba(201,168,76,0.8)'; });
-  el.addEventListener('mouseleave', function() { ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(201,168,76,0.5)'; });
+  el.addEventListener('mouseenter', function() { ring.style.width='54px';ring.style.height='54px';ring.style.borderColor='rgba(176,30,58,0.8)'; });
+  el.addEventListener('mouseleave', function() { ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(176,30,58,0.5)'; });
 });
 document.querySelectorAll('.sc,.client-card,.cond-item').forEach(function(el) {
   el.addEventListener('keydown', function(e) {
@@ -194,23 +194,11 @@ document.querySelectorAll('.sc,.client-card,.cond-item').forEach(function(el) {
 function easeOutCubic(x){ return 1 - Math.pow(1 - x, 3); }
 function fmtNum(v){ return v >= 1000 ? String(v).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') : String(v); }
 function runCounter(el) {
+  /* Числа уже записаны в HTML (без «0+»), поэтому просто подсвечиваем их мягкой вспышкой. */
   var t = parseInt(el.getAttribute('data-target'));
-  var dur = 1200; var start = null;
-  function frame(ts){
-    if(start===null) start = ts;
-    var p = Math.min((ts - start) / dur, 1);
-    var eased = easeOutCubic(p);
-    var val = Math.round(eased * t);
-    if(val >= t){
-      el.textContent = fmtNum(t);
-      el.classList.add('counter-done');
-      setTimeout(function(){el.classList.remove('counter-done');},700);
-      return;
-    }
-    el.textContent = fmtNum(val);
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  el.textContent = fmtNum(t);
+  el.classList.add('counter-done');
+  setTimeout(function(){el.classList.remove('counter-done');},700);
 }
 
 // ---- REVEAL ----
@@ -330,7 +318,7 @@ var services = {
 };
 
 var ctaLabels = {uk:'ЗАПИСАТИСЯ',en:'BOOK NOW',ru:'ЗАПИСАТЬСЯ',pl:'ZAPISZ SIĘ'};
-var resultLabels = {uk:'Що це тобі дасть:',en:'What this gives you:',ru:'Что это тебе даст:',pl:'Co to Ci da:'};
+var resultLabels = {uk:'Що це вам дасть:',en:'What this gives you:',ru:'Что это вам даст:',pl:'Co to Ci da:'};
 
 // ---- CURRENCY CONVERSION (fixed prices per service) ----
 var CUR_SYMBOLS = {pln:'zł', uah:'грн', usd:'$', eur:'€'};
@@ -404,6 +392,36 @@ function openModal(type) {
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
   if (meta) renderModalPrice();
+  nbTypo(document.getElementById('modal-body'));
+}
+
+// ---- ТИПОГРАФИКА: неразрывные пробелы в динамических окнах ----
+function nbTypo(root){
+  if(!root) return;
+  var NBSP='\u00A0';
+  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null), nodes=[], n;
+  while((n=w.nextNode())) nodes.push(n);
+  nodes.forEach(function(t){
+    var v=t.nodeValue; if(!v) return; v=v.replace(/\u00A0/g,' '); if(v.indexOf(' ')<0) return;
+    var parts=v.split(' '), out=parts[0], prevBound=false;
+    for(var i=1;i<parts.length;i++){
+      var prev=parts[i-1], cur=parts[i], bind=false;
+      if(prev&&cur){
+        if(/^[«„"(\[]*[A-Za-z\u00C0-\u024F\u0400-\u04FF]{1,2}$/.test(prev)&&!prevBound) bind=true;
+        else if(/^[\d\u2013\-+]+$/.test(prev)&&/^[A-Za-z0-9\u00C0-\u024F\u0400-\u04FF]/.test(cur)) bind=true;
+        else if(cur==='\u2014'||cur==='\u2013') bind=true;
+      }
+      prevBound=bind; out+=(bind?NBSP:' ')+cur;
+    }
+    if(!t.nextSibling){
+      var s=out.replace(/\s+$/,''), k=Math.max(s.lastIndexOf(' '),s.lastIndexOf(NBSP));
+      if(k>0&&s.charAt(k)===' '){
+        var q=Math.max(s.lastIndexOf(' ',k-1),s.lastIndexOf(NBSP,k-1));
+        if(q>=0&&s.length-q-1<=16&&s.charAt(q)!==NBSP) out=s.slice(0,k)+NBSP+s.slice(k+1)+out.slice(s.length);
+      }
+    }
+    t.nodeValue=out;
+  });
 }
 function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
 function overlayClick(e) { if(e.target===document.getElementById('modal')) closeModal(); }
@@ -542,57 +560,58 @@ function openCase(id) {
     '<div class="case-modal-text">'+d.text+'</div>'+review+extra;
   document.getElementById('caseModal').classList.add('open');
   document.body.style.overflow='hidden';
+  nbTypo(document.getElementById('case-modal-body'));
 }
 function closeCaseModal() { document.getElementById('caseModal').classList.remove('open'); document.body.style.overflow=''; }
 
 var conditions = {
   spine:{
-    uk:{title:'🦴 Хребет',items:['Лордоз','Кіфоз','Сколіоз','Міжхребцеві грижі','Протрузії','Спондилолістез','Хронічний біль у спині'],note:'Підбираю вправи таким чином, щоб тренування були максимально безпечними та не провокували загострення.'},
-    en:{title:'🦴 Spine',items:['Lordosis','Kyphosis','Scoliosis','Spinal disc herniations','Disc protrusions','Spondylolisthesis','Chronic back pain'],note:'I select exercises so that training is as safe as possible and doesn\'t provoke flare-ups.'},
-    ru:{title:'🦴 Позвоночник',items:['Лордоз','Кифоз','Сколиоз','Межпозвоночные грыжи','Протрузии','Спондилолистез','Хроническая боль в спине'],note:'Подбираю упражнения так, чтобы тренировки были максимально безопасными и не провоцировали обострение.'},
-    pl:{title:'🦴 Kręgosłup',items:['Lordoza','Kifoza','Skolioza','Przepukliny międzykręgowe','Protruzje','Kręgozmyk','Przewlekły ból pleców'],note:'Dobieram ćwiczenia tak, by trening był maksymalnie bezpieczny i nie prowokował zaostrzeń.'}
+    uk:{title:'Хребет',items:['Лордоз','Кіфоз','Сколіоз','Міжхребцеві грижі','Протрузії','Спондилолістез','Хронічний біль у спині'],note:'Підбираю вправи таким чином, щоб тренування були максимально безпечними та не провокували загострення.'},
+    en:{title:'Spine',items:['Lordosis','Kyphosis','Scoliosis','Spinal disc herniations','Disc protrusions','Spondylolisthesis','Chronic back pain'],note:'I select exercises so that training is as safe as possible and doesn\'t provoke flare-ups.'},
+    ru:{title:'Позвоночник',items:['Лордоз','Кифоз','Сколиоз','Межпозвоночные грыжи','Протрузии','Спондилолистез','Хроническая боль в спине'],note:'Подбираю упражнения так, чтобы тренировки были максимально безопасными и не провоцировали обострение.'},
+    pl:{title:'Kręgosłup',items:['Lordoza','Kifoza','Skolioza','Przepukliny międzykręgowe','Protruzje','Kręgozmyk','Przewlekły ból pleców'],note:'Dobieram ćwiczenia tak, by trening był maksymalnie bezpieczny i nie prowokował zaostrzeń.'}
   },
   heart:{
-    uk:{title:'❤️ Серце та судини',items:['Артеріальна гіпертонія','Тахікардія','Аритмії','Порушення ліпідного профілю (підвищений холестерин, ЛПНЩ, тригліцериди)','Інші стани, які потребують адаптації фізичного навантаження'],note:''},
-    en:{title:'❤️ Heart & vessels',items:['Arterial hypertension','Tachycardia','Arrhythmias','Lipid profile disorders (elevated cholesterol, LDL, triglycerides)','Other conditions requiring adapted training loads'],note:''},
-    ru:{title:'❤️ Сердце и сосуды',items:['Артериальная гипертония','Тахикардия','Аритмии','Нарушения липидного профиля (повышенный холестерин, ЛПНП, триглицериды)','Другие состояния, требующие адаптации физической нагрузки'],note:''},
-    pl:{title:'❤️ Serce i naczynia',items:['Nadciśnienie tętnicze','Tachykardia','Arytmie','Zaburzenia profilu lipidowego (podwyższony cholesterol, LDL, trójglicerydy)','Inne stany wymagające dostosowania obciążenia treningowego'],note:''}
+    uk:{title:'Серце та судини',items:['Артеріальна гіпертонія','Тахікардія','Аритмії','Порушення ліпідного профілю (підвищений холестерин, ЛПНЩ, тригліцериди)','Інші стани, які потребують адаптації фізичного навантаження'],note:''},
+    en:{title:'Heart & vessels',items:['Arterial hypertension','Tachycardia','Arrhythmias','Lipid profile disorders (elevated cholesterol, LDL, triglycerides)','Other conditions requiring adapted training loads'],note:''},
+    ru:{title:'Сердце и сосуды',items:['Артериальная гипертония','Тахикардия','Аритмии','Нарушения липидного профиля (повышенный холестерин, ЛПНП, триглицериды)','Другие состояния, требующие адаптации физической нагрузки'],note:''},
+    pl:{title:'Serce i naczynia',items:['Nadciśnienie tętnicze','Tachykardia','Arytmie','Zaburzenia profilu lipidowego (podwyższony cholesterol, LDL, trójglicerydy)','Inne stany wymagające dostosowania obciążenia treningowego'],note:''}
   },
   glucose:{
-    uk:{title:'🩸 Вуглеводний обмін',items:['Цукровий діабет I типу','Цукровий діабет II типу','Інсулінорезистентність','Порушення толерантності до глюкози'],note:'Допомагаю грамотно поєднати фізичні навантаження, харчування та контроль рівня глюкози.'},
-    en:{title:'🩸 Carbohydrate metabolism',items:['Type 1 diabetes','Type 2 diabetes','Insulin resistance','Impaired glucose tolerance'],note:'I help combine training, nutrition and blood glucose control correctly.'},
-    ru:{title:'🩸 Углеводный обмен',items:['Сахарный диабет I типа','Сахарный диабет II типа','Инсулинорезистентность','Нарушение толерантности к глюкозе'],note:'Помогаю грамотно совместить физические нагрузки, питание и контроль уровня глюкозы.'},
-    pl:{title:'🩸 Metabolizm węglowodanów',items:['Cukrzyca typu I','Cukrzyca typu II','Insulinooporność','Zaburzenia tolerancji glukozy'],note:'Pomagam prawidłowo połączyć trening, żywienie i kontrolę poziomu glukozy.'}
+    uk:{title:'Вуглеводний обмін',items:['Цукровий діабет I типу','Цукровий діабет II типу','Інсулінорезистентність','Порушення толерантності до глюкози'],note:'Допомагаю грамотно поєднати фізичні навантаження, харчування та контроль рівня глюкози.'},
+    en:{title:'Carbohydrate metabolism',items:['Type 1 diabetes','Type 2 diabetes','Insulin resistance','Impaired glucose tolerance'],note:'I help combine training, nutrition and blood glucose control correctly.'},
+    ru:{title:'Углеводный обмен',items:['Сахарный диабет I типа','Сахарный диабет II типа','Инсулинорезистентность','Нарушение толерантности к глюкозе'],note:'Помогаю грамотно совместить физические нагрузки, питание и контроль уровня глюкозы.'},
+    pl:{title:'Metabolizm węglowodanów',items:['Cukrzyca typu I','Cukrzyca typu II','Insulinooporność','Zaburzenia tolerancji glukozy'],note:'Pomagam prawidłowo połączyć trening, żywienie i kontrolę poziomu glukozy.'}
   },
   thyroid:{
-    uk:{title:'🦋 Щитоподібна залоза та гормональний фон',items:['Гіпотиреоз','Гіпертиреоз','СПКЯ (синдром полікістозних яєчників)','Підвищений рівень андрогенів','Інші гормональні порушення, що впливають на самопочуття або склад тіла'],note:''},
-    en:{title:'🦋 Thyroid & hormones',items:['Hypothyroidism','Hyperthyroidism','PCOS (polycystic ovary syndrome)','Elevated androgen levels','Other hormonal disorders affecting wellbeing or body composition'],note:''},
-    ru:{title:'🦋 Щитовидная железа и гормональный фон',items:['Гипотиреоз','Гипертиреоз','СПКЯ (синдром поликистозных яичников)','Повышенный уровень андрогенов','Другие гормональные нарушения, влияющие на самочувствие или состав тела'],note:''},
-    pl:{title:'🦋 Tarczyca i gospodarka hormonalna',items:['Niedoczynność tarczycy','Nadczynność tarczycy','PCOS (zespół policystycznych jajników)','Podwyższony poziom androgenów','Inne zaburzenia hormonalne wpływające na samopoczucie lub skład ciała'],note:''}
+    uk:{title:'Щитоподібна залоза та гормональний фон',items:['Гіпотиреоз','Гіпертиреоз','СПКЯ (синдром полікістозних яєчників)','Підвищений рівень андрогенів','Інші гормональні порушення, що впливають на самопочуття або склад тіла'],note:''},
+    en:{title:'Thyroid & hormones',items:['Hypothyroidism','Hyperthyroidism','PCOS (polycystic ovary syndrome)','Elevated androgen levels','Other hormonal disorders affecting wellbeing or body composition'],note:''},
+    ru:{title:'Щитовидная железа и гормональный фон',items:['Гипотиреоз','Гипертиреоз','СПКЯ (синдром поликистозных яичников)','Повышенный уровень андрогенов','Другие гормональные нарушения, влияющие на самочувствие или состав тела'],note:''},
+    pl:{title:'Tarczyca i gospodarka hormonalna',items:['Niedoczynność tarczycy','Nadczynność tarczycy','PCOS (zespół policystycznych jajników)','Podwyższony poziom androgenów','Inne zaburzenia hormonalne wpływające na samopoczucie lub skład ciała'],note:''}
   },
   liver:{
-    uk:{title:'🫁 Печінка та нирки',items:['Підвищені показники АЛТ','Підвищені показники АСТ','Підвищений ГГТ','Порушення рівня білірубіну','Інші порушення функції печінки','Захворювання нирок','Стан після нефректомії','Регулярний діаліз (за дозволом лікаря)'],note:'У кожному випадку фізичне навантаження адаптується відповідно до стану здоров\'я.'},
-    en:{title:'🫁 Liver & kidneys',items:['Elevated ALT','Elevated AST','Elevated GGT','Bilirubin disorders','Other liver function disorders','Kidney disease','Post-nephrectomy state','Regular dialysis (with doctor\'s approval)'],note:'In every case, training load is adapted to the person\'s health status.'},
-    ru:{title:'🫁 Печень и почки',items:['Повышенные показатели АЛТ','Повышенные показатели АСТ','Повышенный ГГТ','Нарушения уровня билирубина','Другие нарушения функции печени','Заболевания почек','Состояние после нефрэктомии','Регулярный диализ (с разрешения врача)'],note:'В каждом случае физическая нагрузка адаптируется в соответствии с состоянием здоровья.'},
-    pl:{title:'🫁 Wątroba i nerki',items:['Podwyższone ALT','Podwyższone AST','Podwyższone GGTP','Zaburzenia poziomu bilirubiny','Inne zaburzenia funkcji wątroby','Choroby nerek','Stan po nefrektomii','Regularna dializa (za zgodą lekarza)'],note:'W każdym przypadku obciążenie treningowe jest dostosowywane do stanu zdrowia.'}
+    uk:{title:'Печінка та нирки',items:['Підвищені показники АЛТ','Підвищені показники АСТ','Підвищений ГГТ','Порушення рівня білірубіну','Інші порушення функції печінки','Захворювання нирок','Стан після нефректомії','Регулярний діаліз (за дозволом лікаря)'],note:'У кожному випадку фізичне навантаження адаптується відповідно до стану здоров\'я.'},
+    en:{title:'Liver & kidneys',items:['Elevated ALT','Elevated AST','Elevated GGT','Bilirubin disorders','Other liver function disorders','Kidney disease','Post-nephrectomy state','Regular dialysis (with doctor\'s approval)'],note:'In every case, training load is adapted to the person\'s health status.'},
+    ru:{title:'Печень и почки',items:['Повышенные показатели АЛТ','Повышенные показатели АСТ','Повышенный ГГТ','Нарушения уровня билирубина','Другие нарушения функции печени','Заболевания почек','Состояние после нефрэктомии','Регулярный диализ (с разрешения врача)'],note:'В каждом случае физическая нагрузка адаптируется в соответствии с состоянием здоровья.'},
+    pl:{title:'Wątroba i nerki',items:['Podwyższone ALT','Podwyższone AST','Podwyższone GGTP','Zaburzenia poziomu bilirubiny','Inne zaburzenia funkcji wątroby','Choroby nerek','Stan po nefrektomii','Regularna dializa (za zgodą lekarza)'],note:'W każdym przypadku obciążenie treningowe jest dostosowywane do stanu zdrowia.'}
   },
   vision:{
-    uk:{title:'👁️ Зір та координація',items:['Висока короткозорість','Ризик відшарування сітківки','Інші офтальмологічні обмеження','СДУГ','Порушення концентрації уваги','Порушення координації'],note:'Програма тренувань підбирається з урахуванням усіх можливих ризиків.'},
-    en:{title:'👁️ Vision & coordination',items:['High myopia','Risk of retinal detachment','Other ophthalmological limitations','ADHD','Attention and concentration disorders','Coordination issues'],note:'The training program is designed with all possible risks in mind.'},
-    ru:{title:'👁️ Зрение и координация',items:['Высокая близорукость','Риск отслоения сетчатки','Другие офтальмологические ограничения','СДВГ','Нарушения концентрации внимания','Нарушения координации'],note:'Программа тренировок подбирается с учётом всех возможных рисков.'},
-    pl:{title:'👁️ Wzrok i koordynacja',items:['Wysoka krótkowzroczność','Ryzyko odwarstwienia siatkówki','Inne ograniczenia okulistyczne','ADHD','Zaburzenia koncentracji uwagi','Zaburzenia koordynacji'],note:'Program treningowy dobierany jest z uwzględnieniem wszystkich możliwych ryzyk.'}
+    uk:{title:'Зір та координація',items:['Висока короткозорість','Ризик відшарування сітківки','Інші офтальмологічні обмеження','СДУГ','Порушення концентрації уваги','Порушення координації'],note:'Програма тренувань підбирається з урахуванням усіх можливих ризиків.'},
+    en:{title:'Vision & coordination',items:['High myopia','Risk of retinal detachment','Other ophthalmological limitations','ADHD','Attention and concentration disorders','Coordination issues'],note:'The training program is designed with all possible risks in mind.'},
+    ru:{title:'Зрение и координация',items:['Высокая близорукость','Риск отслоения сетчатки','Другие офтальмологические ограничения','СДВГ','Нарушения концентрации внимания','Нарушения координации'],note:'Программа тренировок подбирается с учётом всех возможных рисков.'},
+    pl:{title:'Wzrok i koordynacja',items:['Wysoka krótkowzroczność','Ryzyko odwarstwienia siatkówki','Inne ograniczenia okulistyczne','ADHD','Zaburzenia koncentracji uwagi','Zaburzenia koordynacji'],note:'Program treningowy dobierany jest z uwzględnieniem wszystkich możliwych ryzyk.'}
   },
   joints:{
-    uk:{title:'🦵 Суглоби',items:['Артроз','Артрит','Травми менісків','Нестабільність суглобів','Особливості будови кульшового, колінного та інших суглобів','Наслідки спортивних травм'],note:'Навантаження підбирається таким чином, щоб покращувати функцію суглобів без перевантаження.'},
-    en:{title:'🦵 Joints',items:['Arthrosis','Arthritis','Meniscus injuries','Joint instability','Structural features of the hip, knee and other joints','Consequences of sports injuries'],note:'The load is selected to improve joint function without overloading it.'},
-    ru:{title:'🦵 Суставы',items:['Артроз','Артрит','Травмы менисков','Нестабильность суставов','Особенности строения тазобедренного, коленного и других суставов','Последствия спортивных травм'],note:'Нагрузка подбирается так, чтобы улучшать функцию суставов без перегрузки.'},
-    pl:{title:'🦵 Stawy',items:['Artroza','Zapalenie stawów','Urazy łąkotek','Niestabilność stawów','Specyfika budowy stawu biodrowego, kolanowego i innych','Skutki urazów sportowych'],note:'Obciążenie dobierane jest tak, by poprawiać funkcję stawów bez przeciążania.'}
+    uk:{title:'Суглоби',items:['Артроз','Артрит','Травми менісків','Нестабільність суглобів','Особливості будови кульшового, колінного та інших суглобів','Наслідки спортивних травм'],note:'Навантаження підбирається таким чином, щоб покращувати функцію суглобів без перевантаження.'},
+    en:{title:'Joints',items:['Arthrosis','Arthritis','Meniscus injuries','Joint instability','Structural features of the hip, knee and other joints','Consequences of sports injuries'],note:'The load is selected to improve joint function without overloading it.'},
+    ru:{title:'Суставы',items:['Артроз','Артрит','Травмы менисков','Нестабильность суставов','Особенности строения тазобедренного, коленного и других суставов','Последствия спортивных травм'],note:'Нагрузка подбирается так, чтобы улучшать функцию суставов без перегрузки.'},
+    pl:{title:'Stawy',items:['Artroza','Zapalenie stawów','Urazy łąkotek','Niestabilność stawów','Specyfika budowy stawu biodrowego, kolanowego i innych','Skutki urazów sportowych'],note:'Obciążenie dobierane jest tak, by poprawiać funkcję stawów bez przeciążania.'}
   },
   pregnancy:{
-    uk:{title:'🤰 Вагітність та відновлення',items:['Вагітні жінки','Жінки після пологів','Діастаз','Відновлення після кесаревого розтину'],note:'Програми складаються відповідно до терміну вагітності або етапу післяпологового відновлення.'},
-    en:{title:'🤰 Pregnancy & recovery',items:['Pregnant women','Postpartum women','Diastasis recti','Recovery after a C-section'],note:'Programs are built according to the stage of pregnancy or postpartum recovery.'},
-    ru:{title:'🤰 Беременность и восстановление',items:['Беременные женщины','Женщины после родов','Диастаз','Восстановление после кесарева сечения'],note:'Программы составляются в соответствии со сроком беременности или этапом послеродового восстановления.'},
-    pl:{title:'🤰 Ciąża i regeneracja',items:['Kobiety w ciąży','Kobiety po porodzie','Diastaza','Regeneracja po cesarskim cięciu'],note:'Programy są układane odpowiednio do etapu ciąży lub połogu.'}
+    uk:{title:'Вагітність та відновлення',items:['Вагітні жінки','Жінки після пологів','Діастаз','Відновлення після кесаревого розтину'],note:'Програми складаються відповідно до терміну вагітності або етапу післяпологового відновлення.'},
+    en:{title:'Pregnancy & recovery',items:['Pregnant women','Postpartum women','Diastasis recti','Recovery after a C-section'],note:'Programs are built according to the stage of pregnancy or postpartum recovery.'},
+    ru:{title:'Беременность и восстановление',items:['Беременные женщины','Женщины после родов','Диастаз','Восстановление после кесарева сечения'],note:'Программы составляются в соответствии со сроком беременности или этапом послеродового восстановления.'},
+    pl:{title:'Ciąża i regeneracja',items:['Kobiety w ciąży','Kobiety po porodzie','Diastaza','Regeneracja po cesarskim cięciu'],note:'Programy są układane odpowiednio do etapu ciąży lub połogu.'}
   }
 };
 var condWorkWithLabel = {uk:'Працюю з людьми, які мають:',en:'I work with people who have:',ru:'Работаю с людьми, у которых есть:',pl:'Pracuję z osobami, które mają:'};
@@ -606,6 +625,7 @@ function openCondition(id) {
     (d.note ? '<div class="modal-result">'+d.note+'</div>' : '');
   document.getElementById('condModal').classList.add('open');
   document.body.style.overflow='hidden';
+  nbTypo(document.getElementById('cond-modal-body'));
 }
 function closeConditionModal() { document.getElementById('condModal').classList.remove('open'); document.body.style.overflow=''; }
 function condOverlayClick(e) { if(e.target===document.getElementById('condModal')) closeConditionModal(); }
@@ -705,13 +725,13 @@ function submitForm(e) {
       if (window.fbq) { window.fbq('track', 'Lead'); }
       if (window.gtag) { window.gtag('event', 'generate_lead', { form_format: format || '', form_goal: goal || '' }); }
     } else {
-      var ERR_MSG = {pl:'⚠ Błąd. Napisz na Telegramie', ru:'⚠ Ошибка. Напиши в Telegram', en:'⚠ Error. Message me on Telegram', uk:'⚠ Помилка. Напиши в Telegram'};
+      var ERR_MSG = {pl:'⚠ Błąd. Napisz na Telegramie', ru:'⚠ Ошибка. Напишите в Telegram', en:'⚠ Error. Message me on Telegram', uk:'⚠ Помилка. Напишіть в Telegram'};
       btn.textContent = ERR_MSG[currentLang] || ERR_MSG.en;
       btn.disabled = false;
     }
   })
   .catch(function() {
-    var ERR_MSG2 = {pl:'⚠ Błąd. Napisz na Telegramie', ru:'⚠ Ошибка. Напиши в Telegram', en:'⚠ Error. Message me on Telegram', uk:'⚠ Помилка. Напиши в Telegram'};
+    var ERR_MSG2 = {pl:'⚠ Błąd. Napisz na Telegramie', ru:'⚠ Ошибка. Напишите в Telegram', en:'⚠ Error. Message me on Telegram', uk:'⚠ Помилка. Напишіть в Telegram'};
     btn.textContent = ERR_MSG2[currentLang] || ERR_MSG2.en;
     btn.disabled = false;
   });
@@ -720,7 +740,7 @@ function submitForm(e) {
 // ---- RESULTS PAGE: filters ----
 function filterCases(cat, btn) {
   document.querySelectorAll('.case-filter-btn').forEach(function(b){ b.classList.toggle('active', b === btn); });
-  document.querySelectorAll('.case-article').forEach(function(a){
+  document.querySelectorAll('.case-article, .client-card[data-cats]').forEach(function(a){
     var cats = (a.getAttribute('data-cats') || '').split(' ');
     a.style.display = (cat === 'all' || cats.indexOf(cat) !== -1) ? '' : 'none';
   });
@@ -728,7 +748,7 @@ function filterCases(cat, btn) {
 // open a case from a #hash link (e.g. /ru/results/#kostia)
 window.addEventListener('load', function(){
   var h = (location.hash || '').replace('#', '');
-  if (h && document.getElementById('case-' + h)) {
+  if (h && typeof cases!=='undefined' && cases[h]) { setTimeout(function(){ openCase(h); }, 400); } else if (h && document.getElementById('case-' + h)) {
     setTimeout(function(){ document.getElementById('case-' + h).scrollIntoView({behavior:'smooth', block:'start'}); }, 300);
   }
 });
