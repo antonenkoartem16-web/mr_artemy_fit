@@ -1148,3 +1148,8 @@ body.intro-done .quick-contact{opacity:1;pointer-events:auto;}
 }
 /* Medical Fitness: бургундовый градиент вместо серого */
 #conditions{background:radial-gradient(ellipse 60% 55% at 88% 18%,rgba(120,14,36,.30),transparent 70%),radial-gradient(ellipse 55% 50% at 6% 92%,rgba(72,5,16,.34),transparent 72%),linear-gradient(180deg,var(--dark) 0%,#1a070b 50%,var(--black) 100%);}
+/* v5: отдельные картинки героя и блока «Про мене» для телефона и компьютера */
+.hero-img img.hm{display:none;}
+.ab-d{display:none!important;}
+@media (min-width:901px){.ab-m{display:none!important;}.ab-d{display:block!important;}}
+@media (max-width:900px){.hero-img img.hd{display:none!important;}.hero-img img.hm{display:block!important;}}
